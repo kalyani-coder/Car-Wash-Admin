@@ -1,29 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const cors = require("cors")
 const app = express();
 const port = 5000;
 
-
-const ClientRoute = require("./routes/clients-routes");
-const ServiceRoute = require("./routes/services-routes");
-const PromotionRoute = require("./routes/promotions-routes");
-const TopServicesRoute = require("./routes/top-services-routes");
-const AgentsRoute = require("./routes/agents-routes");
+const GET = require("./routes/GET");
+const POST = require("./routes/POST");
+const DELETE = require("./routes/DELETE");
 
 app.use(bodyParser.json());
-app.use(cors())
 
-app.use("/api/clients", ClientRoute);
-
-app.use("/api/services", ServiceRoute);
-
-app.use("/api/promotions", PromotionRoute);
-
-app.use("/api/top-services", TopServicesRoute);
-
-app.use("/api/agents", AgentsRoute);
+app.use("/api", GET);
+app.use("/api", POST);
+app.use("/api", DELETE);
 
 mongoose
   .connect(
