@@ -2,6 +2,7 @@ const Agents = require("../models/agents");
 const Clients = require("../models/clients");
 const Promotions = require("../models/promotions");
 const Services = require("../models/service");
+const Notifications = require("../models/notifications");
 
 const FindTable = ({ table }) => {
   if (table.toLowerCase() === "clients") {
@@ -12,6 +13,8 @@ const FindTable = ({ table }) => {
     return Promotions;
   } else if (table.toLowerCase() === "services") {
     return Services;
+  } else if (table.toLowerCase() === "notifications") {
+    return Notifications;
   } else {
     return null;
   }
@@ -76,6 +79,9 @@ const FilterBodyByTable = ({ req, table }) => {
   } else if (table === "agents") {
     const { name, contactNumber, email, dob, profilepic } = req.body;
     return { name, contactNumber, email, dob, profilepic };
+  } else if (table === "notifications") {
+    const { title, message, sendto } = req.body;
+    return { title, message, sendto };
   } else {
     return null;
   }

@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const {FindTable} = require("../utils/utils");
-const {FilterBodyByTable} = require("../utils/utils");
+const { FindTable } = require("../utils/utils");
+const { FilterBodyByTable } = require("../utils/utils");
 
 router.post("/:table", async (req, res) => {
   const { table } = req.params;
