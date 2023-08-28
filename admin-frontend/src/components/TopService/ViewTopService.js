@@ -1,58 +1,64 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
+import axios from "axios";
+import Alert from "./Alert";
 
-const mockTopServices = [
-  {
-    id: 1,
-    title: "Top Service 1",
-    category: "Category A",
-    price: 50,
-    description: "Description for Top Service 1",
-    offer: "10% Discount",
-  },
-  {
-    id: 2,
-    title: "Top Service 2",
-    category: "Category B",
-    price: 75,
-    description: "Description for Top Service 2",
-    offer: "Special Deal",
-  },
-  // Add more mock data items as needed
-];
+export default function ViewTopServices() {
+  const [topServices, setTopServices] = useState([]);
+  const [alert, setAlert] = useState(null);
 
-function ViewTopServices() {
+  useEffect(() => {
+    async function fetchTopServices() {
+      try {
+        const response = await axios.get("http://localhost:9000/api/topservices");
+        setTopServices(response.data);
+      } catch (error) {
+        console.error("Error fetching top services:", error);
+      }
+    }
+
+    fetchTopServices();
+  }, []);
+
+  const handleDelete = (service) => {
+    const shouldDelete = window.confirm(
+      "Are you sure you want to delete this service?"
+    );
+
+    if (shouldDelete) {
+      axios.delete(`http://localhost:9000/api/topservices/${service._id}`)
+        .then(() => {
+          setTopServices((prevTopServices) =>
+            prevTopServices.filter((item) => item._id !== service._id)
+          );
+          setAlert({ type: "success", msg: "Service deleted successfully!" });
+        })
+        .catch((error) => console.error("Error deleting service:", error));
+    }
+  };
+
   return (
     <div className="container mt-5">
-      <h1 className="mb-4">view top services </h1>
-
-      <Row className="justify-content-center">
-        <Col md={10}>
-          {mockTopServices.map((service) => (
-            <Card key={service.id} className="mb-4">
-              <Card.Body>
-                <Card.Title>{service.title}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Category: {service.category}
-                </Card.Subtitle>
-                <Card.Text>{service.description}</Card.Text>
-                <Card.Text>Price: ${service.price}</Card.Text>
-                <Card.Text>Offer: {service.offer}</Card.Text>
-                <div className="d-flex justify-content-between">
-                  <Button variant="info" className="btn">
-                    Edit
-                  </Button>
-                  <Button variant="danger" className="btn">
-                    Delete
-                  </Button>
-                </div>
-              </Card.Body>
-            </Card>
-          ))}
-        </Col>
-      </Row>
+      <h1>View Top Services</h1>
+      <Alert alert={alert} />
+      {topServices.map((service) => (
+        <Card key={service._id} className="mb-3">
+          <Card.Body>
+            <Card.Title>Title: {service.title}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">
+              Category: {service.category}
+            </Card.Subtitle>
+            <Card.Text>Description: {service.description}</Card.Text>
+            <Card.Text>Price: ${service.price}</Card.Text>
+            <Card.Text>Offer: {service.offer}</Card.Text>
+            <div className="actions">
+              <Button variant="danger" onClick={() => handleDelete(service)}>
+                Delete
+              </Button>
+            </div>
+          </Card.Body>
+        </Card>
+      ))}
     </div>
   );
 }
-
-export default ViewTopServices;
