@@ -5,46 +5,50 @@ import axios from "axios";
 import Alert from "./Alert";
 
 const AddServices = () => {
-
-
- 
-
   const [formData, setFormData] = useState({
-    serviceName: '',
-    serviceCategory: '',
-    servicePrice: '',
-    serviceDescription: '',
-    serviceOffer: '',
-    serviceImage: '',
+    serviceName: "",
+    serviceCategory: "",
+    servicePrice: "",
+    serviceDescription: "",
+    serviceOffer: "",
+    serviceImage: "",
   });
+
+  const [successAlert, setSuccessAlert] = useState(null);
+  const [errorAlert, setErrorAlert] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const [alertval, setAlert] = useState(null)
-
   const showAlert = (message, type) => {
-      setAlert({
-          msg: message,
-          type: type
-      })
+    if (type === "success") {
+      setSuccessAlert({ msg: message, type: type });
       setTimeout(() => {
-          setAlert(null)
+        setSuccessAlert(null);
       }, 5000);
-  }
+    } else if (type === "error") {
+      setErrorAlert({ msg: message, type: type });
+      setTimeout(() => {
+        setErrorAlert(null);
+      }, 5000);
+    }
+  };
 
   const handleSubmit = async (e) => {
-    
-
+    e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:9000/api/services', formData);
-      console.log('Response Sucessfully data post:', response.data);
-      showAlert("Services Add Successfully", "success")
+      const response = await axios.post(
+        "http://localhost:9000/api/services",
+        formData
+      );
+      console.log("Response Successfully data post:", response.data);
+      showAlert("Service Added Successfully", "success");
       // You can handle the response from the API here
     } catch (error) {
-      console.error('Error data not post:', error);
+      console.error("Error data not post:", error);
+      showAlert("Error adding service", "error");
       // Handle any errors that occur during the POST request
     }
   };
@@ -52,7 +56,9 @@ const AddServices = () => {
   return (
     <div className="container mt-5">
       <h1>Add Service</h1>
-      <Alert alert={alertval} />
+   
+      {successAlert && <Alert alert={successAlert} />}
+      {errorAlert && <Alert alert={errorAlert} />}
       <form  onSubmit={handleSubmit}>
 
         <Form.Group controlId="serviceName">

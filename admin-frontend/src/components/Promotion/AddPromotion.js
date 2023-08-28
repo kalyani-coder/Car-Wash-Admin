@@ -1,75 +1,85 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import "./AddPromotion.css";
-import Alert from './Alert'
+import Alert from "./Alert";
 
 export default function AddPromotion() {
- 
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // Check if any required field is empty
-  //   if (!title || !description || !service || !offerType) {
-  //     window.alert("Please fill all the required fields.");
-  //     return;
-  //   }
-  // }
-  const [offerType, setOfferType] = useState("");
-    const [fixedAmount, setFixedAmount] = useState("");
-  const [percentageAmount, setPercentageAmount] = useState("");
-
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    service: '',
-    offerType: '',
-    fixedAmount: '',
-    percentageAmount: '',
-    couponCode : '',
-
+    title: "",
+    description: "",
+    service: "",
+    offerType: "",
+    fixedAmount: "",
+    percentageAmount: "",
+    couponCode: "",
   });
 
+  const [services, setServices] = useState([]); 
+
+  useEffect(() => {
+    async function fetchServices() {
+      try {
+        const response = await axios.get("http://localhost:9000/api/services");
+        const servicesData = response.data; 
+        setServices(servicesData);
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      }
+    }
+
+    fetchServices();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const [alertval, setAlert] = useState(null)
+  const [alertval, setAlert] = useState(null);
 
   const showAlert = (message, type) => {
-      setAlert({
-          msg: message,
-          type: type
-      })
-      setTimeout(() => {
-          setAlert(null)
-      }, 5000);
-  }
-
-  const handleSubmit = async (e) => {
-   
-    e.preventDefault()
-    try {
-      const response = await axios.post('http://localhost:9000/api/promotions', formData);
-      console.log('Response Sucessfully data post:', response.data);
-      showAlert("Promotion Add Successfully", "success")
-      // You can handle the response from the API here
-    } catch (error) {
-      console.error('Error data not post:', error);
-      // Handle any errors that occur during the POST request
-    }
-    
+    setAlert({
+      msg: message,
+      type: type,
+    });
+    setTimeout(() => {
+      setAlert(null);
+    }, 5000);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    try {
+      const response = await axios.post(
+        "http://localhost:9000/api/promotions",
+        formData
+      );
+      console.log("Response Data:", response.data);
+      showAlert("Promotion Added Successfully", "success");
+
+      // Reset the form after successful submission
+      setFormData({
+        title: "",
+        description: "",
+        service: "",
+        offerType: "",
+        fixedAmount: "",
+        percentageAmount: "",
+        couponCode: "",
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      showAlert("Failed to Add Promotion ", "danger");
+    }
+  };
   return (
     <div className="container mt-5">
       <h1>Add Promotion</h1>
       <Alert alert={alertval} />
       <div className="form-container">
-      <form  onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <Form.Group controlId="title">
             <Form.Label>Title:</Form.Label>
             <Form.Control
@@ -78,7 +88,6 @@ export default function AddPromotion() {
               name="title"
               value={formData.title}
               onChange={handleChange}
-             
             />
           </Form.Group>
 
@@ -89,10 +98,9 @@ export default function AddPromotion() {
               // rows={3}
               placeholder="Enter description"
               name="description"
-            value={formData.description}
-            onChange={handleChange}
-            rows="4"
-             
+              value={formData.description}
+              onChange={handleChange}
+              rows="4"
             />
           </Form.Group>
 
@@ -103,13 +111,13 @@ export default function AddPromotion() {
               name="service"
               value={formData.service}
               onChange={handleChange}
-            
             >
               <option value="">Select a service</option>
-              <option value="service1">Service 1</option>
-              <option value="service2">Service 2</option>
-              <option value="service3">Service 3</option>
-              {/* Add more services as needed */}
+              {services.map((service) => (
+                <option key={service.id} value={service.serviceName }>
+                  {service.serviceName}
+                </option>
+              ))}
             </Form.Control>
           </Form.Group>
 
@@ -124,16 +132,17 @@ export default function AddPromotion() {
                 label="Fixed Amount"
                 name="offerType"
                 value="fixed"
-                checked={offerType === "fixed"}
-                onChange={(e) => setOfferType(e.target.value)}
+                checked={formData.offerType === "fixed"}
+                onChange={handleChange}
                 className="offer-type-checkbox"
               />
-              {offerType === "fixed" && (
+              {formData.offerType === "fixed" && (
                 <Form.Control
                   type="text"
                   placeholder="Enter fixed amount"
-                  value={fixedAmount}
-                  onChange={(e) => setFixedAmount(e.target.value)}
+                  name="fixedAmount"
+                  value={formData.fixedAmount}
+                  onChange={handleChange}
                   className="offer-type-input my-2"
                 />
               )}
@@ -145,16 +154,17 @@ export default function AddPromotion() {
                 label="Percentage Amount"
                 name="offerType"
                 value="percentage"
-                checked={offerType === "percentage"}
-                onChange={(e) => setOfferType(e.target.value)}
+                checked={formData.offerType === "percentage"}
+                onChange={handleChange}
                 className="offer-type-checkbox"
               />
-              {offerType === "percentage" && (
+              {formData.offerType === "percentage" && (
                 <Form.Control
                   type="text"
                   placeholder="Enter percentage amount"
-                  value={percentageAmount}
-                  onChange={(e) => setPercentageAmount(e.target.value)}
+                  name="percentageAmount"
+                  value={formData.percentageAmount}
+                  onChange={handleChange}
                   className="offer-type-input"
                 />
               )}
@@ -166,11 +176,9 @@ export default function AddPromotion() {
             <Form.Control
               type="text"
               placeholder="Enter coupon code"
-            
               name="couponCode"
               value={formData.couponCode}
               onChange={handleChange}
-              
               style={{ marginBottom: "10px" }} // Add margin to the text box
             />
           </Form.Group>
