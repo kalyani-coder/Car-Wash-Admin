@@ -1,5 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
+
+import axios from "axios";
 import AddService from "./components/Service/AddService";
 import Sidebar from "./components/Sidebar/Sidebar";
 import UpdateStatus from "./components/Status/UpdateStatus";
@@ -11,8 +12,13 @@ import PushNotification from "./components/Notification/PushNotification";
 import AddPromotion from "./components/Promotion/AddPromotion";
 import DeletePromotion from "./components/Promotion/DeletePromotion";
 import ClientEnquiry from "./components/Client/ClientEnquiry";
-import DeleteService from "./components/Service/DeleteService";
+
 import AddTopService from "./components/TopService/AddTopService";
+import AddAgentPage from "./components/Agent/AddAgent";
+import ViewAgentPage from "./components/Agent/ViewAgent";
+import AgentDetailsPage from "./components/Agent/AgentDetailsPage";
+import ServiceView from "./components/Service/ViewService";
+import ViewTopServices from "./components/TopService/ViewTopService";
 
 function App() {
   return (
@@ -28,8 +34,12 @@ function App() {
           <Route path="/addpromotion" element={<AddPromotion />} />
           <Route path="/deletepromotion" element={<DeletePromotion />} />
           <Route path="/clientenquiry" element={<ClientEnquiry />} />
-          <Route path="/deleteservice" element={<DeleteService />} />
+          <Route path="/deleteservice" element={<ServiceView />} />
           <Route path="/addtopservice" element={<AddTopService />} />
+          <Route path="/addagent" element={<AddAgentPage />} />
+          <Route path="/viewagent" element={<ViewAgentPage />} />
+          <Route path="/agent-details/:id" element={<AgentDetailsPage />} />
+          <Route path="/viewtopservice" element={<ViewTopServices />} />
         </Routes>
       </Router>
     </>

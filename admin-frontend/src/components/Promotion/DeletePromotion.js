@@ -1,83 +1,95 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { Card } from "react-bootstrap";
+// import "./PromotionView.css";
 
-export default function DeletePromotion() {
-  const [Promotions, setPromotions] = useState([]);
-  // const Promotions = ["Offer A", "Offer B", "Offer C"]; // Replace this with your list of Offers
-  const [selectedPromotion, setSelectedPromotion] = useState("");
-  const [confirmationChecked, setConfirmationChecked] = useState(false);
+export default function PromotionView() {
+  const [promotions, setPromotions] = useState([]);
+
+  // Mock API response
+  const mockApiData = [
+    {
+      id: 1,
+      title: "Summer Sale",
+      description: "Get amazing discounts on summer products!",
+      service: "service1",
+      offerType: "fixed",
+      fixedAmount: "20",
+      percentageAmount: "",
+      couponCode: "SUMMER20",
+    },
+    {
+      id: 2,
+      title: "Back to School",
+      description: "10% off on all school supplies.",
+      service: "service2",
+      offerType: "percentage",
+      fixedAmount: "",
+      percentageAmount: "10",
+      couponCode: "SCHOOL10",
+    },
+    // Add more mock data as needed
+  ];
 
   useEffect(() => {
-    axios.get("/api/promotions/getPromotions").then((response) => {
-      setPromotions(response.data);
-    });
+    // Simulate fetching data from the API
+    setTimeout(() => {
+      setPromotions(mockApiData);
+    }, 1000); // Simulating a delay of 1 second
   }, []);
-
-  const handlePromotionChange = (event) => {
-    setSelectedPromotion(event.target.value);
+  const handleEdit = (id) => {
+    // Handle edit action based on the promotion id
+    console.log(`Edit promotion with ID: ${id}`);
   };
 
-  const handleConfirmationChange = (event) => {
-    setConfirmationChecked(event.target.checked);
-  };
-
-  const handleDeletePromotion = () => {
-    if (confirmationChecked && selectedPromotion !== "") {
-      axios
-        .delete(`/api/promotions/deletePromotion/${selectedPromotion}`)
-        .then((res) => {
-          setPromotions(res.data);
-        });
-      alert(`Offer "${selectedPromotion}" will be deleted.`);
-    } else {
-      alert("Please select an Offer and confirm before deleting.");
-    }
+  const handleDelete = (id) => {
+    // Handle delete action based on the promotion id
+    console.log(`Delete promotion with ID: ${id}`);
+    // Update the promotions state after deleting
+    setPromotions(promotions.filter((promotion) => promotion.id !== id));
   };
 
   return (
     <div className="container mt-5">
-      <div className="row justify-content-center">
-        {" "}
-        {/* Center content */}
-        <div className="col-md-6 Promotion-page">
-          {" "}
-          {/* Apply styles to the form container */}
-          <div className="mb-3">
-            <select
-              className="form-select"
-              value={selectedPromotion}
-              onChange={handlePromotionChange}
-            >
-              <option value="">Select Offer</option>
-              {Promotions.map((Promotion) => (
-                <option key={Promotion.Id} value={Promotion.Id}>
-                  {Promotion.title}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="confirmationCheck"
-              checked={confirmationChecked}
-              onChange={handleConfirmationChange}
-            />
-            <label className="form-check-label" htmlFor="confirmationCheck">
-              Are you sure you want to delete Offer ?
-            </label>
-          </div>
-          <div className="d-flex justify-content-end">
-            <button
-              onClick={handleDeletePromotion}
-              className="btn btn-primary"
-              disabled={!confirmationChecked || selectedPromotion === ""}
-            >
-              Delete Offer
-            </button>
-          </div>
-        </div>
+      <h1>Promotion View</h1>
+      <div className="card-container">
+        {promotions.map((promotion) => (
+          <Card key={promotion.id} className="promotion-card my-3">
+            <Card.Body>
+              <Card.Title>{promotion.title}</Card.Title>
+              <Card.Text>{promotion.description}</Card.Text>
+              <Card.Text>Service: {promotion.service}</Card.Text>
+              <Card.Text>
+                Offer Type:{" "}
+                {promotion.offerType === "fixed"
+                  ? "Fixed Amount"
+                  : "Percentage Amount"}
+              </Card.Text>
+              {promotion.offerType === "fixed" && (
+                <Card.Text>Fixed Amount: ${promotion.fixedAmount}</Card.Text>
+              )}
+              {promotion.offerType === "percentage" && (
+                <Card.Text>Percentage: {promotion.percentageAmount}%</Card.Text>
+              )}
+              <Card.Text>Coupon Code: {promotion.couponCode}</Card.Text>
+              <div className="card-buttons">
+                <button
+                  variant="primary"
+                  onClick={() => handleEdit(promotion.id)}
+                  className="btn btn-primary mx-3"
+                >
+                  Edit
+                </button>
+                <button
+                  variant="danger"
+                  onClick={() => handleDelete(promotion.id)}
+                  className="btn btn-danger"
+                >
+                  Delete
+                </button>
+              </div>
+            </Card.Body>
+          </Card>
+        ))}
       </div>
     </div>
   );

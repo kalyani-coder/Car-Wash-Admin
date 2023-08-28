@@ -102,6 +102,24 @@ export default function Sidebar() {
                     </li>
                   </ul>
                 </li>
+                <li className="active">
+                  <a
+                    href="#AgentSubMenu"
+                    data-toggle="collapse"
+                    aria-expanded="false"
+                    className="dropdown-toggle"
+                  >
+                    Agent
+                  </a>
+                  <ul className="collapse list-unstyled" id="AgentSubMenu">
+                    <li>
+                      <Link to={"/addagent"}>Add Agent</Link>
+                    </li>
+                    <li>
+                      <Link to={"/viewagent"}>View Agent</Link>
+                    </li>
+                  </ul>
+                </li>
 
                 <li>
                   <Link to={"/pushnotification"}>Push Notification</Link>
@@ -145,7 +163,7 @@ export default function Sidebar() {
                       <Link to={"/addtopservice"}>Add Top Services</Link>
                     </li>
                     <li>
-                      <Link to={"/deleteservice"}>Delete Top Service</Link>
+                      <Link to={"/viewtopservice"}>Delete Top Service</Link>
                     </li>
                   </ul>
                 </li>

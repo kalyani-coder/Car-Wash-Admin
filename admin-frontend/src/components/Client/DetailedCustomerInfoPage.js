@@ -1,59 +1,72 @@
-import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import axios from "axios";
 
-const DetailedCustomerInfoPage = () => {
-  const { id } = useParams();
+const CustomerDetailsCard = () => {
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [Customers, setCustomers] = useState([]);
 
   useEffect(() => {
     axios
       .get("/api/clients")
-      .then((response) => setCustomers(response.data.Clients));
+      .then((response) => setCustomers(response.data));
   }, []);
 
-  const selectedCustomer = Customers.find(
-    (customer) => customer.id === parseInt(id, 10)
+  const filteredCustomers = Customers.filter((customer) =>
+    customer.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  if (!selectedCustomer) {
-    return <p className="mt-4">Customer not found.</p>;
-  }
 
   return (
     <div className="container mt-4">
-      <div className="card">
-        <div className="card-body">
-          <h4 className="card-title">{selectedCustomer.name}</h4>
-          <table className="table table-bordered table-striped">
-            <tbody>
-              <tr>
-                <td>Email</td>
-                <td>{selectedCustomer.email}</td>
-              </tr>
-              <tr>
-                <td>Contact Number</td>
-                <td>{selectedCustomer.phone}</td>
-              </tr>
-              <tr>
-                <td>Address</td>
-                <td>
-                  {`${selectedCustomer.address.street}, ${selectedCustomer.address.suite}, ${selectedCustomer.address.city}, ${selectedCustomer.address.zipcode}`}
-                </td>
-              </tr>
-              <tr>
-                <td>Order Details</td>
-                <td>{selectedCustomer.orderDetails}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div className="mb-4">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search by name..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
+      {filteredCustomers.length === 0 ? (
+        <p className="text-center">No customers found.</p>
+      ) : (
+        filteredCustomers.map((customer) => (
+          <div
+            key={customer.id}
+            className="card mb-4 shadow"
+            style={{ height: 258 }}
+          >
+            <div className="card-body d-flex">
+              <div className="row d-flex">
+                <div className="col-md-8">
+                  <h4 className="card-title">{customer.name}</h4>
+                  <p className="card-text">
+                    {customer.address.street}, {customer.address.suite}
+                  </p>
+                  <p className="card-text">
+                    {customer.address.city}, {customer.address.zipcode}
+                  </p>
+                  <p className="card-text">
+                    <strong>Order Details:</strong> {customer.orderDetails}
+                  </p>
+                </div>
+                <div className="mt-2">
+                  <Link
+                    to={`/customer/${customer.id}`}
+                    className="btn btn-primary"
+                  >
+                    Know More
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 };
 
-export default DetailedCustomerInfoPage;
+export default CustomerDetailsCard;
