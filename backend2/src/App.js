@@ -36,12 +36,16 @@ mongoose.connect('mongodb://127.0.0.1:27017/CarWashDB', {
 const servicesRouter = require('./routes/Services');
 const clientsRouter = require('./routes/Clients');
 const promotionsRouter = require('./routes/Promotion');
-const agentRouter = require('./routes/Agents');
+const agentRouter = require('./routes/Ajents');
+const newAgentRouter = require('./routes/Agents')
 
 app.use('/api/services',  servicesRouter);
 app.use('/api/clients', clientsRouter);
 app.use('/api/promotions', promotionsRouter);
 app.use('/api/agent', upload.single('file'), agentRouter); // Use multer middleware for agentRouter
+app.use("/api/agents", newAgentRouter)
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
