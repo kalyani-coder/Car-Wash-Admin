@@ -80,7 +80,7 @@ export default function Sidebar() {
                       <Link to={"/addservice"}>Add Services</Link>
                     </li>
                     <li>
-                      <Link to={"/deleteservice"}>Delete Service</Link>
+                      <Link to={"/deleteservice"}>View Services</Link>
                     </li>
                   </ul>
                 </li>
@@ -163,7 +163,7 @@ export default function Sidebar() {
                       <Link to={"/addtopservice"}>Add Top Services</Link>
                     </li>
                     <li>
-                      <Link to={"/viewtopservice"}>Delete Top Service</Link>
+                      <Link to={"/viewtopservice"}>View Top Service</Link>
                     </li>
                   </ul>
                 </li>
