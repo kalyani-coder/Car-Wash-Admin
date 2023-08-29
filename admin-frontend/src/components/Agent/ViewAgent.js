@@ -12,7 +12,7 @@ const ViewAgentPage = () => {
 
   const fetchAgents = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/agents");
+      const response = await axios.get("http://localhost:9000/api/agents");
       setAgents(response.data);
     } catch (error) {
       console.error("Error:", error);
@@ -24,17 +24,19 @@ const ViewAgentPage = () => {
 
   return (
     <div className="container mt-4">
-      <h2>View Agents</h2>
+      <h2>View Agents Profile</h2>
       <div className="row">
         {agents.map((agent) => (
           <div key={agent._id} className="col-md-6 mb-4">
             <div className="card">
               <div className="card-body">
-                <h5 className="card-title">{agent.name}</h5>
+                <img src={agent.profilePic} alt="agent image" height={100} width={100}/>
+                <h5 className="card-title">{agent.fullName}</h5>
                 <p className="card-text">
                   <strong>Email:</strong> {agent.email}
                   <br />
-                  <strong>Contact Number:</strong> {agent.contactNumber}
+                  <strong>Contact Number:</strong> {agent.contactNumber}<br />
+                  <strong>Address :</strong> {agent.address}
                 </p>
                 <Link
                   to={{

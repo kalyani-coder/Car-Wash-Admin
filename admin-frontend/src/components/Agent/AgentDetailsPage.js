@@ -28,7 +28,7 @@ const AgentDetailsPage = () => {
     }
     try {
       await axios.patch(
-        `http://localhost:5000/api/agents/updateAgent/${editedAgent._id}`,
+        `http://localhost:9000/api/agents/${editedAgent._id}`,
         editedAgent
       );
       navigate("/viewagent");
@@ -41,7 +41,7 @@ const AgentDetailsPage = () => {
   const handleDeleteAgent = async () => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/agents/deleteAgent/${agent._id}`
+        `http://localhost:9000/api/agents/${agent._id}`
       );
       navigate("/viewagent");
       alert("Deleted Successfully!");
@@ -65,7 +65,7 @@ const AgentDetailsPage = () => {
               type="text"
               className="form-control"
               name="name"
-              value={editedAgent.name}
+              value={editedAgent.fullName}
               onChange={handleInputChange}
             />
           </div>
@@ -89,6 +89,18 @@ const AgentDetailsPage = () => {
               onChange={handleInputChange}
             />
           </div>
+
+          <div className="form-group">
+            <label>Address:</label>
+            <input
+              type="text"
+              className="form-control"
+              name="address"
+              value={editedAgent.address}
+              onChange={handleInputChange}
+            />
+          </div>
+
           <button className="btn btn-primary" onClick={handleEditAgent}>
             Save
           </button>

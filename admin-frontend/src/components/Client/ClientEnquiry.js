@@ -1,46 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ClientEnquiry.css";
 
 const ClientEnquiry = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredEnquiries, setFilteredEnquiries] = useState([]);
+  const [filteredClients, setFilteredClients] = useState([]);
+  const [clients, setClients] = useState([]);
 
-  const enquiries = [
-    {
-      id: 1,
-      clientName: "Jane Smith",
-      enquiryTitle: "Service Inquiry",
-      enquiryDescription: "I'm interested in your professional services...",
-    },
-    {
-      id: 2,
-      clientName: "amardip",
-      enquiryTitle: "about services ",
-      enquiryDescription:
-        "i want to know about the service you provide for me.",
-    },
-    {
-      id: 458790,
-      clientName: "vedant",
-      enquiryTitle: "About Services",
-      enquiryDescription: " i am looking forward to work with you.",
-    },
-
-    // ... (other enquiries)
-  ];
+  useEffect(() => {
+    // Fetch client data from the API
+    fetch("http://localhost:9000/api/clients")
+      .then((response) => response.json())
+      .then((data) => setClients(data))
+      .catch((error) => console.error("Error fetching client data", error));
+  }, []);
 
   const handleSearchChange = (event) => {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
 
-    const filtered = enquiries.filter((enquiry) =>
-      enquiry.clientName.toLowerCase().includes(query)
+    const filtered = clients.filter((client) =>
+      client.clientName.toLowerCase().includes(query)
     );
-    setFilteredEnquiries(filtered);
+    setFilteredClients(filtered);
   };
 
-  const displayedEnquiries = searchQuery ? filteredEnquiries : enquiries;
+  const displayedClients = searchQuery ? filteredClients : clients;
 
   return (
     <div className="container">
@@ -56,18 +41,24 @@ const ClientEnquiry = () => {
         </div>
       </div>
       <div className="row">
-        {displayedEnquiries.map((enquiry) => (
-          <div key={enquiry.id} className="col-md-6 mb-4 mt-3">
+        {displayedClients.map((client) => (
+          <div key={client._id} className="col-md-6 mb-4 mt-3">
             <div className="custom-card-cl-en">
               <div className="custom-card-body">
-                <h5 className="custom-card-title">Enquiry ID: {enquiry.id}</h5>
-                <h6 className="custom-card-subtitle mb-2 text-muted">
-                  Client: {enquiry.clientName}
+                <h5 className="custom-card-title">Client ID: {client._id}</h5>
+                <h6 className="custom-card-subtitle mb-2 text-muted mt-3">
+                  Client Name: {client.clientName}
                 </h6>
                 <h6 className="custom-card-subtitle mb-2 text-muted">
-                  Title: {enquiry.enquiryTitle}
+                  Client Email: {client.clientEmail}
                 </h6>
-                <p className="custom-card-text">{enquiry.enquiryDescription}</p>
+                <h6 className="custom-card-subtitle mb-2 text-muted">
+                  Client Phone: {client.clientPhone}
+                </h6>
+                <h6 className="custom-card-subtitle mb-2 text-muted">
+                  Address: {client.clientAddress}
+                </h6>
+                <p className="custom-card-text">{client.enquiryDescription}</p>
                 <button className="btn btn-custom">View</button>
               </div>
             </div>

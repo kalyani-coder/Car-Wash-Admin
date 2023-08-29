@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const agentSchema = new mongoose.Schema({
   fullName: String,
   email: String,
-  mobileNumber: Number,
+  contactNumber: Number,
   dateOfBirth: String,
   address: String,
   profilePic: String,

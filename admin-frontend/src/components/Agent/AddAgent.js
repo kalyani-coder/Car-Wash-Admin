@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Col, Row } from "react-bootstrap";
-import Alert from "../Promotion/Alert"
+import Alert from "../Service/Alert"
 import axios from "axios";
 
 const AddAgentPage = () => {
@@ -8,7 +8,7 @@ const AddAgentPage = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
-    mobileNumber: '',
+    contactNumber: '',
     dateOfBirth: '',
     address: '',
     profilePic: '',
@@ -38,11 +38,11 @@ const AddAgentPage = () => {
     try {
       const response = await axios.post('http://localhost:9000/api/agents', formData);
       console.log('Response Sucessfully data post:', response.data);
-      showAlert("Services Add Successfully", "success")
+      showAlert("Agent Add Successfully", "success")
       // You can handle the response from the API here
     } catch (error) {
       console.error('Error data not post:', error);
-      showAlert("Services Add Failed", "danger")
+      showAlert("Agent Add Failed", "danger")
       // Handle any errors that occur during the POST request
     }
   };
@@ -80,12 +80,12 @@ const AddAgentPage = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="mobileNumber">
+          <Form.Group controlId="contactNumber">
             <Form.Label>Contact No:</Form.Label>
             <Form.Control
               type="number"
-              name="mobileNumber"
-              value={formData.mobileNumber}
+              name="contactNumber"
+              value={formData.contactNumber}
               onChange={handleChange}
             />
           </Form.Group>
