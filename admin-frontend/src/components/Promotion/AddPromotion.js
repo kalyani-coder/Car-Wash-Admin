@@ -13,6 +13,7 @@ export default function AddPromotion() {
     fixedAmount: "",
     percentageAmount: "",
     couponCode: "",
+    image: "",
   });
 
   const [services, setServices] = useState([]); 
@@ -68,6 +69,7 @@ export default function AddPromotion() {
         fixedAmount: "",
         percentageAmount: "",
         couponCode: "",
+        image: "",
       });
     } catch (error) {
       console.error("Error:", error);
@@ -88,6 +90,8 @@ export default function AddPromotion() {
               name="title"
               value={formData.title}
               onChange={handleChange}
+            required
+
             />
           </Form.Group>
 
@@ -166,6 +170,8 @@ export default function AddPromotion() {
                   value={formData.percentageAmount}
                   onChange={handleChange}
                   className="offer-type-input"
+            required
+
                 />
               )}
             </div>
@@ -180,8 +186,21 @@ export default function AddPromotion() {
               value={formData.couponCode}
               onChange={handleChange}
               style={{ marginBottom: "10px" }} // Add margin to the text box
+                
+
             />
           </Form.Group>
+
+          <Form.Group controlId="image">
+          <Form.Label>Upload Image:</Form.Label>
+          <Form.Control
+            type="file"
+            name="image"
+            value={formData.image}
+            onChange={handleChange}
+            required
+          />
+        </Form.Group>
 
           <Button type="submit" style={{ marginTop: "10px" }}>
             Create Offer

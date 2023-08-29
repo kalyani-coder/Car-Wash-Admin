@@ -1,0 +1,10 @@
+.success-message-bar {
+    position: fixed;
+    top: 0;
+    width: 70.5%;
+    margin-top: 20px;
+    /* left: 0; */
+    /* right: 0; */
+    z-index: 1000;
+  }
+  

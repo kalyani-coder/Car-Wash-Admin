@@ -9,7 +9,8 @@ const promotionSchema = new mongoose.Schema({
   offerType: String,
   fixedAmount: String,
   percentageAmount: String,
-  couponCode: String
+  couponCode: String,
+  image:String,
 });
 
 const Promotion = mongoose.model('Promotion', promotionSchema);
