@@ -41,6 +41,7 @@ const newAgentRouter = require('./routes/Agents')
 const topServices = require('./routes/TopServices')
 const booking = require('./routes/Booking')
 const orderassign = require('./routes/AssignOrder');
+const agentlogin = require('./routes/AgentLogin')
 
 app.use('/api/services',  servicesRouter);
 app.use('/api/clients', clientsRouter);
@@ -50,6 +51,7 @@ app.use("/api/agents", newAgentRouter)
 app.use("/api/topservices" , topServices)
 app.use("/api/booking" , booking)
 app.use("/api/orderassign" , orderassign)
+app.use("/api/agentlogin" , agentlogin)
 
 
 

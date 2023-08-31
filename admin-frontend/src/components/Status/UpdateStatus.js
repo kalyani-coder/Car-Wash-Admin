@@ -8,7 +8,8 @@ export default function Page() {
   const [bookingData, setBookingData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
-  console.log("new booking" , bookingData)
+  const [selectedAgentId, setSelectedAgentId] = useState("");
+  const [selectedBooking, setSelectedBooking] = useState(null); // New state to store the selected booking
 
   // for alert message 
   const [successAlert, setSuccessAlert] = useState(null);
@@ -42,21 +43,21 @@ export default function Page() {
     setSelectedValue(event.target.value);
   };
 
+  const handleAgentSelectChange = (event) => {
+    setSelectedAgentId(event.target.value);
+  };
+
   const handleUpdateClick = (booking) => {
     if (selectedValue === "") {
-      // alert("Please select an action.");
-      showAlert("Status updated failed select status", "danger");
-
+      showAlert("Status update failed: Select status", "danger");
       return;
     }
 
-    // Create an updatedBooking object with the new status
     const updatedBooking = {
       ...booking,
-      status: selectedValue === "accept" ? "Accepted" : "Declined", // Modify as needed
+      status: selectedValue === "accept" ? "Accepted" : "Declined",
     };
 
-    // Send a PATCH request to update the status
     fetch(`http://localhost:9000/api/booking/${booking._id}`, {
       method: "PATCH",
       headers: {
@@ -71,25 +72,53 @@ export default function Page() {
         return response.json();
       })
       .then((data) => {
-        // Handle successful update, e.g., update the state if needed
         console.log("Status updated successfully", data);
         showAlert("Status updated successfully", "success");
-
-        // You can also update the state to reflect the updated status if needed
-        // For example, if bookingData is an array of bookings, you can map over it
-        // and update the status of the corresponding booking
-        // const updatedData = bookingData.map((item) => {
-        //   if (item._id === data._id) {
-        //     return data; // Updated booking
-        //   }
-        //   return item;
-        // });
-        // setBookingData(updatedData);
       })
       .catch((error) => {
         console.error("Error updating status", error);
-        showAlert("Status updated failed", "danger");
+        showAlert("Status update failed", "danger");
       });
+
+    setSelectedBooking(updatedBooking); // Store the selected booking
+  };
+
+  const handleAssignClick = () => {
+    if (selectedAgentId === "" || selectedBooking === null) {
+      showAlert("Agent assignment failed: Select agent and update status first", "danger");
+      return;
+    }
+
+    // Add the selected agent ID to the booking
+    const bookingWithAgent = {
+      ...selectedBooking,
+      agentId: selectedAgentId,
+    };
+
+    // Send a POST request to assign the agent
+    fetch('http://localhost:9000/api/orderassign', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bookingWithAgent),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to assign agent.");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Agent assigned successfully", data);
+        showAlert("Agent assigned successfully", "success");
+      })
+      .catch((error) => {
+        console.error("Error assigning agent", error);
+        showAlert("Agent assignment failed", "danger");
+      });
+
+    setSelectedAgentId(""); // Clear the selected agent ID
   };
 
   const handleSearch = (e) => {
@@ -98,21 +127,18 @@ export default function Page() {
 
   useEffect(() => {
     fetch('http://localhost:9000/api/agents')
-    .then((responce) => responce.json())
+    .then((response) => response.json())
     .then((data) => setAgents(data))
     .catch((error) => console.log("error", error))
-  },[])
-  // console.log("vedant", agents)
+  }, []);
 
   return (
     <div className="container">
       <div className="container-fluid my-4">
-
         <div className="success-message-bar">
-      {successAlert && <Alert alert={successAlert} />}
-      {errorAlert && <Alert alert={errorAlert} />}
+          {successAlert && <Alert alert={successAlert} />}
+          {errorAlert && <Alert alert={errorAlert} />}
         </div>
-
         <div className="search-container">
           <input
             type="text"
@@ -162,33 +188,26 @@ export default function Page() {
                   </button>
                 </div>
 
-
-
-                  <div className="card-body d-flex justify-content-end mt-3">
+                <div className="card-body d-flex justify-content-end mt-3">
                   <Form.Select
                     aria-label="Default select example"
+                    onChange={handleAgentSelectChange}
                   >
                     <option value="">Select Agents</option>
                     {agents.map((agent) => (
-          <option key={agent.value} value={agent.value}>
-                    <option>Name : {agent.fullName}</option>
-                    <option>{agent._id}</option>
-            
-          </option>
-        ))}
-                    {/* <option value="a">Agent A</option>
-                    <option value="b">Agent B</option>
-                    <option value="c">Agent C</option>
-                    <option value="d">Agent D</option> */}
+                      <option key={agent._id} value={agent._id}>
+                        {agent.fullName}
+                      </option>
+                    ))}
                   </Form.Select>
                   <button
                     type="button"
                     className="btn btn-success ms-2"
+                    onClick={handleAssignClick} // Use the new handler for the Assign button
                   >
                     Assign
                   </button>
-                  </div>
- 
+                </div>
               </div>
             </div>
           ))}
