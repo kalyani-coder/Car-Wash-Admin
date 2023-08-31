@@ -40,6 +40,7 @@ const agentRouter = require('./routes/Ajents');
 const newAgentRouter = require('./routes/Agents')
 const topServices = require('./routes/TopServices')
 const booking = require('./routes/Booking')
+const orderassign = require('./routes/AssignOrder');
 
 app.use('/api/services',  servicesRouter);
 app.use('/api/clients', clientsRouter);
@@ -48,6 +49,7 @@ app.use('/api/agent', upload.single('file'), agentRouter); // Use multer middlew
 app.use("/api/agents", newAgentRouter)
 app.use("/api/topservices" , topServices)
 app.use("/api/booking" , booking)
+app.use("/api/orderassign" , orderassign)
 
 
 

@@ -8,10 +8,14 @@ export default function Page() {
   const [bookingData, setBookingData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
+  console.log("new booking" , bookingData)
 
   // for alert message 
   const [successAlert, setSuccessAlert] = useState(null);
   const [errorAlert, setErrorAlert] = useState(null);
+
+  // agents 
+  const [agents, setAgents] = useState([])
 
   useEffect(() => {
     fetch("http://localhost:9000/api/booking")
@@ -92,6 +96,14 @@ export default function Page() {
     setSearchTerm(e.target.value);
   };
 
+  useEffect(() => {
+    fetch('http://localhost:9000/api/agents')
+    .then((responce) => responce.json())
+    .then((data) => setAgents(data))
+    .catch((error) => console.log("error", error))
+  },[])
+  // console.log("vedant", agents)
+
   return (
     <div className="container">
       <div className="container-fluid my-4">
@@ -131,6 +143,7 @@ export default function Page() {
                   </p>
                   <p className="card-text">Total price - {booking.totalPrice}</p>
                 </div>
+                
                 <div className="card-body d-flex justify-content-end mt-3">
                   <Form.Select
                     aria-label="Default select example"
@@ -148,6 +161,34 @@ export default function Page() {
                     Update
                   </button>
                 </div>
+
+
+
+                  <div className="card-body d-flex justify-content-end mt-3">
+                  <Form.Select
+                    aria-label="Default select example"
+                  >
+                    <option value="">Select Agents</option>
+                    {agents.map((agent) => (
+          <option key={agent.value} value={agent.value}>
+                    <option>Name : {agent.fullName}</option>
+                    <option>{agent._id}</option>
+            
+          </option>
+        ))}
+                    {/* <option value="a">Agent A</option>
+                    <option value="b">Agent B</option>
+                    <option value="c">Agent C</option>
+                    <option value="d">Agent D</option> */}
+                  </Form.Select>
+                  <button
+                    type="button"
+                    className="btn btn-success ms-2"
+                  >
+                    Assign
+                  </button>
+                  </div>
+ 
               </div>
             </div>
           ))}
