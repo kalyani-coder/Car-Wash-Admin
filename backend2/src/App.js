@@ -27,7 +27,8 @@ const upload = multer({
 });
 
 // MongoDB connection setup
-mongoose.connect('mongodb://127.0.0.1:27017/CarWashDB', {
+
+mongoose.connect('mongodb+srv://vedantassignment05:X3OrOGJ7kDg5Ze32@carwash.qinnywx.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

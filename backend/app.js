@@ -17,6 +17,7 @@ app.use("/api", DELETE);
 mongoose
   .connect(
     "mongodb+srv://ADMIN:ADMIN@cluster0.6hrtdcu.mongodb.net/?retryWrites=true&w=majority"
+    
   )
   .then(() => {
     console.log("Connected to database");
