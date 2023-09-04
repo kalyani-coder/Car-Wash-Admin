@@ -5,7 +5,8 @@ const cors = require('cors');
 const multer = require('multer'); // Import multer
 
 const app = express();
-const port = process.env.PORT || 9000;
+// const port = process.env.PORT || 9000;
+const port = 9000
 
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json({ limit: '10mb' }));

@@ -5,7 +5,8 @@ const cors = require('cors');
 const multer = require('multer'); // Import multer
 
 const app = express();
-const port = process.env.PORT || 9000;
+// const port = process.env.PORT || 9000;
+port = 6000;
 
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json({ limit: '10mb' }));
@@ -57,7 +58,15 @@ app.use("/api/booking" , booking)
 app.use("/api/orderassign" , orderassign)
 app.use("/api/agentlogin" , agentlogin)
 
-
+// mongoose.connect('mongodb+srv://vedantassignment05:X3OrOGJ7kDg5Ze32@carwash.qinnywx.mongodb.net/')
+// .then(() => {
+//   console.log("Connected to database")
+//   app.listen(port , () => {
+//     console.log(`Server is running on ${port}`)
+//   })
+// }).catch((error) => {
+//   console.log("Not connected to databse", error)
+// })
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
