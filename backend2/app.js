@@ -35,7 +35,7 @@ mongoose.connect('mongodb+srv://vedantassignment05:X3OrOGJ7kDg5Ze32@carwash.qinn
 
 // Import and use route files
 const servicesRouter = require('./src/routes/Services');
-// const clientsRouter = require('./src/routes/Clients');
+const clientsRouter = require('./src/routes/Clients');
 // const promotionsRouter = require('./src/routes/Promotion');
 // const agentRouter = require('./src/routes/Ajents');
 // const newAgentRouter = require('./src/routes/Agents')
@@ -48,7 +48,7 @@ const servicesRouter = require('./src/routes/Services');
 // const servicesRouter = require('./src/routes/Services')
 
 app.use('/api/services',  servicesRouter);
-// app.use('/api/clients', clientsRouter);
+app.use('/api/clients', clientsRouter);
 // app.use('/api/promotions', promotionsRouter);
 // app.use('/api/agent', upload.single('file'), agentRouter); // Use multer middleware for agentRouter
 // app.use("/api/agents", newAgentRouter)
