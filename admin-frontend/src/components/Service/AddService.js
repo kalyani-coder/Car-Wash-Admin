@@ -49,18 +49,17 @@ const AddServices = () => {
     } catch (error) {
       console.error("Error data not post:", error);
       showAlert("Error adding service", "error");
-      // Handle any errors that occur during the POST request
+    
     }
   };
 
   return (
     <div className="container mt-5">
       <h1>Add Service</h1>
-   
+
       {successAlert && <Alert alert={successAlert} />}
       {errorAlert && <Alert alert={errorAlert} />}
-      <form  onSubmit={handleSubmit}>
-
+      <form onSubmit={handleSubmit}>
         <Form.Group controlId="serviceName">
           <Form.Label>Name of Service:</Form.Label>
           <Form.Control
@@ -70,7 +69,6 @@ const AddServices = () => {
             onChange={handleChange}
           />
         </Form.Group>
-
 
         <Form.Group controlId="serviceCategory">
           <Form.Label>Category of Service:</Form.Label>
@@ -142,15 +140,12 @@ const AddServices = () => {
           </Col>
 
           <Col xs="auto">
-            <Button variant="primary">
-              Discard
-            </Button>
+            <Button variant="primary">Discard</Button>
           </Col>
         </Row>
-
       </form>
     </div>
   );
-}
+};
 
 export default AddServices;

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const ViewAgentPage = () => {
   const [agents, setAgents] = useState([]);
-  console.log(agents);
 
   useEffect(() => {
     fetchAgents();
@@ -30,12 +29,18 @@ const ViewAgentPage = () => {
           <div key={agent._id} className="col-md-6 mb-4">
             <div className="card">
               <div className="card-body">
-                <img src={agent.profilePic} alt="agent image" height={100} width={100}/>
+                <img
+                  src={agent.profilePic}
+                  alt="agent image"
+                  height={100}
+                  width={100}
+                />
                 <h5 className="card-title">{agent.fullName}</h5>
                 <p className="card-text">
                   <strong>Email:</strong> {agent.email}
                   <br />
-                  <strong>Contact Number:</strong> {agent.contactNumber}<br />
+                  <strong>Contact Number:</strong> {agent.contactNumber}
+                  <br />
                   <strong>Address :</strong> {agent.address}
                 </p>
                 <Link
@@ -45,7 +50,7 @@ const ViewAgentPage = () => {
                   state={agent}
                   className="btn btn-primary"
                 >
-                  View More
+                  View more
                 </Link>
               </div>
             </div>

@@ -73,7 +73,6 @@ export default function ServiceView() {
         .catch((error) => console.error("Error deleting service:", error));
     }
   };
-  
 
   return (
     <div className="container mt-5">
@@ -140,22 +139,28 @@ export default function ServiceView() {
                     </Form.Group>
                   </Form>
                   {/* Similar form fields for other properties */}
-                  <Button
-                    variant="primary"
-                    onClick={() => {
-                      const shouldSave = window.confirm(
-                        "Are you sure you want to save changes?"
-                      );
-                      if (shouldSave) {
-                        handleUpdate();
-                      }
-                    }}
-                  >
-                    Save
-                  </Button>
-                  <Button variant="secondary" onClick={handleCancelEdit}>
-                    Cancel
-                  </Button>
+                  <div className="mt-3">
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        const shouldSave = window.confirm(
+                          "Are you sure you want to save changes?"
+                        );
+                        if (shouldSave) {
+                          handleUpdate();
+                        }
+                      }}
+                    >
+                      Save
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      className="mx-2"
+                      onClick={handleCancelEdit}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
                 </Form>
               </div>
             ) : (
