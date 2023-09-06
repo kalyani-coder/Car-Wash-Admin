@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Client = require('../models/clientModel'); // Adjust the path as needed
+const Client = require('../models/ClientModel'); // Adjust the path as needed
 
 // Page: Get all clients
 router.get('/', async (req, res) => {
