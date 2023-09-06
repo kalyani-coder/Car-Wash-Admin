@@ -24,19 +24,30 @@ mongoose.connect('mongodb+srv://vedantassignment05:X3OrOGJ7kDg5Ze32@carwash.qinn
 const apiRouter = express.Router();
 // Import and use route files
 const servicesRouter = require('./src/routes/Services');
+const topServicesRouter = require('./src/routes/TopServices');
 const clientsRouter = require('./src/routes/Clients');
 const promotionsRouter = require('./src/routes/Promotion');
+const bookingRouter = require('./src/routes/Booking');
+const assignOrderRouter = require('./src/routes/AssignOrder');
+const agentRouter = require('./src/routes/Agents');
 
 // app.use('/api/services',  servicesRouter);
 // app.use('/api/clients', clientsRouter);
 // app.use('/api/promotions', promotionsRouter);
 apiRouter.use('/services', servicesRouter);
+apiRouter.use('/topservices' , topServicesRouter)
 apiRouter.use('/clients', clientsRouter);
 apiRouter.use('/promotions', promotionsRouter);
+apiRouter.use('/bookings' , bookingRouter);
+apiRouter.use('/assignorders' , assignOrderRouter);
+apiRouter.use('/agents' , agentRouter);
 
 
-app.use('/api' , apiRouter)
+// we are handle aur all api routes from here
+app.use('/api' , apiRouter);
 
+
+// our server is running on port 8000  hosting running port 10000
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
