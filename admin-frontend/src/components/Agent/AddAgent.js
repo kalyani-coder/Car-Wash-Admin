@@ -36,7 +36,7 @@ const AddAgentPage = () => {
 
 
     try {
-      const response = await axios.post('http://localhost:9000/api/agents', formData);
+      const response = await axios.post('https://car-wash-backend-api.onrender.com/api/agents', formData);
       console.log('Response Sucessfully data post:', response.data);
       showAlert("Agent Add Successfully", "success")
       // You can handle the response from the API here
@@ -47,8 +47,18 @@ const AddAgentPage = () => {
     }
   };
 
+// for showing image on screen gettign lots path storage
 
-
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (event) => {
+  //       setFormData({ ...formData, profilePic: event.target.result });
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   return (
     <>
@@ -112,6 +122,8 @@ const AddAgentPage = () => {
             />
           </Form.Group>
 
+          {/* old format for addign image if api crashed then use this code start  */}
+
           <Form.Group controlId="profilePic">
             <Form.Label>Upload Image:</Form.Label>
             <Form.Control
@@ -119,8 +131,38 @@ const AddAgentPage = () => {
               name="profilePic"
               value={formData.profilePic}
               onChange={handleChange}
+              required
             />
           </Form.Group>
+
+          {/* old format for addign image if api crashed then use this code end */}
+
+
+          {/* new additon in frontend code for showing image in frontend start */}
+
+          {/* <Form.Group controlId="profilePic">
+            <Form.Label>Upload Image:</Form.Label>
+            <Form.Control
+              type="file"
+              name="profilePic"
+              accept=".jpg, .jpeg, .png"
+              onChange={handleImageChange}
+            />
+          </Form.Group> */}
+
+          {/* show image on screen when select from files  */}
+          {/* {formData.profilePic && (
+            <img
+              
+              src={formData.profilePic}
+              alt="Selected Profile Pic"
+              style={{ maxWidth: '200px', maxHeight: '200px'}}
+            />
+          )} */}
+
+          {/* new additon in frontend code for showing image in frontend end*/}
+
+
 
           <Row className="justify-content-between mt-4">
             <Col xs="auto">

@@ -28,7 +28,7 @@ const AgentDetailsPage = () => {
     }
     try {
       await axios.patch(
-        `http://localhost:9000/api/agents/${editedAgent._id}`,
+        `https://car-wash-backend-api.onrender.com/api/agents/${editedAgent._id}`,
         editedAgent
       );
       navigate("/viewagent");
@@ -41,7 +41,7 @@ const AgentDetailsPage = () => {
   const handleDeleteAgent = async () => {
     try {
       await axios.delete(
-        `http://localhost:9000/api/agents/${agent._id}`
+        `https://car-wash-backend-api.onrender.com/api/agents/${agent._id}`
       );
       navigate("/viewagent");
       alert("Deleted Successfully!");

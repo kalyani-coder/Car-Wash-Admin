@@ -21,7 +21,7 @@ export default function AddPromotion() {
   useEffect(() => {
     async function fetchServices() {
       try {
-        const response = await axios.get("http://localhost:9000/api/services");
+        const response = await axios.get("https://car-wash-backend-api.onrender.com/api/services");
         const servicesData = response.data; 
         setServices(servicesData);
       } catch (error) {
@@ -54,7 +54,7 @@ export default function AddPromotion() {
 
     try {
       const response = await axios.post(
-        "http://localhost:9000/api/promotions",
+        "https://car-wash-backend-api.onrender.com/api/promotions",
         formData
       );
       console.log("Response Data:", response.data);

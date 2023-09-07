@@ -11,7 +11,7 @@ const ViewAgentPage = () => {
 
   const fetchAgents = async () => {
     try {
-      const response = await axios.get("http://localhost:9000/api/agents");
+      const response = await axios.get("https://car-wash-backend-api.onrender.com/api/agents");
       setAgents(response.data);
     } catch (error) {
       console.error("Error:", error);

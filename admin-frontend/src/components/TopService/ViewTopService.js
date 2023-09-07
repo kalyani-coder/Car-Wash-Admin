@@ -10,7 +10,7 @@ export default function ViewTopServices() {
   useEffect(() => {
     async function fetchTopServices() {
       try {
-        const response = await axios.get("http://localhost:9000/api/topservices");
+        const response = await axios.get("https://car-wash-backend-api.onrender.com/api/topservices");
         setTopServices(response.data);
       } catch (error) {
         console.error("Error fetching top services:", error);
@@ -26,7 +26,7 @@ export default function ViewTopServices() {
     );
 
     if (shouldDelete) {
-      axios.delete(`http://localhost:9000/api/topservices/${service._id}`)
+      axios.delete(`https://car-wash-backend-api.onrender.com/api/topservices/${service._id}`)
         .then(() => {
           setTopServices((prevTopServices) =>
             prevTopServices.filter((item) => item._id !== service._id)

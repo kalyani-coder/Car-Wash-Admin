@@ -8,7 +8,7 @@ export default function ServiceView() {
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:9000/api/services")
+    fetch("https://car-wash-backend-api.onrender.com/api/services")
       .then((response) => response.json())
       .then((data) => setServices(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -19,7 +19,7 @@ export default function ServiceView() {
   };
 
   const handleUpdate = () => {
-    fetch(`http://localhost:9000/api/services/${editingService._id}`, {
+    fetch(`https://car-wash-backend-api.onrender.com/api/services/${editingService._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ export default function ServiceView() {
     );
 
     if (shouldDelete) {
-      fetch(`http://localhost:9000/api/services/${service._id}`, {
+      fetch(`https://car-wash-backend-api.onrender.com/api/services/${service._id}`, {
         method: "DELETE",
       })
         .then((response) => response.json())

@@ -40,7 +40,7 @@ const AddServices = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:9000/api/services",
+        "https://car-wash-backend-api.onrender.com/api/services",
         formData
       );
       console.log("Response Successfully data post:", response.data);
