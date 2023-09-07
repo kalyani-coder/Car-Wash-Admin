@@ -15,6 +15,21 @@ router.get( "/" , async (req, res) => {
     }
 })
 
+// GET BY ID 
+
+router.get('/:id', async (req, res) => {
+    const agentId = req.params.id;
+    try {
+      const agent = await newAgents.findById(agentId);
+      if (!agent) {
+        return res.status(404).json({ message: 'Agent not found' });
+      }
+      res.json(agent);
+    } catch (error) {
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
+
 // POST METHOD
 
 router.post("/", async (req, res) => {
