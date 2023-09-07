@@ -136,6 +136,8 @@ const AddAgentPage = () => {
           </Form.Group>
 
           {/* old format for addign image if api crashed then use this code end */}
+  
+
 
 
           {/* new additon in frontend code for showing image in frontend start */}
