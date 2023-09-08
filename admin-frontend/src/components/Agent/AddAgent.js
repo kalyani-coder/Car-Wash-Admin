@@ -33,6 +33,7 @@ const AddAgentPage = () => {
   }
 
   const handleSubmit = async (e) => {
+    e.preventDefault()
 
 
     try {
@@ -41,7 +42,7 @@ const AddAgentPage = () => {
       showAlert("Agent Add Successfully", "success")
       // You can handle the response from the API here
     } catch (error) {
-      console.error('Error data not post:', error);
+      console.log('Error data not post:', error);
       showAlert("Agent Add Failed", "danger")
       // Handle any errors that occur during the POST request
     }
