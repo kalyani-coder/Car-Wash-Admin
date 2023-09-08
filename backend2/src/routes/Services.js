@@ -48,4 +48,21 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// get by id /
+
+router.get('/:id' , async (req, res) => {
+
+  const serviceId = req.params.id
+
+  try{
+    const newService = await Service.findById(serviceId)
+    if(!newService){
+      return res.status(404).json({message : "services not found"})
+    }
+    res.json(newService)
+  }catch(err){
+    res.status(404).json({message : "internal server error "})
+  }
+})
+
 module.exports = router;

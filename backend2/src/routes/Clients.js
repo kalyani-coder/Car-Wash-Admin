@@ -47,4 +47,21 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// get by id 
+
+router.get('/:id' , async (req, res) => {
+  const clientId= req.params.id ;
+
+  try{
+
+    const newClient = await Client.findById(clientId)
+    if(!newClient){
+      return res.status(404).json({message : "Client not Found"})
+    }   
+    res.json(newClient)
+  }catch(e){
+    res.status(404).json({message : "Client by id not found Internal server error"})
+  }
+})
+
 module.exports = router;

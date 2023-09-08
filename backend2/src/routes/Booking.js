@@ -27,6 +27,20 @@ router.post("/" , async (req, res) => {
     }
 });
 
+// get by ID
+router.get("/:id", async (req, res) => {
+  const bookingId = req.params.id;
+  try {
+      const booking = await Booking.findById(bookingId);
+      if (!booking) {
+          return res.status(404).json({ message: "Booking not found" });
+      }
+      res.json(booking);
+  } catch (e) {
+      res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // patch 
 router.patch('/:id', async (req, res) => {
     const bookingId = req.params.id;

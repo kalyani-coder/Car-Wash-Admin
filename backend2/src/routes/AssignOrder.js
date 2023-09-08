@@ -53,4 +53,20 @@ router.delete("/:id" , async (req, res) => {
         res.status(404).json({message : "Order not found"})
     }
 })
+
+
+// Get by ID
+router.get("/:id", async (req, res) => {
+    const assignOrderId = req.params.id;
+    try {
+        const assignOrder = await AssignOrder.findById(assignOrderId);
+        if (!assignOrder) {
+            return res.status(404).json({ message: "AssignOrder not found" });
+        }
+        res.json(assignOrder);
+    } catch (e) {
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
 module.exports = router;

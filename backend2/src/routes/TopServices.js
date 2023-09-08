@@ -52,5 +52,20 @@ router.delete('/:id', async (req, res) => {
     }
   });
 
+//   get by id 
+router.get('/:id' , async (req, res) => {
+
+    const topServiceId = req.params.id
+    try{
+            const newTopServices = await topServices.findById(topServiceId)
+            if(!newTopServices){
+                return res.status(404).json({message : "Top services not found"})
+            }
+            res.json(newTopServices)
+    }catch(error){
+        res.status(404).json({message: "internal server error"})
+    }
+})
+
 
 module.exports = router

@@ -47,4 +47,20 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// get by id 
+router.get('/:id' , async (req , res) => {
+
+  const promotionId = req.params.id
+  try{
+      const newPromotion = await Promotion.findById(promotionId)
+      if(!newPromotion){
+        return res.status(404).json({message : "Promotion not found"})
+      }
+      res.json(newPromotion)
+      
+  }catch(err){
+    res.status(404).json({message : "Internal server error"})
+  }
+})
+
 module.exports = router;
