@@ -3,7 +3,6 @@
 const mongoose = require('mongoose')
 
 const assignOrderSchema = new mongoose.Schema({
-
     clientId: String,
     clientName: String,
     servicesName: String,
