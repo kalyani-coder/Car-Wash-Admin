@@ -31,9 +31,31 @@ const AddAgentPage = () => {
       setAlert(null)
     }, 5000);
   }
+  const validateEmail = (email) => {
+    // Email validation using regular expression
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+  };
+
+  const validateContactNumber = (contactNumber) => {
+    // Contact number validation using regular expression
+    const contactNumberPattern = /^\d{10}$/;
+    return contactNumberPattern.test(contactNumber);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // Validate email
+    if (!validateEmail(formData.email)) {
+      showAlert("Invalid email address", "danger");
+      return;
+    }
+
+    // Validate contact number
+    if (!validateContactNumber(formData.contactNumber)) {
+      showAlert("Invalid contact number", "danger");
+      return;
+    }
 
 
     try {
