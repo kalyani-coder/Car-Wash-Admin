@@ -12,6 +12,8 @@ const bookingSchema = new mongoose.Schema({
     totalPrice : Number,
     pickupAddress : String,
     status: String,
+    pickuptoagent: String,
+    selfdrive : String
 
 
 })

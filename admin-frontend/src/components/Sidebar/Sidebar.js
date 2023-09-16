@@ -167,6 +167,28 @@ export default function Sidebar() {
                     </li>
                   </ul>
                 </li>
+
+                <li className="active">
+                  <a
+                    href="#viewavailablestocks"
+                    data-toggle="collapse"
+                    aria-expanded="false"
+                    className="dropdown-toggle"
+                  >
+                    Check Available Stocks
+                  </a>
+                  <ul
+                    className="collapse list-unstyled"
+                    id="viewavailablestocks"
+                  >
+                    <li>
+                      <Link to={"/addstocks"}>Add Stocks</Link>
+                    </li>
+                    <li>
+                      <Link to={"/viewavailablestocks"}>View vailable Stocks</Link>
+                    </li>
+                  </ul>
+                </li>
               </ul>
             </div>
           </div>

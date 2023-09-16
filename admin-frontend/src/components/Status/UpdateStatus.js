@@ -19,7 +19,7 @@ export default function Page() {
   const [agents, setAgents] = useState([])
 
   useEffect(() => {
-    fetch("https://car-wash-backend-api.onrender.com/api/bookings")
+    fetch("http://localhost:8000/api/bookings")
       .then((response) => response.json())
       .then((data) => setBookingData(data))
       .catch((error) => console.error("Error fetching data", error));

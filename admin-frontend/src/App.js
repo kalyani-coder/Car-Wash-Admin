@@ -19,6 +19,8 @@ import ViewAgentPage from "./components/Agent/ViewAgent";
 import AgentDetailsPage from "./components/Agent/AgentDetailsPage";
 import ServiceView from "./components/Service/ViewService";
 import ViewTopServices from "./components/TopService/ViewTopService";
+import AddStocks from './components/viewStockavailable/AddStocks'
+import ViewAvailableStocks from './components/viewStockavailable/ViewAvailableStocks'
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
           <Route path="/viewagent" element={<ViewAgentPage />} />
           <Route path="/agent-details/:id" element={<AgentDetailsPage />} />
           <Route path="/viewtopservice" element={<ViewTopServices />} />
+          <Route path="/addstocks" element={<AddStocks />} />
+          <Route path="/viewavailablestocks" element={<ViewAvailableStocks />} />
         </Routes>
       </Router>
     </>
