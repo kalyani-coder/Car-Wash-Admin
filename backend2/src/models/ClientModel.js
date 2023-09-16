@@ -8,6 +8,8 @@ const clientSchema = new mongoose.Schema({
   clientPhone: Number,
   clientdob : String,
   clientAddress: String,
+  clientvehicleno : String,
+  clientcarmodelno : String, 
 
 });
 

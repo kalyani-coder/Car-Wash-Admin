@@ -37,6 +37,14 @@ const DetailedCustomerInfoPage = () => {
                   <td>Address</td>
                   <td>{client.clientAddress}</td>
                 </tr>
+                <tr>
+                  <td>Vehicle No</td>
+                  <td>{client.clientvehicleno}</td>
+                </tr>
+                <tr>
+                  <td>Car Model No</td>
+                  <td>{client.clientcarmodelno}</td>
+                </tr>
                 {/* Add more client details here */}
               </tbody>
             </table>
