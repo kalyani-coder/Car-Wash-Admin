@@ -19,7 +19,7 @@ export default function Page() {
   const [agents, setAgents] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/bookings")
+    fetch("https://car-wash-backend-api.onrender.com/api/bookings")
       .then((response) => response.json())
       .then((data) => setBookingData(data))
       .catch((error) => console.error("Error fetching data", error));
@@ -58,7 +58,7 @@ export default function Page() {
       status: selectedValue === "accept" ? "Accepted" : "Declined",
     };
 
-    fetch(`http://localhost:9000/api/booking/${booking._id}`, {
+    fetch(`https://car-wash-backend-api.onrender.com/api/bookings/${booking._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +96,7 @@ export default function Page() {
     };
 
     // Send a POST request to assign the agent
-    fetch('http://localhost:9000/api/orderassign', {
+    fetch('https://car-wash-backend-api.onrender.com/api/assignorders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ export default function Page() {
   };
 
   useEffect(() => {
-    fetch('http://localhost:9000/api/agents')
+    fetch('https://car-wash-backend-api.onrender.com/api/agents')
     .then((response) => response.json())
     .then((data) => setAgents(data))
     .catch((error) => console.log("error", error))
