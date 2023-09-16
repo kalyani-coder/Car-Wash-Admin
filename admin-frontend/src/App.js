@@ -1,6 +1,6 @@
 import "./App.css";
 
-import axios from "axios";
+
 import AddService from "./components/Service/AddService";
 import Sidebar from "./components/Sidebar/Sidebar";
 import UpdateStatus from "./components/Status/UpdateStatus";
