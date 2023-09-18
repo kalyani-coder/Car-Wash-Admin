@@ -16,6 +16,19 @@ router.get("/", async (req, res) => {
     }
 });
 
+//get by status
+router.get("/status/:status", async (req, res) => {
+  const status = req.params.status;
+  
+  try {
+      const bookings = await Booking.find({ status: status });
+      res.json(bookings);
+  } catch (e) {
+      console.error(e);
+      res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // post 
 router.post("/" , async (req, res) => {
     try{

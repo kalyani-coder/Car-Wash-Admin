@@ -43,23 +43,23 @@ router.post("/", async (req, res) => {
     }
 })
 // POST Method for agent login
-router.post("/login", async (req, res) => {
-  try {
-      const contactNumber = req.body.contactNumber;
-      const agent = await newAgents.findOne({ contactNumber: contactNumber });
+// router.post("/login", async (req, res) => {
+//   try {
+//       const contactNumber = req.body.contactNumber;
+//       const agent = await newAgents.findOne({ contactNumber: contactNumber });
 
-      if (!agent) {
-          return res.status(401).json({ message: 'Invalid contact number' });
-      }
+//       if (!agent) {
+//           return res.status(401).json({ message: 'Invalid contact number' });
+//       }
 
-      // You can add additional authentication logic here if needed
+//       // You can add additional authentication logic here if needed
 
-      res.json({ message: 'Login successful', agent: agent });
-  } catch (e) {
-      console.error(e);
-      res.status(500).json({ message: "Internal server error" });
-  }
-});
+//       res.json({ message: 'Login successful', agent: agent });
+//   } catch (e) {
+//       console.error(e);
+//       res.status(500).json({ message: "Internal server error" });
+//   }
+// });
 
 
 //PATCH METHOD
