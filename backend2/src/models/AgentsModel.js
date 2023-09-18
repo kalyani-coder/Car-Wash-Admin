@@ -9,6 +9,6 @@ const agentSchema = new mongoose.Schema({
   profilePic: String,
 });
 
-const newAgents = mongoose.model('Agents1', agentSchema);
+const newAgents = mongoose.model('Agents', agentSchema);
 
 module.exports = newAgents;
