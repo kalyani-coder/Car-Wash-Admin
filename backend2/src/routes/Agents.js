@@ -1,47 +1,58 @@
-
-const express = require('express')
-const router = express.Router()
-const newAgents = require('../models/AgentsModel')
-
+const express = require("express");
+const router = express.Router();
+const newAgents = require("../models/AgentsModel");
 
 // GET METHOD
-router.get( "/" , async (req, res) => {
-    try{
+router.get("/", async (req, res) => {
+  try {
+    const agents = await newAgents.find();
+    res.json(agents);
+  } catch (e) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
-        const agents = await newAgents.find()
-        res.json(agents)
-    } catch(e){
-        res.status(500).json({message : "Internal Server Error"})
-    }
-})
-
-// GET BY ID 
-
-router.get('/:id', async (req, res) => {
-    const agentId = req.params.id;
+router.get("/:field/:value", async (req, res) => {
+  const field = req.params.field;
+  const value = req.params.value.replace("_", " ");
+  if (value && field) {
     try {
-      const agent = await newAgents.findById(agentId);
-      if (!agent) {
-        return res.status(404).json({ message: 'Agent not found' });
-      }
-      res.json(agent);
-    } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      const bookings = await newAgents.find({ [field]: value });
+      res.json(bookings);
+    } catch (e) {
+      res.status(400).json({ message: "Bad request" });
     }
-  });
+  } else {
+    res.status(400).json({ message: "Bad request" });
+  }
+});
+// GET BY ID
+
+router.get("/:id", async (req, res) => {
+  const agentId = req.params.id;
+  try {
+    const agent = await newAgents.findById(agentId);
+    if (!agent) {
+      return res.status(404).json({ message: "Agent not found" });
+    }
+    res.json(agent);
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
 // POST METHOD
 
 router.post("/", async (req, res) => {
-    try {
-        const newagents = new newAgents(req.body)
-        await newagents.save()
-        res.status(201).json(newagents)
-    } catch (e) {
-        console.error(e); // Log the error to the console
-        res.status(500).json({ message: "Internal server error" })
-    }
-})
+  try {
+    const newagents = new newAgents(req.body);
+    await newagents.save();
+    res.status(201).json(newagents);
+  } catch (e) {
+    console.error(e); // Log the error to the console
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 // POST Method for agent login
 // router.post("/login", async (req, res) => {
 //   try {
@@ -61,30 +72,28 @@ router.post("/", async (req, res) => {
 //   }
 // });
 
-
 //PATCH METHOD
-router.patch("/:id" , async (req, res) => {
-    const agentId = req.params.id
-    try{
-        const updateAgent = await newAgents.findByIdAndUpdate(agentId, req.body, {
-            new: true
-        });
-        res.json(updateAgent)
-    }catch(e){
-        res.status(404).json({ message: 'Service not found' });
-    }
-})
+router.patch("/:id", async (req, res) => {
+  const agentId = req.params.id;
+  try {
+    const updateAgent = await newAgents.findByIdAndUpdate(agentId, req.body, {
+      new: true,
+    });
+    res.json(updateAgent);
+  } catch (e) {
+    res.status(404).json({ message: "Service not found" });
+  }
+});
 
-//Delete Method 
-router.delete('/:id', async (req, res) => {
-    const agentId = req.params.id;
-    try {
-      const deletedagent = await newAgents.findByIdAndRemove(agentId);
-      res.json(deletedagent);
-    } catch (error) {
-      res.status(404).json({ message: 'Service not found' });
-    }
-  });
+//Delete Method
+router.delete("/:id", async (req, res) => {
+  const agentId = req.params.id;
+  try {
+    const deletedagent = await newAgents.findByIdAndRemove(agentId);
+    res.json(deletedagent);
+  } catch (error) {
+    res.status(404).json({ message: "Service not found" });
+  }
+});
 
-
-module.exports = router
+module.exports = router;

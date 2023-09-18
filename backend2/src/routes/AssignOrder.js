@@ -83,14 +83,29 @@ router.patch("/assignAgent/:id", async (req, res) => {
   }
 });
 
-router.get("/byAgent/:id", async (req, res) => {
-  const AgentId = req.params.id;
-  try {
-    const orders = await AssignOrder.find({ agentId: AgentId });
-    res.json(orders);
-  } catch (e) {
-    res.status(500).json({ message: "Internal server error" });
+router.get("/:field/:value", async (req, res) => {
+  const field = req.params.field;
+  const value = req.params.value.replace("_", " ");
+  if (value && field) {
+    try {
+      const bookings = await AssignOrder.find({ [field]: value });
+      res.json(bookings);
+    } catch (e) {
+      res.status(400).json({ message: "Bad request" });
+    }
+  } else {
+    res.status(400).json({ message: "Bad request" });
   }
 });
+
+// router.get("/byAgent/:id", async (req, res) => {
+//   const AgentId = req.params.id;
+//   try {
+//     const orders = await AssignOrder.find({ agentId: AgentId });
+//     res.json(orders);
+//   } catch (e) {
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
 
 module.exports = router;
