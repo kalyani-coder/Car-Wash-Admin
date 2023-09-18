@@ -96,7 +96,9 @@ export default function Page() {
     };
 
     // Send a POST request to assign the agent
-    fetch('https://car-wash-backend-api.onrender.com/api/assignorders', {
+    // previous api integratted 
+    // https://car-wash-backend-api.onrender.com/api/assignorders
+    fetch('https://car-wash-backend-api.onrender.com/api/bookings', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
