@@ -29,12 +29,15 @@ router.get("/", async (req, res) => {
 router.get("/:field/:value", async (req, res) => {
   const field = req.params.field;
   const value = req.params.value.replace("_", " ");
-  try {
-    const bookings = await Booking.find({ [field]: value });
-    res.json(bookings);
-  } catch (e) {
-    console.error(e);
-    res.status(400).json({ message: "Internal server error" });
+  if (value && field) {
+    try {
+      const bookings = await Booking.find({ [field]: value });
+      res.json(bookings);
+    } catch (e) {
+      res.status(400).json({ message: "Bad request" });
+    }
+  } else {
+    res.status(400).json({ message: "Bad request" });
   }
 });
 
