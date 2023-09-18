@@ -26,6 +26,24 @@ router.get("/", async (req, res) => {
 //   }
 // });
 
+// bookings get by status and agents id 
+
+router.get("/agentId/:agentId", async (req, res) => {
+  const agentId = req.params.agentId;
+
+  if (agentId) {
+    try {
+      const bookings = await Booking.find({ agentId: agentId });
+      res.json(bookings);
+    } catch (e) {
+      res.status(400).json({ message: "Bad request" });
+    }
+  } else {
+    res.status(400).json({ message: "Bad request" });
+  }
+});
+
+
 router.get("/:field/:value", async (req, res) => {
   const field = req.params.field;
   const value = req.params.value.replace("_", " ");
@@ -40,6 +58,7 @@ router.get("/:field/:value", async (req, res) => {
     res.status(400).json({ message: "Bad request" });
   }
 });
+
 
 // post
 router.post("/", async (req, res) => {

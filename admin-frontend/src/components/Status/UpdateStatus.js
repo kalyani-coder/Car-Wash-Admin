@@ -4,19 +4,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Alert from "../Service/Alert";
 import './UpdateStatus.css'
 
-export default function Page() {
+export default function UpdateStatusPage() {
   const [bookingData, setBookingData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
-  const [selectedAgentId, setSelectedAgentId] = useState("");
-  const [selectedBooking, setSelectedBooking] = useState(null); // New state to store the selected booking
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [agents, setAgents] = useState([]);
+  // console.log("Agents:", agents);
+  const [selectedAgent, setSelectedAgent] = useState("");
 
-  // for alert message 
   const [successAlert, setSuccessAlert] = useState(null);
   const [errorAlert, setErrorAlert] = useState(null);
-
-  // agents 
-  const [agents, setAgents] = useState([])
 
   useEffect(() => {
     fetch("https://car-wash-backend-api.onrender.com/api/bookings")
@@ -25,6 +22,13 @@ export default function Page() {
       .catch((error) => console.error("Error fetching data", error));
   }, []);
 
+  useEffect(() => {
+    fetch("http://localhost:8000/api/agents")
+      .then((response) => response.json())
+      .then((data) => setAgents(data))
+      .catch((error) => console.error("Error fetching agents", error));
+  }, []);
+  
   const showAlert = (message, type) => {
     if (type === "success") {
       setSuccessAlert({ msg: message, type: type });
@@ -43,20 +47,27 @@ export default function Page() {
     setSelectedValue(event.target.value);
   };
 
-  const handleAgentSelectChange = (event) => {
-    setSelectedAgentId(event.target.value);
-  };
-
   const handleUpdateClick = (booking) => {
-    if (selectedValue === "") {
-      showAlert("Status update failed: Select status", "danger");
+    console.log("Selected Agent ID:", selectedAgent);
+    if (selectedValue === "" || selectedAgent === "") {
+      showAlert("Status update failed: Select status and agent", "danger");
       return;
     }
 
     const updatedBooking = {
       ...booking,
       status: selectedValue === "accept" ? "Accepted" : "Declined",
+      agentId: selectedAgent,
     };
+
+//     const selectedAgentObj = agents.find(agent => agent._id === selectedAgent);
+
+// const updatedBooking = {
+//   ...booking,
+//   status: selectedValue === "accept" ? "Accepted" : "Declined",
+//   agentId: selectedAgent,
+//   agentEmail: selectedAgentObj.email
+// };
 
     fetch(`https://car-wash-backend-api.onrender.com/api/bookings/${booking._id}`, {
       method: "PATCH",
@@ -80,59 +91,8 @@ export default function Page() {
         showAlert("Status update failed", "danger");
       });
 
-    setSelectedBooking(updatedBooking); // Store the selected booking
+    setSelectedBooking(updatedBooking);
   };
-
-  const handleAssignClick = () => {
-    if (selectedAgentId === "" || selectedBooking === null) {
-      showAlert("Agent assignment failed: Select agent and update status first", "danger");
-      return;
-    }
-
-    // Add the selected agent ID to the booking
-    const bookingWithAgent = {
-      ...selectedBooking,
-      agentId: selectedAgentId,
-    };
-
-    // Send a POST request to assign the agent
-    // previous api integratted 
-    // https://car-wash-backend-api.onrender.com/api/assignorders
-    fetch('https://car-wash-backend-api.onrender.com/api/bookings', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bookingWithAgent),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to assign agent.");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Agent assigned successfully", data);
-        showAlert("Agent assigned successfully", "success");
-      })
-      .catch((error) => {
-        console.error("Error assigning agent", error);
-        showAlert("Agent assignment failed", "danger");
-      });
-
-    setSelectedAgentId(""); // Clear the selected agent ID
-  };
-
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/agents')
-    .then((response) => response.json())
-    .then((data) => setAgents(data))
-    .catch((error) => console.log("error", error))
-  }, []);
 
   return (
     <div className="container">
@@ -140,15 +100,6 @@ export default function Page() {
         <div className="success-message-bar">
           {successAlert && <Alert alert={successAlert} />}
           {errorAlert && <Alert alert={errorAlert} />}
-        </div>
-        <div className="search-container">
-          <input
-            type="text"
-            className="form-control search-field"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearch}
-          />
         </div>
         <div className="row justify-content-center mt-3">
           {bookingData.map((booking, index) => (
@@ -171,43 +122,36 @@ export default function Page() {
                   </p>
                   <p className="card-text">Total price - {booking.totalPrice}</p>
                 </div>
-                
                 <div className="card-body d-flex justify-content-end mt-3">
+                 
                   <Form.Select
-                    aria-label="Default select example"
+                    aria-label="Select Status"
                     onChange={handleSelectChange}
                   >
                     <option value="">Select Status</option>
                     <option value="accept">Accept</option>
                     <option value="decline">Decline</option>
                   </Form.Select>
+
+                  <Form.Select
+                    aria-label="Select Agent"
+                    onChange={(event) => setSelectedAgent(event.target.value)}
+                  >
+                    <option value="">Select Agent</option>
+                    {agents.map((agent) => (
+                      <option key={agent._id} value={agent._id}>
+                        {agent.fullName}
+                        
+                      </option>
+                    ))}
+                  </Form.Select>
+
                   <button
                     type="button"
                     className="btn btn-warning ms-2"
                     onClick={() => handleUpdateClick(booking)}
                   >
                     Update
-                  </button>
-                </div>
-
-                <div className="card-body d-flex justify-content-end mt-3">
-                  <Form.Select
-                    aria-label="Default select example"
-                    onChange={handleAgentSelectChange}
-                  >
-                    <option value="">Select Agents</option>
-                    {agents.map((agent) => (
-                      <option key={agent._id} value={agent._id}>
-                        {agent.fullName}
-                      </option>
-                    ))}
-                  </Form.Select>
-                  <button
-                    type="button"
-                    className="btn btn-success ms-2"
-                    onClick={handleAssignClick} // Use the new handler for the Assign button
-                  >
-                    Assign
                   </button>
                 </div>
               </div>

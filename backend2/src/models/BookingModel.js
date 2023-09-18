@@ -16,7 +16,8 @@ const bookingSchema = new mongoose.Schema({
     selfdrive: String,
     clientvehicleno: String,
     clientcarmodelno: String,
-    agentId : String
+    agentId: String,
+    agentEmail: String
 
 
 })
