@@ -27,6 +27,29 @@ router.get("/:field/:value", async (req, res) => {
   }
 });
 
+router.get("/login", async (req, res) => {
+  const { ident, password } = req.body;
+  const client = await Client.findOne({
+    $or: [{ clientEmail: ident, clientPhone: ident }],
+  });
+
+  if (!client) {
+    res
+      .status(400)
+      .json({ message: "Email or Phone not found", verified: false });
+  }
+
+  const isMatch = await client.comparePassword(password);
+
+  if (!isMatch) {
+    return res
+      .status(400)
+      .json({ message: "Invalid password", verified: false });
+  }
+
+  res.status(200).json({ message: "Valid password", verified: false });
+});
+
 // Page: Create a new client
 router.post("/", async (req, res) => {
   try {

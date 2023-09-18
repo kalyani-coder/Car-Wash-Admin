@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const clientSchema = new mongoose.Schema({
   // Define client schema fields here
@@ -6,13 +6,13 @@ const clientSchema = new mongoose.Schema({
   clientName: String,
   clientEmail: String,
   clientPhone: Number,
-  clientdob : String,
+  clientdob: String,
   clientAddress: String,
-  clientvehicleno : String,
-  clientcarmodelno : String, 
-
+  clientvehicleno: String,
+  clientcarmodelno: String,
+  clientpassword: String,
 });
 
-const Client = mongoose.model('Client', clientSchema);
+const Client = mongoose.model("Client", clientSchema);
 
 module.exports = Client;
