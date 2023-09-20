@@ -21,6 +21,7 @@ import ServiceView from "./components/Service/ViewService";
 import ViewTopServices from "./components/TopService/ViewTopService";
 import AddStocks from './components/viewStockavailable/AddStocks'
 import ViewAvailableStocks from './components/viewStockavailable/ViewAvailableStocks'
+import Availabledate from "./components/Availabledate/Availabledate";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="/viewtopservice" element={<ViewTopServices />} />
           <Route path="/addstocks" element={<AddStocks />} />
           <Route path="/viewavailablestocks" element={<ViewAvailableStocks />} />
+          <Route path="/availabledate" element={<Availabledate />} />
         </Routes>
       </Router>
     </>

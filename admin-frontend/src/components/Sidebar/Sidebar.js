@@ -189,6 +189,9 @@ export default function Sidebar() {
                     </li>
                   </ul>
                 </li>
+                <li>
+                  <Link to={"/availabledate"}>Available date</Link>
+                </li>
               </ul>
             </div>
           </div>

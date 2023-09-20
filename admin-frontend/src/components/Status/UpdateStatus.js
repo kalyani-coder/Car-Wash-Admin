@@ -60,6 +60,8 @@ export default function UpdateStatusPage() {
       agentId: selectedAgent,
     };
 
+    // using this get by agent email 
+    
 //     const selectedAgentObj = agents.find(agent => agent._id === selectedAgent);
 
 // const updatedBooking = {
