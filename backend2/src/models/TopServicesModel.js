@@ -6,7 +6,7 @@ const topServicesSchema = new mongoose.Schema({
 
     title: String,
     category : String,
-    price : String,
+    price : Number,
     description :String,
     offer : String,
     image : String,
