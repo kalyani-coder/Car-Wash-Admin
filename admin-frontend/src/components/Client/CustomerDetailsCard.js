@@ -42,7 +42,7 @@ const DetailedCustomerInfoPage = () => {
                   <td>{client.clientvehicleno}</td>
                 </tr>
                 <tr>
-                  <td>Car Model No</td>
+                  <td>Car Make / Model</td>
                   <td>{client.clientcarmodelno}</td>
                 </tr>
                 {/* Add more client details here */}
