@@ -6,10 +6,12 @@ const homeofferSchema = new mongoose.Schema({
 
     offerName : String,
     offer : String,
-    servicesName : String,
+    homeservicesName : String,
     description : String,
-    totalPrice : String,
-    image : String
+    totalPrice : Number,
+    image : String,
+    startDate : String,
+    endDate : String
 })
 
 const HomeofferSchema = mongoose.model('homeoffers' , homeofferSchema)

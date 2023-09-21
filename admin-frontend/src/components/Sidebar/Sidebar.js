@@ -192,7 +192,30 @@ export default function Sidebar() {
                 <li>
                   <Link to={"/availabledate"}>Available date</Link>
                 </li>
+
+                <li className="active">
+                  <a
+                    href="#addoffers"
+                    data-toggle="collapse"
+                    aria-expanded="false"
+                    className="dropdown-toggle"
+                  >
+                    Add Offers
+                  </a>
+                  <ul
+                    className="collapse list-unstyled"
+                    id="addoffers"
+                  >
+                    <li>
+                      <Link to={"/addoffers"}>Add Offers</Link>
+                    </li>
+                    <li>
+                      <Link to={"/viewoffers"}>View Offers</Link>
+                    </li>
+                  </ul>
+                </li>
               </ul>
+
             </div>
           </div>
         </nav>
