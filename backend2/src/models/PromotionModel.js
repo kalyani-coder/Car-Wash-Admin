@@ -7,7 +7,7 @@ const promotionSchema = new mongoose.Schema({
   description: String,
   service: String,
   offerType: String,
-  fixedAmount: String,
+  fixedAmount: Number,
   percentageAmount: String,
   couponCode: String,
   image:String,
