@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+
 
 const AddStocks = () => {
-  // Define state variables for the stock quantities
   const [stockValues, setStockValues] = useState({
     cleanoli: '',
-    cleaning: '',
-    deteling: '',
-    shampoo: '',
+    cleanoliAvailable: 'no',
   });
 
   const handleInputChange = (e) => {
@@ -15,25 +13,39 @@ const AddStocks = () => {
       ...stockValues,
       [name]: value,
     });
-  }
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Log the entire object
-    console.log('Stock Values:', stockValues);
-
-    // Here, you can use the stockValues object to send the data to your backend
-    // or perform any necessary actions. For example, you can make an API call
-    // to save the stock quantities.
-  }
-
+  const handleSubmit = async (e) => {
+    // e.preventDefault();
+  
+    try {
+      const response = await fetch('http://localhost:8000/api/stocks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          addstocks: stockValues.cleanoli, // Assuming "cleanoli" is the name of the input field for adding stocks
+          available: stockValues.cleanoliAvailable === 'yes' ? 'available' : 'not available',
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      console.log('Stock data sent successfully');
+    } catch (error) {
+      console.error('Error sending stock data:', error);
+    }
+  };
+  
   return (
-    <div className='container mt-5'>
+    <div className="container mt-5">
       <h1>Add Stock</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="cleanoli">Cleanoli:</label>
+          <label htmlFor="cleanoli">Add Stocks:</label>
           <input
             type="text"
             className="form-control"
@@ -42,12 +54,25 @@ const AddStocks = () => {
             value={stockValues.cleanoli}
             onChange={handleInputChange}
           />
+          <label htmlFor="cleanoliAvailable">Available:</label>
+          <select
+            id="cleanoliAvailable"
+            name="cleanoliAvailable"
+            className="form-control"
+            value={stockValues.cleanoliAvailable}
+            onChange={handleInputChange}
+          >
+            <option value="yes">Available</option>
+            <option value="no">Not Available</option>
+          </select>
         </div>
-     
-        <button type="submit" className="btn btn-primary">Submit</button>
+
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default AddStocks;

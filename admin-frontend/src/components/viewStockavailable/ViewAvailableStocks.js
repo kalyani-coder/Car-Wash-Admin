@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ViewAvailableStocks = () => {
-  const [stockValues, setStockValues] = useState({
-    cleanoli: "Available",
-    cleaning: "Available",
-    deteling: "Not Available",
-    shampoo: "Available",
-  });
+  const [stockValues, setStockValues] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/stocks');
+        const data = await response.json();
+        setStockValues(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="container mt-5">
@@ -19,10 +28,10 @@ const ViewAvailableStocks = () => {
           </tr>
         </thead>
         <tbody>
-          {Object.keys(stockValues).map(product => (
-            <tr key={product}>
-              <td>{product}</td>
-              <td>{stockValues[product]}</td>
+          {stockValues.map((stock, index) => (
+            <tr key={index}>
+              <td>{stock.addstocks}</td>
+              <td>{stock.available}</td>
             </tr>
           ))}
         </tbody>
