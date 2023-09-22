@@ -43,39 +43,7 @@ const AddStocks = () => {
             onChange={handleInputChange}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="cleaning">Cleaning:</label>
-          <input
-            type="text"
-            className="form-control"
-            id="cleaning"
-            name="cleaning"
-            value={stockValues.cleaning}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="deteling">Deteling:</label>
-          <input
-            type="text"
-            className="form-control"
-            id="deteling"
-            name="deteling"
-            value={stockValues.deteling}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="shampoo">Shampoo:</label>
-          <input
-            type="text"
-            className="form-control"
-            id="shampoo"
-            name="shampoo"
-            value={stockValues.shampoo}
-            onChange={handleInputChange}
-          />
-        </div>
+     
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     </div>

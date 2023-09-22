@@ -32,6 +32,7 @@ const assignOrderRouter = require('./src/routes/AssignOrder');
 const agentRouter = require('./src/routes/Agents');
 const notification = require('./src/routes/Notification');
 const homeoffer = require('./src/routes/Homeoffers')  
+const addStocks = require('./src/routes/AddStocks')
 
 // app.use('/api/services',  servicesRouter);
 // app.use('/api/clients', clientsRouter);
@@ -45,6 +46,7 @@ apiRouter.use('/assignorders' , assignOrderRouter);
 apiRouter.use('/agents' , agentRouter);
 apiRouter.use('/notification' , notification)
 apiRouter.use('/homeoffers' , homeoffer)
+apiRouter.use('/stocks' , addStocks)
 
 
 

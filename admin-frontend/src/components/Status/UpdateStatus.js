@@ -23,7 +23,7 @@ export default function UpdateStatusPage() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/agents")
+    fetch("https://car-wash-backend-api.onrender.com/api/agents")
       .then((response) => response.json())
       .then((data) => setAgents(data))
       .catch((error) => console.error("Error fetching agents", error));
