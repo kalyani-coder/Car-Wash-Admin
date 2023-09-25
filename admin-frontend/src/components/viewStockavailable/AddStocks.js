@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-
+import Alert from '../Promotion/Alert'
 
 const AddStocks = () => {
+  const [alertval, setAlert] = useState(null);
   const [stockValues, setStockValues] = useState({
     cleanoli: '',
     cleanoliAvailable: 'no',
@@ -16,17 +17,17 @@ const AddStocks = () => {
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
   
     try {
-      const response = await fetch('http://localhost:8000/api/stocks', {
+      const response = await fetch('https://car-wash-backend-api.onrender.com/api/stocks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           addstocks: stockValues.cleanoli, // Assuming "cleanoli" is the name of the input field for adding stocks
-          available: stockValues.cleanoliAvailable === 'yes' ? 'available' : 'not available',
+          available: stockValues.cleanoliAvailable === 'yes' ? 'Available' : 'Not available',
         }),
       });
   
@@ -35,19 +36,33 @@ const AddStocks = () => {
       }
   
       console.log('Stock data sent successfully');
+      showAlert("Stock Added Successfully", "success");
     } catch (error) {
       console.error('Error sending stock data:', error);
+      showAlert("Failed to Add Stock ", "danger");
     }
+  };
+
+  const showAlert = (message, type) => {
+    setAlert({
+      msg: message,
+      type: type,
+    });
+    setTimeout(() => {
+      setAlert(null);
+    }, 5000);
   };
   
   return (
     <div className="container mt-5">
       <h1>Add Stock</h1>
+      <Alert alert={alertval} />
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="cleanoli">Add Stocks:</label>
           <input
             type="text"
+            placeholder='Add Stock here'
             className="form-control"
             id="cleanoli"
             name="cleanoli"
