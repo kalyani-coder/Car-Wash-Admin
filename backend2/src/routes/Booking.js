@@ -43,6 +43,40 @@ router.get("/agentId/:agentId", async (req, res) => {
   }
 });
 
+// get by clients id 
+router.get("/clientId/:clientId", async (req, res) => {
+  const clientId = req.params.clientId;
+
+  if (clientId) {
+    try {
+      const bookings = await Booking.find({ clientId: clientId });
+      res.json(bookings);
+    } catch (e) {
+      res.status(400).json({ message: "Bad request" });
+    }
+  } else {
+    res.status(400).json({ message: "Bad request" });
+  }
+});
+
+// get by client id and status 
+router.get("/clientId/:clientId/status/:status", async (req, res) => {
+  const clientId = req.params.clientId;
+  const status = req.params.status;
+
+  if (clientId && status) {
+    try {
+      const bookings = await Booking.find({ clientId: clientId, status: status });
+      res.json(bookings);
+    } catch (e) {
+      res.status(400).json({ message: "Bad request" });
+    }
+  } else {
+    res.status(400).json({ message: "Bad request" });
+  }
+});
+
+
 
 router.get("/:field/:value", async (req, res) => {
   const field = req.params.field;
