@@ -1,0 +1,27 @@
+.success-message-bar {
+    position: fixed;
+    top: 0;
+    width: 70.5%;
+    margin-top: 20px;
+    /* left: 0; */
+    /* right: 0; */
+    z-index: 1000;
+  }
+  
+  body {
+    background-color: #c4fcf7;
+  }
+
+
+.show-newbookings p{
+
+  
+    /* width: 10%; */
+    border-radius: 20px;
+    /* background-color: rgb(254, 29, 4) !important; */
+    color: #0d0c0c !important;
+    font-weight: bold;
+    height: 29px;
+    width: 20%;
+
+}

@@ -24,6 +24,10 @@ import ViewAvailableStocks from './components/viewStockavailable/ViewAvailableSt
 import Availabledate from "./components/Availabledate/Availabledate";
 import Addoffers from "./components/AddOffers/Addoffers";
 import ViewOffers from "./components/AddOffers/ViewOffers";
+import ViewLatestBooking from "./components/ViewAllBookings/ViewLatestBooking";
+import ViewPendingBookings from "./components/ViewAllBookings/ViewPendingBookings";
+import ViewCancledBookings from "./components/ViewAllBookings/ViewCancledBookings";
+import ViewOnGoingBookings from "./components/ViewAllBookings/ViewOnGoingBookings";
 
 function App() {
   return (
@@ -50,6 +54,10 @@ function App() {
           <Route path="/availabledate" element={<Availabledate />} />
           <Route path="/addoffers" element={<Addoffers />} />
           <Route path="/viewoffers" element={<ViewOffers /> } />
+          <Route path="/viewlatestbookings" element={<ViewLatestBooking /> } />
+          <Route path="/viewpendingbookings" element={<ViewPendingBookings /> } />
+          <Route path="/viewcancledbookings" element={<ViewCancledBookings /> } />
+          <Route path="/viewongoingbookings" element={<ViewOnGoingBookings /> } />
         </Routes>
       </Router>
     </>

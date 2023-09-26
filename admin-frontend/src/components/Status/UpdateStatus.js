@@ -3,102 +3,125 @@ import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Alert from "../Service/Alert";
 import './UpdateStatus.css'
+import {Link} from 'react-router-dom'
 
 export default function UpdateStatusPage() {
-  const [bookingData, setBookingData] = useState([]);
-  const [selectedValue, setSelectedValue] = useState("");
-  const [selectedBooking, setSelectedBooking] = useState(null);
-  const [agents, setAgents] = useState([]);
-  // console.log("Agents:", agents);
-  const [selectedAgent, setSelectedAgent] = useState("");
+//   const [bookingData, setBookingData] = useState([]);
+//   const [selectedValue, setSelectedValue] = useState("");
+//   const [selectedBooking, setSelectedBooking] = useState(null);
+//   const [agents, setAgents] = useState([]);
+//   // console.log("Agents:", agents);
+//   const [selectedAgent, setSelectedAgent] = useState("");
 
-  const [successAlert, setSuccessAlert] = useState(null);
-  const [errorAlert, setErrorAlert] = useState(null);
+//   const [successAlert, setSuccessAlert] = useState(null);
+//   const [errorAlert, setErrorAlert] = useState(null);
 
-  useEffect(() => {
-    fetch("https://car-wash-backend-api.onrender.com/api/bookings")
-      .then((response) => response.json())
-      .then((data) => setBookingData(data))
-      .catch((error) => console.error("Error fetching data", error));
-  }, []);
+//   useEffect(() => {
+//     fetch("https://car-wash-backend-api.onrender.com/api/bookings")
+//       .then((response) => response.json())
+//       .then((data) => setBookingData(data))
+//       .catch((error) => console.error("Error fetching data", error));
+//   }, []);
 
-  useEffect(() => {
-    fetch("https://car-wash-backend-api.onrender.com/api/agents")
-      .then((response) => response.json())
-      .then((data) => setAgents(data))
-      .catch((error) => console.error("Error fetching agents", error));
-  }, []);
+//   useEffect(() => {
+//     fetch("https://car-wash-backend-api.onrender.com/api/agents")
+//       .then((response) => response.json())
+//       .then((data) => setAgents(data))
+//       .catch((error) => console.error("Error fetching agents", error));
+//   }, []);
   
-  const showAlert = (message, type) => {
-    if (type === "success") {
-      setSuccessAlert({ msg: message, type: type });
-      setTimeout(() => {
-        setSuccessAlert(null);
-      }, 5000);
-    } else if (type === "danger") {
-      setErrorAlert({ msg: message, type: type });
-      setTimeout(() => {
-        setErrorAlert(null);
-      }, 5000);
-    }
-  };
+//   const showAlert = (message, type) => {
+//     if (type === "success") {
+//       setSuccessAlert({ msg: message, type: type });
+//       setTimeout(() => {
+//         setSuccessAlert(null);
+//       }, 5000);
+//     } else if (type === "danger") {
+//       setErrorAlert({ msg: message, type: type });
+//       setTimeout(() => {
+//         setErrorAlert(null);
+//       }, 5000);
+//     }
+//   };
 
-  const handleSelectChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
+//   const handleSelectChange = (event) => {
+//     setSelectedValue(event.target.value);
+//   };
 
-  const handleUpdateClick = (booking) => {
-    console.log("Selected Agent ID:", selectedAgent);
-    if (selectedValue === "" || selectedAgent === "") {
-      showAlert("Status update failed: Select status and agent", "danger");
-      return;
-    }
+//   const handleUpdateClick = (booking) => {
+//     console.log("Selected Agent ID:", selectedAgent);
+//     if (selectedValue === "" || selectedAgent === "") {
+//       showAlert("Status update failed: Select status and agent", "danger");
+//       return;
+//     }
 
-    const updatedBooking = {
-      ...booking,
-      status: selectedValue === "accept" ? "Accepted" : "Declined",
-      agentId: selectedAgent,
-    };
+//     const updatedBooking = {
+//       ...booking,
+//       status: selectedValue === "accept" ? "Accepted" : "Declined",
+//       agentId: selectedAgent,
+//     };
 
-    // using this get by agent email 
+//     // using this get by agent email 
     
-//     const selectedAgentObj = agents.find(agent => agent._id === selectedAgent);
+// //     const selectedAgentObj = agents.find(agent => agent._id === selectedAgent);
 
-// const updatedBooking = {
-//   ...booking,
-//   status: selectedValue === "accept" ? "Accepted" : "Declined",
-//   agentId: selectedAgent,
-//   agentEmail: selectedAgentObj.email
-// };
+// // const updatedBooking = {
+// //   ...booking,
+// //   status: selectedValue === "accept" ? "Accepted" : "Declined",
+// //   agentId: selectedAgent,
+// //   agentEmail: selectedAgentObj.email
+// // };
 
-    fetch(`https://car-wash-backend-api.onrender.com/api/bookings/${booking._id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedBooking),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to update status");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Status updated successfully", data);
-        showAlert("Status updated successfully", "success");
-      })
-      .catch((error) => {
-        console.error("Error updating status", error);
-        showAlert("Status update failed", "danger");
-      });
+//     fetch(`https://car-wash-backend-api.onrender.com/api/bookings/${booking._id}`, {
+//       method: "PATCH",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(updatedBooking),
+//     })
+//       .then((response) => {
+//         if (!response.ok) {
+//           throw new Error("Failed to update status");
+//         }
+//         return response.json();
+//       })
+//       .then((data) => {
+//         console.log("Status updated successfully", data);
+//         showAlert("Status updated successfully", "success");
+//       })
+//       .catch((error) => {
+//         console.error("Error updating status", error);
+//         showAlert("Status update failed", "danger");
+//       });
 
-    setSelectedBooking(updatedBooking);
-  };
+//     setSelectedBooking(updatedBooking);
+//   };
 
   return (
     <div className="container">
-      <div className="container-fluid my-4">
+
+
+      <div className="bookings-table mt-5" style={{justifyContent : "space-evenly" , display:"flex"}}>
+        <Link to="/viewlatestbookings">
+          <button button className="btn btn-warning">View Latest Bookings</button>
+        </Link>
+
+        <Link to="/viewpendingbookings">
+          <button className="btn btn-info">View Pending Bookings</button>
+        </Link>
+
+        <Link to="/viewcancledbookings  ">
+         <button className="btn btn-danger">View Cancled Bookings</button>
+        </Link>
+
+        
+        <Link to="/viewongoingbookings  ">
+         <button className="btn btn-primary">View Ongoing Bookings</button>
+        </Link>
+        
+      </div>
+
+      {/* <div className="container-fluid my-4">
         <div className="success-message-bar">
           {successAlert && <Alert alert={successAlert} />}
           {errorAlert && <Alert alert={errorAlert} />}
@@ -160,7 +183,7 @@ export default function UpdateStatusPage() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

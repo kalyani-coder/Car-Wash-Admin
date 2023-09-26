@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const DetailedCustomerInfoPage = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
 
   const [clients, setClients] = useState([]);
   console.log(clients);

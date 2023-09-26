@@ -1,0 +1,28 @@
+.show-status p{
+    /* width: 10%; */
+    height: 31px;
+    width: 20%;
+    border-radius: 20px;
+    background-color: rgb(29, 247, 9) !important;
+    color: #111 !important;
+    font-weight: bold;
+}
+.show-pending p{
+        /* width: 10%;
+         */
+         height: 31px;
+    width: 20%;
+        border-radius: 20px;
+        background-color: rgb(255, 140, 9) !important;
+        color: #111 !important;
+        font-weight: bold;
+}
+.show-cancled p{
+    /* width: 10%; */
+    border-radius: 20px;
+    background-color: rgb(254, 29, 4) !important;
+    color: #fffcfc !important;
+    font-weight: bold;
+    height: 31px;
+    width: 20%;
+}

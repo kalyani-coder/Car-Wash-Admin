@@ -80,3 +80,9 @@ li {
 .list-unstyled.components li ul li a:hover {
   background-color: #005e91; /* Highlight sub-menu items on hover */
 }
+
+.home-heading h1{
+
+  color: black !important;
+
+}

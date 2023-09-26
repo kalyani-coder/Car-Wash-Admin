@@ -45,6 +45,11 @@ export default function Sidebar() {
         </button>
       )}
 
+<div className="container mt-3 text-center" style={{ fontFamily: 'Arial, sans-serif' , color:"black"}}>
+                      <li>
+                        <h1>Welcome To Admin Dashboard</h1>  
+                      </li>
+                    </div>
       {/* Main Navigation */}
       <header>
         {/* Sidebar */}
@@ -64,7 +69,6 @@ export default function Sidebar() {
             )}
             <div className="list-group list-group-flush mx-3 mt-4">
               {/* Collapse 1 */}
-
               <ul className="list-unstyled components">
                 <li className="active">
                   <a

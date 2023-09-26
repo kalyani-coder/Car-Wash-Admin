@@ -59,7 +59,7 @@ const ClientEnquiry = () => {
                   Address: {client.clientAddress}
                 </h6>
                 <p className="custom-card-text">{client.enquiryDescription}</p>
-                <button className="btn btn-custom">View</button>
+                {/* <button className="btn btn-custom">View</button> */}
               </div>
             </div>
           </div>
