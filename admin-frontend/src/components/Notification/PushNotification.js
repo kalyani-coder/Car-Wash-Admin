@@ -10,20 +10,22 @@ export default function PushNotification() {
 
   const handlesubmit = (e) => {
     e.preventDefault();
-
+  
     if (!sendto) {
       showAlert("Please select the 'Send To' option.", "danger"); // Show alert
       return;
     }
-
+  
     console.log("form submitted", {
       title: title,
       message: message,
       sendto: sendto,
     });
-
+  
+    const apiUrl = sendto === "agent" ? "/api/agentnotifications" : "/api/notification";
+  
     axios
-      .post("http://localhost:8000/api/notification", {
+      .post(`http://localhost:8000${apiUrl}`, {
         title: title,
         message: message,
         sendto: sendto,
@@ -36,10 +38,11 @@ export default function PushNotification() {
         showAlert("Error sending notification. Please try again.", "danger"); // Show error alert
         console.log(error);
       });
-
+  
     setMessage("");
     setTitle("");
   };
+  
 
   const showAlert = (message, type) => {
     setAlert({
@@ -66,6 +69,7 @@ export default function PushNotification() {
               id="typeText"
               value={title}
               required
+              placeholder="Title of notification"
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
@@ -82,6 +86,7 @@ export default function PushNotification() {
               rows="4"
               value={message}
               required
+              placeholder="Enter Message for Agents and Customer"
               onChange={(e) => {
                 setMessage(e.target.value);
               }}
@@ -95,12 +100,12 @@ export default function PushNotification() {
               required
             >
               <option defaultValue disabled>Select Send To</option>
-              <option value="executive">Executive</option>
-              <option value="agent">Agent</option>
+              <option value="customer">Customers</option>
+              <option value="agent">Agents</option>
             </select>
           </div>
           <div className="d-flex justify-content-end">
-            <button className="btn btn-primary" type="submit">
+            <button className="btn btn-warning" type="submit">
               submit
             </button>
           </div>
