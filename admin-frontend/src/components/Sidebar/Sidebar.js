@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
+import { faTimes, faBars } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Sidebar() {
   // State to manage sidebar visibility
@@ -39,37 +41,66 @@ export default function Sidebar() {
     <div>
       {/* Toggle button for mobile */}
       {showToggleButton && (
-        <button className="btn btn-primary mt-3 ml-3" onClick={toggleSidebar}>
-          {" "}
-          Open Sidebar
-        </button>
+        // <button className="btn btn-primary mt-3 ml-3" onClick={toggleSidebar}>
+        //   {" "}
+        //   Open Sidebar
+        // </button>
+
+        // ********for button not icons 
+
+
+        //  for open side bar usign icons
+        <FontAwesomeIcon
+          className=" mt-3 ml-3"
+          icon={faBars}
+          onClick={toggleSidebar}
+
+          style={{ cursor: 'pointer', marginLeft: "18px", color: "black", fontSize: "35px" }}
+
+        />
+
+
       )}
 
-<div className="container mt-3 text-center" style={{ fontFamily: 'Arial, sans-serif' , color:"black"}}>
-                      <li>
-                        <h1>Welcome To Admin Dashboard</h1>  
-                      </li>
-                    </div>
+      <div className="container mt-3 text-center" style={{ fontFamily: 'Arial, sans-serif', color: "black" }}>
+        <li>
+          <h1>Welcome To Admin Dashboard</h1>
+        </li>
+
+
+      </div>
       {/* Main Navigation */}
       <header>
         {/* Sidebar */}
         <nav
           id="sidebarMenu"
-          className={`collapse d-lg-block sidebar collapse bg-white ${
-            isSidebarOpen ? "show" : "" // Show the sidebar if isSidebarOpen is true
-          }`}
+          className={`collapse d-lg-block sidebar collapse bg-white ${isSidebarOpen ? "show" : "" // Show the sidebar if isSidebarOpen is true
+            }`}
         >
           {/* Close button for mobile */}
 
           <div className="position-sticky">
             {isSidebarOpen && showToggleButton && (
-              <button className="ml-2 btn btn-primary" onClick={closeSidebar}>
-                Close Sidebar
-              </button>
+              // <button className="ml-2 btn btn-primary" onClick={closeSidebar}>
+              //   Close Sidebar
+              // </button>
+              // for button not use icons 
+
+              // for using react icons use this icons code 
+              <FontAwesomeIcon
+                className="ml-2"
+                onClick={closeSidebar}
+                icon={faTimes}
+                style={{ cursor: 'pointer', marginLeft: "18px", color: "black", fontSize: "40px" }}
+
+              />
             )}
             <div className="list-group list-group-flush mx-3 mt-4">
               {/* Collapse 1 */}
               <ul className="list-unstyled components">
+                <li>
+                  <Link to={"/"} onClick={closeSidebar}>Home</Link>
+                </li>
                 <li className="active">
                   <a
                     href="#ServiceSubMenu"
@@ -81,10 +112,10 @@ export default function Sidebar() {
                   </a>
                   <ul className="collapse list-unstyled" id="ServiceSubMenu">
                     <li>
-                      <Link to={"/addservice"}>Add Services</Link>
+                      <Link to={"/addservice"} onClick={closeSidebar}>Add Services</Link>
                     </li>
                     <li>
-                      <Link to={"/deleteservice"}>View Services</Link>
+                      <Link to={"/deleteservice"} onClick={closeSidebar}>View Services</Link>
                     </li>
                   </ul>
                 </li>
@@ -99,10 +130,10 @@ export default function Sidebar() {
                   </a>
                   <ul className="collapse list-unstyled" id="ClientSubMenu">
                     <li>
-                      <Link to={"/clientdetails"}>Client Details</Link>
+                      <Link to={"/clientdetails"} onClick={closeSidebar}>Client Details</Link>
                     </li>
                     <li>
-                      <Link to={"/clientenquiry"}>Client Enquiry</Link>
+                      <Link to={"/clientenquiry"} onClick={closeSidebar}>Client Enquiry</Link>
                     </li>
                   </ul>
                 </li>
@@ -117,19 +148,19 @@ export default function Sidebar() {
                   </a>
                   <ul className="collapse list-unstyled" id="AgentSubMenu">
                     <li>
-                      <Link to={"/addagent"}>Add Agent</Link>
+                      <Link to={"/addagent"} onClick={closeSidebar}>Add Agent</Link>
                     </li>
                     <li>
-                      <Link to={"/viewagent"}>View Agent</Link>
+                      <Link to={"/viewagent"} onClick={closeSidebar}>View Agent</Link>
                     </li>
                   </ul>
                 </li>
 
                 <li>
-                  <Link to={"/pushnotification"}>Push Notification</Link>
+                  <Link to={"/pushnotification"} onClick={closeSidebar}>Push Notification</Link>
                 </li>
                 <li>
-                  <Link to={"/updatebookingstatus"}>Update Booking Status</Link>
+                  <Link to={"/updatebookingstatus"} onClick={closeSidebar}>Update Booking Status</Link>
                 </li>
 
                 <li className="active">
@@ -143,10 +174,10 @@ export default function Sidebar() {
                   </a>
                   <ul className="collapse list-unstyled" id="pageSubmenu">
                     <li>
-                      <Link to={"/addpromotion"}>Add Promotion</Link>
+                      <Link to={"/addpromotion"} onClick={closeSidebar}>Add Promotion</Link>
                     </li>
                     <li>
-                      <Link to={"/deletepromotion"}>Delete Promotion</Link>
+                      <Link to={"/deletepromotion"} onClick={closeSidebar}>Delete Promotion</Link>
                     </li>
                   </ul>
                 </li>
@@ -164,10 +195,10 @@ export default function Sidebar() {
                     id="TopServicesSubMenu"
                   >
                     <li>
-                      <Link to={"/addtopservice"}>Add Top Services</Link>
+                      <Link to={"/addtopservice"} onClick={closeSidebar}>Add Top Services</Link>
                     </li>
                     <li>
-                      <Link to={"/viewtopservice"}>View Top Service</Link>
+                      <Link to={"/viewtopservice"} onClick={closeSidebar}>View Top Service</Link>
                     </li>
                   </ul>
                 </li>
@@ -186,15 +217,15 @@ export default function Sidebar() {
                     id="viewavailablestocks"
                   >
                     <li>
-                      <Link to={"/addstocks"}>Add Stocks</Link>
+                      <Link to={"/addstocks"} onClick={closeSidebar}>Add Stocks</Link>
                     </li>
                     <li>
-                      <Link to={"/viewavailablestocks"}>View vailable Stocks</Link>
+                      <Link to={"/viewavailablestocks"} onClick={closeSidebar}>View vailable Stocks</Link>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <Link to={"/availabledate"}>Available date</Link>
+                  <Link to={"/availabledate"} onClick={closeSidebar}>Available date</Link>
                 </li>
 
                 <li className="active">
@@ -211,10 +242,10 @@ export default function Sidebar() {
                     id="addoffers"
                   >
                     <li>
-                      <Link to={"/addoffers"}>Add Offers</Link>
+                      <Link to={"/addoffers"} onClick={closeSidebar}>Add Offers</Link>
                     </li>
                     <li>
-                      <Link to={"/viewoffers"}>View Offers</Link>
+                      <Link to={"/viewoffers"} onClick={closeSidebar}>View Offers</Link>
                     </li>
                   </ul>
                 </li>

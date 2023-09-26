@@ -38,38 +38,40 @@ const ViewOffers = () => {
 
   return (
     <div className='container mt-5'>
-      <h1>View Offers</h1>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Offer Name</th>
-            <th>Offer</th>
-            <th>Services Name</th>
-            <th>Description</th>
-            <th>Total Price</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {offers.map(offer => (
-            <tr key={offer._id}>
-              <td>{offer.offerName}</td>
-              <td>{offer.offer}</td>
-              <td>{offer.servicesName}</td>
-              <td>{offer.description}</td>
-              <td>{offer.totalPrice}</td>
-              <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => handleDelete(offer._id)}
-                >
-                  Delete
-                </button>
-              </td>
+      <h1 className="mb-4">View Offers</h1>
+      <div className="table-responsive">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Offer Name</th>
+              <th>Offer</th>
+              <th>Services Name</th>
+              <th>Description</th>
+              <th>Total Price</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {offers.map(offer => (
+              <tr key={offer._id}>
+                <td>{offer.offerName}</td>
+                <td>{offer.offer}</td>
+                <td>{offer.servicesName}</td>
+                <td>{offer.description}</td>
+                <td>{offer.totalPrice}</td>
+                <td>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleDelete(offer._id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
