@@ -34,6 +34,7 @@ const notification = require('./src/routes/Notification');
 const homeoffer = require('./src/routes/Homeoffers')  
 const addStocks = require('./src/routes/AddStocks')
 const agentnotification = require('./src/routes/AgentNotification')
+const reviews = require('./src/routes/Review')
 
 // app.use('/api/services',  servicesRouter);
 // app.use('/api/clients', clientsRouter);
@@ -49,6 +50,7 @@ apiRouter.use('/notification' , notification)
 apiRouter.use('/homeoffers' , homeoffer)
 apiRouter.use('/stocks' , addStocks)
 apiRouter.use('/agentnotifications' , agentnotification)
+apiRouter.use('/reviews' , reviews)
 
 
 
