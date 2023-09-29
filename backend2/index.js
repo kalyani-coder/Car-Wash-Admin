@@ -37,7 +37,7 @@ const addStocks = require("./src/routes/AddStocks");
 const agentnotification = require("./src/routes/AgentNotification");
 const reviews = require("./src/routes/Review");
 const clientLocation = require("./src/routes/ClientLocation");
-
+const agentLocation = require("./src/routes/AgentsLocation");
 // app.use('/api/services',  servicesRouter);
 // app.use('/api/clients', clientsRouter);
 // app.use('/api/promotions', promotionsRouter);
@@ -54,7 +54,7 @@ apiRouter.use("/stocks", addStocks);
 apiRouter.use("/agentnotifications", agentnotification);
 apiRouter.use("/reviews", reviews);
 apiRouter.use("/clientlocation", clientLocation);
-
+apiRouter.use("/agentlocation", agentLocation);
 // we are handle aur all api routes from here
 app.use("/api", apiRouter);
 
