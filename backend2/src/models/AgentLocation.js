@@ -6,6 +6,7 @@ const locationSchema = new mongoose.Schema({
     longitude: String,
     latitude: String,
   },
+  bookingID: Array,
   lastSeen: String,
 });
 
