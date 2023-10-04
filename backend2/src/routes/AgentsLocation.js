@@ -12,6 +12,27 @@ router.get("/", async (req, res) => {
   }
 });
 
+// router.get("/:field/:value", async (req, res) => {
+//   const field = req.params.field;
+//   const value = req.params.value.replace("_", " ");
+//   if (value && field) {
+//     try {
+//       let bookings;
+//       const schemaType = AgentLocation.schema.path(field);
+//       if (schemaType instanceof mongoose.Schema.Types.Array) {
+//         bookings = await AgentLocation.find({ [field]: { $in: [value] } });
+//       } else {
+//         bookings = await AgentLocation.find({ [field]: value });
+//       }
+//       res.json(bookings);
+//     } catch (e) {
+//       res.status(400).json({ message: "Bad request" });
+//     }
+//   } else {
+//     res.status(400).json({ message: "Bad request" });
+//   }
+// });
+
 router.get("/:field/:value", async (req, res) => {
   const field = req.params.field;
   const value = req.params.value.replace("_", " ");
