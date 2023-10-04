@@ -20,6 +20,7 @@ const bookingSchema = new mongoose.Schema({
     agentId: String,
     agentEmail: String,
     clientStatus : String,
+    locationId : String,
 
 
 })

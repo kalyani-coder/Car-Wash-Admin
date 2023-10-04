@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Alert from "../Promotion/Alert";
 import './ViewLatestBookings.css'
+import axios from "axios"
 import { Link } from 'react-router-dom'
 
 export default function ViewLatestBooking() {
@@ -10,6 +11,7 @@ export default function ViewLatestBooking() {
     const [selectedValue, setSelectedValue] = useState("");
     const [selectedBooking, setSelectedBooking] = useState(null);
     const [agents, setAgents] = useState([]);
+    const [locationId , setLocationId] = useState("");
     // console.log("Agents:", agents);
     const [selectedAgent, setSelectedAgent] = useState("");
 
@@ -48,20 +50,7 @@ export default function ViewLatestBooking() {
         setSelectedValue(event.target.value);
     };
 
-    // const handleUpdateClick = (booking) => {
-    //     // console.log("Selected Agent ID:", selectedAgent);
-    //     if (selectedValue === "" || selectedAgent === "") {
-    //         showAlert("Status update failed: Select status and agent", "danger");
-    //         return;
-    //     }
-
-    //     const updatedBooking = {
-    //         ...booking,
-    //         status: selectedValue === "accept" ? "Accepted" : "Declined",
-    //         agentId: selectedAgent,
-    //     };
-
-        const handleUpdateClick = (booking) => {
+        const handleUpdateClick = async (booking) => {
             if (selectedValue === "" || selectedAgent === "") {
                 showAlert("Status update failed: Select status and agent", "danger");
                 return;
@@ -75,11 +64,35 @@ export default function ViewLatestBooking() {
             } else if (selectedValue === "pending") {
                 updatedStatus = "Pending";
             }
+
+            const locationData = {
+                AgentID: "",
+                location: {
+                  latitude: "",
+                  longitude: "",
+                },
+                bookingID : booking._id,
+                lastSeen: new Date().toISOString(),
+              };
+               await axios
+              .post('https://car-wash-backend-api.onrender.com/api/agentlocation', locationData)
+              .then(response => {
+                console.log('Location posted successfully:', response.data);
+                setLocationId(response.data._id);
+                console.log(locationId)
+              })
+              .catch(error => {
+                console.error('Error posting location:', error);
+              });
+
+
+
         
             const updatedBooking = {
                 ...booking,
                 status: updatedStatus,
                 agentId: selectedAgent,
+                locationId : locationId,
             };
 
         // using this get by agent email 

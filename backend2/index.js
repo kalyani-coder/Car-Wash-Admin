@@ -2,18 +2,27 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
-// const multer = require('multer'); // Import multer
-
+const multer = require('multer');
 const app = express();
-// const port = process.env.PORT || 9000;
 const port = process.env.PORT || 8000;
+
 
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(cors());
+app.use('/public', express.static('public'));
+
+// for storing image path 
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
 
 // MongoDB connection setup
-
 mongoose.connect(
   "mongodb+srv://vedantassignment05:X3OrOGJ7kDg5Ze32@carwash.qinnywx.mongodb.net/",
   {
@@ -23,6 +32,7 @@ mongoose.connect(
 );
 
 const apiRouter = express.Router();
+
 // Import and use route files
 const servicesRouter = require("./src/routes/Services");
 const topServicesRouter = require("./src/routes/TopServices");
@@ -38,9 +48,8 @@ const agentnotification = require("./src/routes/AgentNotification");
 const reviews = require("./src/routes/Review");
 const clientLocation = require("./src/routes/ClientLocation");
 const agentLocation = require("./src/routes/AgentsLocation");
-// app.use('/api/services',  servicesRouter);
-// app.use('/api/clients', clientsRouter);
-// app.use('/api/promotions', promotionsRouter);
+
+
 apiRouter.use("/services", servicesRouter);
 apiRouter.use("/topservices", topServicesRouter);
 apiRouter.use("/clients", clientsRouter);
@@ -55,6 +64,8 @@ apiRouter.use("/agentnotifications", agentnotification);
 apiRouter.use("/reviews", reviews);
 apiRouter.use("/clientlocation", clientLocation);
 apiRouter.use("/agentlocation", agentLocation);
+
+
 // we are handle aur all api routes from here
 app.use("/api", apiRouter);
 

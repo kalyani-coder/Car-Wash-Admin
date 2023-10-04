@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Form } from "react-bootstrap";
 import Alert from "./Alert";
+import './ViewServices.css'
 
 export default function ServiceView() {
   const [services, setServices] = useState([]);
@@ -81,7 +82,7 @@ export default function ServiceView() {
       {services.map((service) => (
         <Card key={service._id} className="mb-3">
           {service.serviceImage && (
-            <Card.Img variant="top" src={service.serviceImage} />
+            <img variant="top" src={service.serviceImage} height={200} width={200} />
           )}
           <Card.Body>
             <Card.Title>{service.serviceName}</Card.Title>

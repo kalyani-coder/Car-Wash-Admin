@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 
 const serviceSchema = new mongoose.Schema({
-  serviceName: String,
-  serviceCategory: String,
-  servicePrice: Number,
+  filename: String,
+  path: String,
+  serviceImage: String,
+  serviceName: String,               
   serviceDescription: String,
   serviceOffer: String,
-  serviceImage: String,
+  servicePrice: String,
+  serviceCategory: String 
 });
 
 const Service = mongoose.model('Service', serviceSchema);
