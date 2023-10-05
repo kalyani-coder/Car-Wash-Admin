@@ -11,7 +11,7 @@ export default function ViewLatestBooking() {
     const [selectedValue, setSelectedValue] = useState("");
     const [selectedBooking, setSelectedBooking] = useState(null);
     const [agents, setAgents] = useState([]);
-    const [locationId , setLocationId] = useState("");
+
     // console.log("Agents:", agents);
     const [selectedAgent, setSelectedAgent] = useState("");
 
@@ -64,6 +64,7 @@ export default function ViewLatestBooking() {
             } else if (selectedValue === "pending") {
                 updatedStatus = "Pending";
             }
+            var locationID ; 
 
             const locationData = {
                 AgentID: "",
@@ -71,28 +72,29 @@ export default function ViewLatestBooking() {
                   latitude: "",
                   longitude: "",
                 },
-                bookingID : booking._id,
+                bookingID :[ booking._id],
                 lastSeen: new Date().toISOString(),
               };
+            
                await axios
               .post('https://car-wash-backend-api.onrender.com/api/agentlocation', locationData)
               .then(response => {
                 console.log('Location posted successfully:', response.data);
-                setLocationId(response.data._id);
-                console.log(locationId)
+                 locationID = (response.data._id);
+                console.log(locationID)
               })
               .catch(error => {
                 console.error('Error posting location:', error);
               });
 
-
+              
 
         
             const updatedBooking = {
                 ...booking,
                 status: updatedStatus,
                 agentId: selectedAgent,
-                locationId : locationId,
+                locationId : locationID,
             };
 
         // using this get by agent email 
