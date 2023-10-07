@@ -41,7 +41,7 @@ export default function Sidebar() {
     // Perform any additional logout logic if needed
 
     // Redirect to the specified URL after logout
-    window.location.href = 'http://localhost:3001';
+    window.location.href = 'https://carwash-admin.onrender.com';
   }
   return (
     <div>
