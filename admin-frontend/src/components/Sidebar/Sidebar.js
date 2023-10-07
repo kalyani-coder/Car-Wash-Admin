@@ -257,13 +257,13 @@ export default function Sidebar() {
 
                 </li>
 
-                {/* <li>
+                <li>
                 <Link className="logout bg-danger" onClick={handleLogout}>
                   Logout
                 </Link>
-                </li> */}
+                </li>
 
-                <button
+                {/* <button
                   onClick={handleLogout}
                   className="Logout-admin"
                   style={{
@@ -278,7 +278,7 @@ export default function Sidebar() {
                   }}
                 >
                   Logout
-                </button>
+                </button> */}
 
 
               </ul>
