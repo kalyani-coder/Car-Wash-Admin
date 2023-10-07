@@ -257,13 +257,30 @@ export default function Sidebar() {
 
                 </li>
 
-                <li>
+                {/* <li>
                 <Link className="logout bg-danger" onClick={handleLogout}>
                   Logout
                 </Link>
-                </li>
-               
-                
+                </li> */}
+
+                <button
+                  onClick={handleLogout}
+                  className="Logout-admin"
+                  style={{
+                    backgroundColor: 'red',
+                    padding: '10px',
+                    width:'100%',
+                    border: 'none',
+                    borderRadius: '4px',
+                    color: 'white',
+                    cursor: 'pointer',
+                    
+                  }}
+                >
+                  Logout
+                </button>
+
+
               </ul>
 
             </div>
