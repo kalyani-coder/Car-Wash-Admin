@@ -48,6 +48,7 @@ const agentnotification = require("./src/routes/AgentNotification");
 const reviews = require("./src/routes/Review");
 const clientLocation = require("./src/routes/ClientLocation");
 const agentLocation = require("./src/routes/AgentsLocation");
+const adminlogin = require('./src/routes/AdminLogin')
 
 
 apiRouter.use("/services", servicesRouter);
@@ -64,6 +65,7 @@ apiRouter.use("/agentnotifications", agentnotification);
 apiRouter.use("/reviews", reviews);
 apiRouter.use("/clientlocation", clientLocation);
 apiRouter.use("/agentlocation", agentLocation);
+apiRouter.use("/adminlogin" , adminlogin)
 
 
 // we are handle aur all api routes from here

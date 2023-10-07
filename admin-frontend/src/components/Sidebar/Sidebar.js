@@ -37,6 +37,12 @@ export default function Sidebar() {
   // Show the toggle button on mobile devices (window width below 768 pixels)
   const showToggleButton = windowWidth < 988;
 
+  const handleLogout = () => {
+    // Perform any additional logout logic if needed
+
+    // Redirect to the specified URL after logout
+    window.location.href = 'http://localhost:3001';
+  }
   return (
     <div>
       {/* Toggle button for mobile */}
@@ -248,7 +254,16 @@ export default function Sidebar() {
                       <Link to={"/viewoffers"} onClick={closeSidebar}>View Offers</Link>
                     </li>
                   </ul>
+
                 </li>
+
+                <li>
+                <Link className="logout bg-danger" onClick={handleLogout}>
+                  Logout
+                </Link>
+                </li>
+               
+                
               </ul>
 
             </div>
