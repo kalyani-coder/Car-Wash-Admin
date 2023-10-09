@@ -50,7 +50,7 @@ export default function ViewTopServices() {
               Category: {service.category}
             </Card.Subtitle>
             <Card.Text>Description: {service.description}</Card.Text>
-            <Card.Text>Price: ${service.price}</Card.Text>
+            <Card.Text>Price: Rs.{service.price}</Card.Text>
             <Card.Text>Offer: {service.offer}</Card.Text>
             <div className="actions">
               <Button variant="danger" onClick={() => handleDelete(service)}>

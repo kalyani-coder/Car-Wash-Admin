@@ -11,6 +11,7 @@ export default function ViewLatestBooking() {
     const [selectedValue, setSelectedValue] = useState("");
     const [selectedBooking, setSelectedBooking] = useState(null);
     const [agents, setAgents] = useState([]);
+    const [filteredBookings, setFilteredBookings] = useState([]);
 
     // console.log("Agents:", agents);
     const [selectedAgent, setSelectedAgent] = useState("");
@@ -133,6 +134,10 @@ export default function ViewLatestBooking() {
         setSelectedBooking(updatedBooking);
     };
 
+    useEffect(() => {
+        setFilteredBookings(bookingData.filter(booking => booking.status === ""));
+    }, [bookingData]);
+
     return (
         <div className="container">
 
@@ -161,7 +166,7 @@ export default function ViewLatestBooking() {
                     {errorAlert && <Alert alert={errorAlert} />}
                 </div>
                 <div className="row justify-content-center mt-3">
-                    {bookingData.map((booking, index) => (
+                    {filteredBookings.map((booking, index) => (
                         <div className="col-12 mb-4" key={index}>
                             <div className="card custom-card">
                                 <div className="card-body">
