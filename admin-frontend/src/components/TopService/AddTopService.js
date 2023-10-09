@@ -1,25 +1,44 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import axios from "axios";
+import { Row, Col, Form, Button } from "react-bootstrap";
 import Alert from "../Promotion/Alert";
 
 function AddTopService() {
 
-
-  const [formData, setFormData] = useState({
-    title: '',
-    category: '',
-    price: '',
-    description: '',
-    offer: '',
-    image: '',
-  });
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState('');         // Add this line
+  const [description, setDescription] = useState('');
+  const [offer, setOffer] = useState('');          // Add this line
+  const [selectedFile, setSelectedFile] = useState(null);
 
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const handleServiceNameChange = (event) => {
+    setTitle(event.target.value);
   };
+
+  const handleServicesCategoryChange = (event) => {
+    setCategory(event.target.value);
+  };
+
+  const handleServicesPriceChange = (event) => {
+    setPrice(event.target.value);
+  };
+
+
+  const handleServiceDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
+
+  const handleServicesOfferChange = (event) => {
+    setOffer(event.target.value);
+  };
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+
+
 
   const [alertval, setAlert] = useState(null)
 
@@ -33,28 +52,55 @@ function AddTopService() {
     }, 5000);
   }
 
-  const handleSubmit = async (e) => {
-    
-    try {
-      const response = await axios.post('https://car-wash-backend-api.onrender.com/api/topservices', formData);
-      console.log('Response Sucessfully data post:', response.data);
-      showAlert("Services Add Successfully", "success")
-      // You can handle the response from the API here
-    } catch (error) {
-      console.error('Error data not post:', error);
-      showAlert("Services Add Failed", "danger")
-      // Handle any errors that occur during the POST request
+
+  const handleUpload = () => {
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+      formData.append('title', title);
+      formData.append('description', description);
+      formData.append('offer', offer);
+      formData.append('price', price);
+      formData.append('category', category);
+
+
+      fetch('https://car-wash-backend-api.onrender.com/api/topservices', {
+        method: 'POST',
+        body: formData,
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Image uploaded Successfully:', data.image);
+          showAlert("Service Added Successfully", "success");
+        })
+        .catch(error => {
+          console.error('Error uploading image:', error);
+          showAlert("Error adding service", "error");
+        });
     }
   };
 
+
+  const handleDiscard = () => {
+    // Reset all state variables to their initial empty values
+    setTitle('');
+    setCategory('');
+    setPrice('');
+    setDescription('');
+    setOffer('');
+    setSelectedFile(null);
+  };
+
+
+
   return (
-  <>
+    <>
       <div className="container mt-5">
         <h1>Add Top Services</h1>
         <Alert alert={alertval} />
-        <form onSubmit={handleSubmit}>
 
-          <Form.Group controlId="title">
+
+        {/* <Form.Group controlId="title">
             <Form.Label>Title :</Form.Label>
             <Form.Control
               placeholder="Title of Top services"
@@ -63,10 +109,21 @@ function AddTopService() {
               value={formData.title}
               onChange={handleChange}
             />
-          </Form.Group>
+          </Form.Group> */}
+
+        <Form.Group controlId="title">
+          <Form.Label>Title of Service:</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="title"
+            value={title}
+            required
+            onChange={handleServiceNameChange}
+          />
+        </Form.Group>
 
 
-          <Form.Group controlId="category">
+        {/* <Form.Group controlId="category">
             <Form.Label>Category:</Form.Label>
             <Form.Control
               placeholder="Category of top services"
@@ -76,9 +133,19 @@ function AddTopService() {
               onChange={handleChange}
               required
             />
-          </Form.Group>
+          </Form.Group> */}
 
-          <Form.Group controlId="price">
+        <Form.Group controlId="category">
+          <Form.Label>Category of Service:</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="category"
+            value={category}
+            onChange={handleServicesCategoryChange}
+          />
+        </Form.Group>
+
+        {/* <Form.Group controlId="price">
             <Form.Label>Price:</Form.Label>
             <Form.Control
               placeholder="Price of services"
@@ -87,11 +154,19 @@ function AddTopService() {
               value={formData.price}
               onChange={handleChange}
             />
-          </Form.Group>
+          </Form.Group> */}
 
-        
+        <Form.Group controlId="price">
+          <Form.Label>Price of Service:</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="price"
+            value={price}
+            onChange={handleServicesPriceChange}
+          />
+        </Form.Group>
 
-          <Form.Group className="mb-4 display-flex">
+        {/* <Form.Group className="mb-4 display-flex">
             <Form.Label>Description:</Form.Label>
             <Form.Control
               as="textarea"
@@ -103,9 +178,21 @@ function AddTopService() {
               onChange={handleChange}
               required
             />
-          </Form.Group>
+          </Form.Group> */}
 
-          <Form.Group className="mb-4">
+        <Form.Group controlId="description">
+          <Form.Label>Description:</Form.Label>
+          <Form.Control
+            as="textarea"
+
+            placeholder="description"
+            value={description}
+            onChange={handleServiceDescriptionChange}
+            rows="4"
+          />
+        </Form.Group>
+
+        {/* <Form.Group className="mb-4">
             <Form.Control
               as="select"
               type="text"
@@ -122,11 +209,21 @@ function AddTopService() {
                 Gift with Purchase
               </option>
             </Form.Control>
-          </Form.Group>
+          </Form.Group> */}
+
+        <Form.Group controlId="offer">
+          <Form.Label>Offer on Product:</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="offer"
+            value={offer}
+            onChange={handleServicesOfferChange}
+          />
+        </Form.Group>
 
 
 
-          <Form.Group controlId="image">
+        {/* <Form.Group controlId="image">
             <Form.Label>Upload Image:</Form.Label>
             <Form.Control
               type="file"
@@ -134,23 +231,33 @@ function AddTopService() {
               value={formData.image}
               onChange={handleChange}
             />
-          </Form.Group>
+          </Form.Group> */}
 
-          <Row className="justify-content-between mt-4">
-            <Col xs="auto">
-              <Button type="submit" variant="warning">
-                Save
-              </Button>
-            </Col>
+        <Form.Group controlId="serviceImage">
+          <Form.Label>Upload Image:</Form.Label>
+          <Form.Control
+            type="file"
+            accept="image/*"
+            required
+            onChange={handleFileChange}
+          />
+        </Form.Group>
 
-            <Col xs="auto">
-              <Button variant="warning">
-                Discard
-              </Button>
-            </Col>
-          </Row>
+        <Row className="justify-content-between mt-4">
+          <Col xs="auto">
+            <Button onClick={handleUpload} variant="warning">
+              Save
+            </Button>
+          </Col>
 
-        </form>
+          <Col xs="auto">
+            <Button variant="warning" onClick={handleDiscard}>
+              Discard
+            </Button>
+          </Col>
+        </Row>
+
+
       </div>
 
     </>

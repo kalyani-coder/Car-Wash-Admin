@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button  } from "react-bootstrap";
 import axios from "axios";
 import Alert from "./Alert";
 
@@ -26,7 +26,7 @@ export default function ViewTopServices() {
     );
 
     if (shouldDelete) {
-      axios.delete(`https://car-wash-backend-api.onrender.com/api/topservices/${service._id}`)
+      axios.delete(`https://car-wash-backend-api.onrender.com/${service._id}`)
         .then(() => {
           setTopServices((prevTopServices) =>
             prevTopServices.filter((item) => item._id !== service._id)
@@ -45,6 +45,7 @@ export default function ViewTopServices() {
         <Card key={service._id} className="mb-3">
           <Card.Body>
             <Card.Title>Title: {service.title}</Card.Title>
+            <img variant="top" src={service.image} height={200} width={200} />
             <Card.Subtitle className="mb-2 text-muted">
               Category: {service.category}
             </Card.Subtitle>
