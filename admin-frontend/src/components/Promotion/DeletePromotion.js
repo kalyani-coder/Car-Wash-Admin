@@ -110,15 +110,19 @@ export default function PromotionView() {
       {promotions.map((promotion) => (
         <Card key={promotion._id} className="mb-3">
           <Card.Body>
+            <img src={promotion.image} height={200} width={50}/>
             <Card.Title>Title : {promotion.title}</Card.Title>
             <Card.Text>Discription : {promotion.description}</Card.Text>
             <Card.Text>Service : {promotion.service}</Card.Text>
+            <Card.Text>Promotions Price : {promotion.promotionPrice}</Card.Text>
 
-            <Card.Text>
+{/* for fixed amount and percentage amount  */}
+
+            {/* <Card.Text>
               {promotion.offerType === "fixed"
                 ? `Fixed Amount: ${promotion.fixedAmount}`
                 : `Percentage Amount: ${promotion.percentageAmount}%`}
-            </Card.Text>
+            </Card.Text> */}
 
             <Card.Text>Coupon Code : {promotion.couponCode}</Card.Text>
             {editingPromotion && editingPromotion._id === promotion._id ? (

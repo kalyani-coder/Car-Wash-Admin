@@ -7,7 +7,7 @@ const serviceSchema = new mongoose.Schema({
   serviceName: String,               
   serviceDescription: String,
   serviceOffer: String,
-  servicePrice: String,
+  servicePrice: Number,
   serviceCategory: String 
 });
 
