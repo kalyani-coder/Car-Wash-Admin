@@ -21,6 +21,7 @@ const bookingSchema = new mongoose.Schema({
     agentEmail: String,
     clientStatus : String,
     locationId : String,
+    image : String,
 
 
 })
