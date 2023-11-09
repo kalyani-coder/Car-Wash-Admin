@@ -26,7 +26,7 @@ export default function ViewTopServices() {
     );
 
     if (shouldDelete) {
-      axios.delete(`https://car-wash-backend-api.onrender.com/${service._id}`)
+      axios.delete(`https://car-wash-backend-api.onrender.com/api/topservices/${service._id}`)
         .then(() => {
           setTopServices((prevTopServices) =>
             prevTopServices.filter((item) => item._id !== service._id)
