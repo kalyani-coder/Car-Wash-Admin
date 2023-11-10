@@ -16,6 +16,8 @@
 const mongoose = require('mongoose');
 
 const agentSchema = new mongoose.Schema({
+  filename: String,
+  path: String,
   fullName: String,
   email: String,
   contactNumber: Number,

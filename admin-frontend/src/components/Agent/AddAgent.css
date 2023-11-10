@@ -1,0 +1,30 @@
+.container{
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto;
+    padding-left: 250px !important;
+  }
+  
+  body {
+    background-color: #c4fcf7;
+  }
+  
+  @media(max-width:988px){
+    .container{
+      --bs-gutter-x: 1.5rem;
+      --bs-gutter-y: 0;
+      width: 100%;
+      padding-right: calc(var(--bs-gutter-x) * .5);
+      padding-left: calc(var(--bs-gutter-x) * .5) !important;
+      margin-right: auto;
+      margin-left: auto !important;
+      
+  
+    }
+    
+    
+  }
+  
