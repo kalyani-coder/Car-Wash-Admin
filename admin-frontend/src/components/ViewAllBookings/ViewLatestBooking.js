@@ -70,8 +70,8 @@ export default function ViewLatestBooking() {
             const locationData = {
                 AgentID: "",
                 location: {
-                  latitude: "",
-                  longitude: "",
+                  latitude :"37.421998333333335",
+                  longitude :"122.084",
                 },
                 bookingID :[ booking._id],
                 lastSeen: new Date().toISOString(),
