@@ -5,6 +5,7 @@ const cors = require("cors");
 const multer = require('multer');
 const app = express();
 const port = process.env.PORT || 8000;
+const Client = require("../backend2/src/models/ClientModel");
 
 
 // Middleware to parse JSON request bodies
@@ -66,6 +67,27 @@ apiRouter.use("/reviews", reviews);
 apiRouter.use("/clientlocation", clientLocation);
 apiRouter.use("/agentlocation", agentLocation);
 apiRouter.use("/adminlogin" , adminlogin)
+
+app.post("/api/login", async (req, res) => {
+  const { clientPhone } = req.body;
+
+  try {
+    // Check if the provided clientPhone exists in the database
+    const client = await Client.findOne({ clientPhone: parseInt(clientPhone) });
+
+    if (!client) {
+      return res.status(400).json({ message: "User not found. Please sign up.", verified: false });
+    }
+
+    // Since you are only checking clientPhone, you can skip the password verification
+
+    // Return success message
+    res.status(200).json({ message: "Successful login", verified: true });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ message: "Internal server error", verified: false });
+  }
+});
 
 
 // we are handle aur all api routes from here

@@ -3,14 +3,14 @@ const router = express.Router();
 const Client = require("../models/ClientModel"); // Adjust the path as needed
 
 // Page: Get all clients
-router.get("/", async (req, res) => {
-  try {
-    const clients = await Client.find();
-    res.json(clients);
-  } catch (error) {
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
+// router.get("/", async (req, res) => {
+//   try {
+//     const clients = await Client.find();
+//     res.json(clients);
+//   } catch (error) {
+//     res.status(500).json({ message: "Internal Server Error" });
+//   }
+// });
 
 router.get("/:field/:value", async (req, res) => {
   const field = req.params.field;
@@ -27,28 +27,30 @@ router.get("/:field/:value", async (req, res) => {
   }
 });
 
-router.get("/login", async (req, res) => {
-  const { ident, password } = req.body;
-  const client = await Client.findOne({
-    $or: [{ clientEmail: ident, clientPhone: ident }],
-  });
+// Assuming your route is something like /api/login
+// Assuming your route is /api/login
+router.post("/api/login", async (req, res) => {
+  const { clientPhone } = req.body;
 
-  if (!client) {
-    res
-      .status(400)
-      .json({ message: "Email or Phone not found", verified: false });
+  try {
+    // Check if the provided clientPhone exists in the database
+    const client = await Client.findOne({ clientPhone: parseInt(clientPhone) });
+
+    if (!client) {
+      return res.status(400).json({ message: "User not found. Please sign up.", verified: false });
+    }
+
+    // Since you are only checking clientPhone, you can skip the password verification
+
+    // Return success message
+    res.status(200).json({ message: "Successful login", verified: true });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ message: "Internal server error", verified: false });
   }
-
-  const isMatch = await client.comparePassword(password);
-
-  if (!isMatch) {
-    return res
-      .status(400)
-      .json({ message: "Invalid password", verified: false });
-  }
-
-  res.status(200).json({ message: "Valid password", verified: false });
 });
+
+
 
 // Page: Create a new client
 router.post("/", async (req, res) => {
