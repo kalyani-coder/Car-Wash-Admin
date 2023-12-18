@@ -53,15 +53,39 @@ router.post("/api/login", async (req, res) => {
 
 
 // Page: Create a new client
+// router.post("/", async (req, res) => {
+//   try {
+//     const newClient = new Client(req.body);
+//     await newClient.save();
+//     res.status(201).json(newClient);
+//   } catch (error) {
+//     res.status(500).json({ message: "Internal Server Error" });
+//   }
+// });
+
 router.post("/", async (req, res) => {
   try {
+    const { clientPhone } = req.body;
+
+    // Check if a client with the same phone number already exists
+    const existingClient = await Client.findOne({ clientPhone });
+
+    if (existingClient) {
+      // If a client with the same phone number exists, send a response with an error message
+      return res.status(400).json({ error: 'Phone number already registered. Please log in.' });
+    }
+
+    // If no existing client with the same phone number, proceed to create a new client
     const newClient = new Client(req.body);
     await newClient.save();
+
     res.status(201).json(newClient);
   } catch (error) {
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error('Error creating client:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 
 // Page: Update a client by ID
 router.patch("/:id", async (req, res) => {
