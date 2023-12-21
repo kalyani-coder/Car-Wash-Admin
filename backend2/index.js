@@ -91,6 +91,7 @@ app.post("/api/login", async (req, res) => {
       verified: true,
       userId: client._id,
       clientName: client.clientName,
+      clientEmail : client.clientEmail
     };
 
     // Log the entire response
