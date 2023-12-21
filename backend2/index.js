@@ -73,15 +73,15 @@ app.post("/api/login", async (req, res) => {
   const { clientPhone } = req.body;
 
   try {
-    console.log("Trying to find client");
+    // console.log("Trying to find client");
 
     // Check if the provided clientPhone exists in the database
     const client = await Client.findOne({ clientPhone: parseInt(clientPhone) });
 
-    console.log("Found Client:", client);
+    // console.log("Found Client:", client);
 
     if (!client) {
-      console.log("Client not found");
+      // console.log("Client not found");
       return res.status(400).json({ message: "User not found. Please sign up.", verified: false });
     }
 
@@ -95,7 +95,7 @@ app.post("/api/login", async (req, res) => {
     };
 
     // Log the entire response
-    console.log("Full Response:", userResponse);
+    // console.log("Full Response:", userResponse);
 
     res.status(200).json(userResponse);
   } catch (error) {
