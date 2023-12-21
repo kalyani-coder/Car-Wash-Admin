@@ -11,6 +11,7 @@ const clientSchema = new mongoose.Schema({
   clientvehicleno: String,
   clientcarmodelno: String,
   clientpassword: String,
+  _id: mongoose.Schema.Types.ObjectId,
 });
 
 const Client = mongoose.model("Client", clientSchema);

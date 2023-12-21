@@ -69,25 +69,40 @@ apiRouter.use("/agentlocation", agentLocation);
 apiRouter.use("/adminlogin" , adminlogin)
 
 app.post("/api/login", async (req, res) => {
+  console.log("Received login request");
   const { clientPhone } = req.body;
 
   try {
+    console.log("Trying to find client");
+
     // Check if the provided clientPhone exists in the database
     const client = await Client.findOne({ clientPhone: parseInt(clientPhone) });
 
+    console.log("Found Client:", client);
+
     if (!client) {
+      console.log("Client not found");
       return res.status(400).json({ message: "User not found. Please sign up.", verified: false });
     }
 
-    // Since you are only checking clientPhone, you can skip the password verification
+    // Include the user details in the success response
+    const userResponse = {
+      message: "Successful login",
+      verified: true,
+      userId: client._id,
+      clientName: client.clientName,
+    };
 
-    // Return success message
-    res.status(200).json({ message: "Successful login", verified: true });
+    // Log the entire response
+    console.log("Full Response:", userResponse);
+
+    res.status(200).json(userResponse);
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ message: "Internal server error", verified: false });
   }
 });
+
 
 
 // we are handle aur all api routes from here
