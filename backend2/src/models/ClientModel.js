@@ -5,13 +5,14 @@ const clientSchema = new mongoose.Schema({
   // Example: name, email, phone, etc.
   clientName: String,
   clientEmail: String,
-  clientPhone: Number,
+  // clientPhone: Number,
+  clientPhone: { type: Number, unique: true },
   clientdob: String,
   clientAddress: String,
   clientvehicleno: String,
   clientcarmodelno: String,
   clientpassword: String,
-  _id: mongoose.Schema.Types.ObjectId,
+  // _id: mongoose.Schema.Types.ObjectId,
 });
 
 const Client = mongoose.model("Client", clientSchema);
