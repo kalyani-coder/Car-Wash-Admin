@@ -165,5 +165,31 @@ router.post('/', upload.single('image'), async (req, res) => {
   }
 });
 
+// PATCH route for updating profile picture only
+router.patch('/:id/profilepic', upload.single('image'), async (req, res) => {
+  try {
+    const agentId = req.params.id;
+    const existingAgent = await newAgents.findById(agentId);
+
+    if (!existingAgent) {
+      return res.status(404).json({ message: 'Agent not found' });
+    }
+
+    if (req.file) {
+      // Update profile picture only
+      const publicUrl = `https://car-wash-backend-api.onrender.com/public/uploads/${req.file.originalname}`;
+      existingAgent.profilePic = publicUrl;
+      await existingAgent.save();
+
+      return res.status(200).json(existingAgent);
+    } else {
+      return res.status(400).json({ error: 'No file uploaded for profile picture update' });
+    }
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 module.exports = router;
 
