@@ -2,6 +2,20 @@ const express = require("express");
 const router = express.Router();
 const Client = require("../models/ClientModel"); // Adjust the path as needed
 
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
+
 // Page: Get all clients
 router.get("/", async (req, res) => {
   try {
@@ -101,37 +115,109 @@ router.post("/api/login", async (req, res) => {
 //   }
 // });
 
-router.post("/", async (req, res) => {
+
+// previous route 
+
+// router.post("/", async (req, res) => {
+//   try {
+//     const { clientName, clientEmail, clientPhone, clientAddress } = req.body;
+
+//     // Validate required fields
+//     if (!clientName || !clientEmail || !clientPhone || !clientAddress) {
+//       return res.status(400).json({ error: 'Missing required fields.' });
+//     }
+
+//     // Check if a client with the same phone number already exists
+//     const existingClient = await Client.findOne({ clientPhone });
+
+//     if (existingClient) {
+//       // If a client with the same phone number exists, send a response with an error message
+//       return res.status(400).json({ error: 'Phone number already registered. Please log in.' });
+//     }
+
+//     // If no existing client with the same phone number, proceed to create a new client
+//     const newClient = new Client({
+//       clientName,
+//       clientEmail,
+//       clientPhone,
+//       clientAddress
+//     });
+    
+//     await newClient.save();
+
+//     res.status(201).json(newClient);
+//   } catch (error) {
+//     console.error('Error creating client:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+// router.post('/', upload.single('image'), async (req, res) => {
+//   try {
+//     if (req.file) {
+//       // here for testing use localy backend path http://localhost:8000
+//       const publicUrl = `http://localhost:8000/public/uploads/${req.file.originalname}`;
+       
+//       const imageData = new Client({
+//         filename: req.file.originalname,
+//         path: req.file.path,
+//         profilePic: publicUrl,
+//         clientName: req.body.clientName,
+//         clientEmail : req.body.clientEmail,
+//         clientPhone : req.body.clientPhone,
+//         clientAddress : req.body.clientAddress,
+       
+//       });
+
+//       await imageData.save();
+//       res.status(201).json(imageData);
+//     } else {
+//       res.status(400).json({ error: 'No file uploaded' });
+//     }
+//   } catch (e) {
+//     res.status(500).json({ message: "Internal server error"});
+//   }
+// });
+
+
+
+router.post('/', upload.single('image'), async (req, res) => {
   try {
     const { clientName, clientEmail, clientPhone, clientAddress } = req.body;
 
-    // Validate required fields
+    // Validation: Check if a client with the same phone number already exists
+    const existingClient = await Client.findOne({ clientPhone });
+    if (existingClient) {
+      return res.status(400).json({ error: 'Phone number already registered. Please log in.' });
+    }
+
+    // Validation: Check if all required fields are provided
     if (!clientName || !clientEmail || !clientPhone || !clientAddress) {
       return res.status(400).json({ error: 'Missing required fields.' });
     }
 
-    // Check if a client with the same phone number already exists
-    const existingClient = await Client.findOne({ clientPhone });
+    if (req.file) {
+      // here for testing use locally backend path http://localhost:8000
+      const publicUrl = `http://localhost:8000/public/uploads/${req.file.originalname}`;
 
-    if (existingClient) {
-      // If a client with the same phone number exists, send a response with an error message
-      return res.status(400).json({ error: 'Phone number already registered. Please log in.' });
+      const imageData = new Client({
+        filename: req.file.originalname,
+        path: req.file.path,
+        profilePic: publicUrl,
+        clientName,
+        clientEmail,
+        clientPhone,
+        clientAddress,
+      });
+
+      await imageData.save();
+      res.status(201).json(imageData);
+    } else {
+      res.status(400).json({ error: 'No file uploaded' });
     }
-
-    // If no existing client with the same phone number, proceed to create a new client
-    const newClient = new Client({
-      clientName,
-      clientEmail,
-      clientPhone,
-      clientAddress
-    });
-    
-    await newClient.save();
-
-    res.status(201).json(newClient);
-  } catch (error) {
-    console.error('Error creating client:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 

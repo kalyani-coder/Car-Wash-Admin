@@ -136,6 +136,9 @@ export default function Sidebar() {
                   </a>
                   <ul className="collapse list-unstyled" id="ClientSubMenu">
                     <li>
+                      <Link to={'/addclients'}  onClick={closeSidebar}>Add Client</Link>
+                    </li>
+                    <li>
                       <Link to={"/clientdetails"} onClick={closeSidebar}>Client Details</Link>
                     </li>
                     <li>

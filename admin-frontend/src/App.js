@@ -28,6 +28,7 @@ import ViewLatestBooking from "./components/ViewAllBookings/ViewLatestBooking";
 import ViewPendingBookings from "./components/ViewAllBookings/ViewPendingBookings";
 import ViewCancledBookings from "./components/ViewAllBookings/ViewCancledBookings";
 import ViewOnGoingBookings from "./components/ViewAllBookings/ViewOnGoingBookings";
+import AddClients from "./components/Client/AddClients";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/addpromotion" element={<AddPromotion />} />
           <Route path="/deletepromotion" element={<DeletePromotion />} />
           <Route path="/clientenquiry" element={<ClientEnquiry />} />
+          <Route path="/addclients" element={<AddClients />} />
           <Route path="/deleteservice" element={<ServiceView />} />
           <Route path="/addtopservice" element={<AddTopService />} />
           <Route path="/addagent" element={<AddAgentPage />} />
