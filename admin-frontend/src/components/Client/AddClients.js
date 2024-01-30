@@ -8,6 +8,10 @@ const AddClients = () => {
   const [clientEmail, setAgentemail] = useState('');
   const [clientPhone, setAgentContact] = useState('');
   const [clientAddress, setAddress] = useState('');
+  
+  const [successAlert, setSuccessAlert] = useState(null);
+  const [errorAlert, setErrorAlert] = useState(null);
+
 
 
 
@@ -54,6 +58,20 @@ const AddClients = () => {
     //   };
 
 
+    const showAlert = (message, type) => {
+      if (type === "success") {
+        setSuccessAlert({ msg: message, type: type });
+        setTimeout(() => {
+          setSuccessAlert(null);
+        }, 5000);
+      } else if (type === "error") {
+        setErrorAlert({ msg: message, type: type });
+        setTimeout(() => {
+          setErrorAlert(null);
+        }, 5000);
+      }
+    };
+
     const handleUpload = () => {
         if (selectedFile) {
           const formData = new FormData();
@@ -75,7 +93,7 @@ const AddClients = () => {
             })
             .then(data => {
               console.log('Image uploaded Successfully:', data.servicesimageUrl);
-              alert('Clients Added Successfully', 'success');
+              showAlert('Customers Added Successfully', 'success');
             })
             .catch(error => {
               console.error('Error uploading image:', error);
@@ -97,12 +115,13 @@ const AddClients = () => {
     <>
 
       <div className="container mt-5">
-        <h1>Add Clients</h1>
+        <h1>Add Customers</h1>
       
-
+        {successAlert && <Alert alert={successAlert} />}
+      {errorAlert && <Alert alert={errorAlert} />}
       
         <Form.Group controlId="fullName">
-          <Form.Label>Full Name of Agent:</Form.Label>
+          <Form.Label>Full Name of Customers:</Form.Label>
           <Form.Control
             type="text"
             name="clientName"
@@ -115,7 +134,7 @@ const AddClients = () => {
 
 
         <Form.Group controlId="email">
-          <Form.Label>Agent Email:</Form.Label>
+          <Form.Label>Customers Email:</Form.Label>
           <Form.Control
             type="text"
             name="clientEmail"

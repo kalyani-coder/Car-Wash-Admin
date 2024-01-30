@@ -132,17 +132,17 @@ export default function Sidebar() {
                     aria-expanded="false"
                     className="dropdown-toggle"
                   >
-                    Client
+                    Customers
                   </a>
                   <ul className="collapse list-unstyled" id="ClientSubMenu">
                     <li>
-                      <Link to={'/addclients'}  onClick={closeSidebar}>Add Client</Link>
+                      <Link to={'/addclients'}  onClick={closeSidebar}>Add Customers</Link>
                     </li>
                     <li>
-                      <Link to={"/clientdetails"} onClick={closeSidebar}>Client Details</Link>
+                      <Link to={"/clientdetails"} onClick={closeSidebar}>Customer Details</Link>
                     </li>
                     <li>
-                      <Link to={"/clientenquiry"} onClick={closeSidebar}>Client Enquiry</Link>
+                      <Link to={"/clientenquiry"} onClick={closeSidebar}>Customer Enquiry</Link>
                     </li>
                   </ul>
                 </li>
@@ -153,14 +153,14 @@ export default function Sidebar() {
                     aria-expanded="false"
                     className="dropdown-toggle"
                   >
-                    Agent
+                    Employee
                   </a>
                   <ul className="collapse list-unstyled" id="AgentSubMenu">
                     <li>
-                      <Link to={"/addagent"} onClick={closeSidebar}>Add Agent</Link>
+                      <Link to={"/addagent"} onClick={closeSidebar}>Add Employee</Link>
                     </li>
                     <li>
-                      <Link to={"/viewagent"} onClick={closeSidebar}>View Agent</Link>
+                      <Link to={"/viewagent"} onClick={closeSidebar}>View Employee</Link>
                     </li>
                   </ul>
                 </li>

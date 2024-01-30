@@ -18,13 +18,16 @@ const ClientEnquiry = () => {
   const handleSearchChange = (event) => {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
-
-    const filtered = clients.filter((client) =>
-      client.clientName.toLowerCase().includes(query)
-    );
+  
+    const filtered = clients.filter((client) => {
+      // Adding null/undefined check before calling toLowerCase
+      const clientName = client.clientName ? client.clientName.toLowerCase() : '';
+      return clientName.includes(query);
+    });
+  
     setFilteredClients(filtered);
   };
-
+  
   const displayedClients = searchQuery ? filteredClients : clients;
 
   return (
@@ -45,15 +48,15 @@ const ClientEnquiry = () => {
           <div key={client._id} className="col-md-6 mb-4 mt-3">
             <div className="custom-card-cl-en">
               <div className="custom-card-body">
-                <h5 className="custom-card-title">Client ID: {client._id}</h5>
+                <h5 className="custom-card-title">Customers ID: {client._id}</h5>
                 <h6 className="custom-card-subtitle mb-2 text-muted mt-3">
-                  Client Name: {client.clientName}
+                Customers Name: {client.clientName}
                 </h6>
                 <h6 className="custom-card-subtitle mb-2 text-muted">
-                  Client Email: {client.clientEmail}
+                Customers Email: {client.clientEmail}
                 </h6>
                 <h6 className="custom-card-subtitle mb-2 text-muted">
-                  Client Phone: {client.clientPhone}
+                Customers Phone: {client.clientPhone}
                 </h6>
                 <h6 className="custom-card-subtitle mb-2 text-muted">
                   Address: {client.clientAddress}

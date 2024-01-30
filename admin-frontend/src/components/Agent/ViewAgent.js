@@ -18,12 +18,12 @@ const ViewAgentPage = () => {
     }
   };
   if (!agents) {
-    return <div className="container">No agent data available.</div>;
+    return <div className="container">No Employee data available.</div>;
   }
 
   return (
     <div className="container mt-4">
-      <h2>View Agents Profile</h2>
+      <h2>View Employee Profile</h2>
       <div className="row">
         {agents.map((agent) => (
           <div key={agent._id} className="col-md-6 mb-4">
@@ -31,7 +31,7 @@ const ViewAgentPage = () => {
               <div className="card-body">
                 <img
                   src={agent.profilePic}
-                  alt="agent image"
+                  alt="Employee image"
                   height={100}
                   width={100}
                 />

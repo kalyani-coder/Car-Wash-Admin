@@ -88,13 +88,13 @@ const AddAgentPage = () => {
     <>
 
       <div className="container mt-5">
-        <h1>Add Agents</h1>
+        <h1>Add Employee</h1>
         {successAlert && <Alert alert={successAlert} />}
         {errorAlert && <Alert alert={errorAlert} />}
 
 
         <Form.Group controlId="fullName">
-          <Form.Label>Full Name of Agent:</Form.Label>
+          <Form.Label>Full Name of Employee:</Form.Label>
           <Form.Control
             type="text"
             name="fullName"
@@ -107,7 +107,7 @@ const AddAgentPage = () => {
 
 
         <Form.Group controlId="email">
-          <Form.Label>Agent Email:</Form.Label>
+          <Form.Label>Employee Email:</Form.Label>
           <Form.Control
             type="text"
             name="email"
