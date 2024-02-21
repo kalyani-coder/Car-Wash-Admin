@@ -255,10 +255,14 @@ export default function Sidebar() {
                       <Link to={"/jobcard"} onClick={closeSidebar}>Create Job Card</Link>
                     </li>
                     <li>
-                      <Link to={"/viewtopservice"} onClick={closeSidebar}>View Job Card</Link>
+                      <Link to={"/viewjobcard"} onClick={closeSidebar}>View Job Card</Link>
                     </li>
                   </ul>
                 </li>
+
+                <li>
+                      <Link to={"/master"} onClick={closeSidebar}>Master</Link>
+                    </li>
 
                 <li>
                 <Link className="logout bg-danger" onClick={handleLogout}>

@@ -50,6 +50,7 @@ const reviews = require("./src/routes/Review");
 const clientLocation = require("./src/routes/ClientLocation");
 const agentLocation = require("./src/routes/AgentsLocation");
 const adminlogin = require('./src/routes/AdminLogin')
+const jobcard = require("./src/routes/JobCard")
 
 
 apiRouter.use("/services", servicesRouter);
@@ -67,6 +68,7 @@ apiRouter.use("/reviews", reviews);
 apiRouter.use("/clientlocation", clientLocation);
 apiRouter.use("/agentlocation", agentLocation);
 apiRouter.use("/adminlogin" , adminlogin)
+apiRouter.use("/jobcard" , jobcard)
 
 app.post("/api/login", async (req, res) => {
   console.log("Received login request");
