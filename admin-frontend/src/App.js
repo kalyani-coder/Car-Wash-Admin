@@ -29,6 +29,7 @@ import ViewPendingBookings from "./components/ViewAllBookings/ViewPendingBooking
 import ViewCancledBookings from "./components/ViewAllBookings/ViewCancledBookings";
 import ViewOnGoingBookings from "./components/ViewAllBookings/ViewOnGoingBookings";
 import AddClients from "./components/Client/AddClients";
+import JobCard from "./components/JobCard/JobCard";
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
           <Route path="/viewpendingbookings" element={<ViewPendingBookings /> } />
           <Route path="/viewcancledbookings" element={<ViewCancledBookings /> } />
           <Route path="/viewongoingbookings" element={<ViewOnGoingBookings /> } />
+          <Route path="/jobcard" element={<JobCard /> } />
         </Routes>
       </Router>
     </>

@@ -237,27 +237,27 @@ export default function Sidebar() {
                   <Link to={"/availabledate"} onClick={closeSidebar}>Available date</Link>
                 </li>
 
+                
                 <li className="active">
                   <a
-                    href="#addoffers"
+                    href="#GenerateJobCard"
                     data-toggle="collapse"
                     aria-expanded="false"
                     className="dropdown-toggle"
                   >
-                    Add Offers
+                    Generate Job Card
                   </a>
                   <ul
                     className="collapse list-unstyled"
-                    id="addoffers"
+                    id="GenerateJobCard"
                   >
                     <li>
-                      <Link to={"/addoffers"} onClick={closeSidebar}>Add Offers</Link>
+                      <Link to={"/jobcard"} onClick={closeSidebar}>Create Job Card</Link>
                     </li>
                     <li>
-                      <Link to={"/viewoffers"} onClick={closeSidebar}>View Offers</Link>
+                      <Link to={"/viewtopservice"} onClick={closeSidebar}>View Job Card</Link>
                     </li>
                   </ul>
-
                 </li>
 
                 <li>
