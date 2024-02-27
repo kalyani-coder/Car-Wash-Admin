@@ -27,12 +27,18 @@ router.get("/", async(req, res) => {
 //     }
 // })
 
+
 router.post("/", async (req, res) => {
     try {
-      const { clientId, name, email, phone, address, vehicle_Make, model_Year, vehicle_Number } = req.body;
+      const { clientId, name, email, phone, address, vehicle_Make, model_Year, vehicle_Number ,vehicle_Category , vehicle_Treatment} = req.body;
   
       // Generate a unique JobCardId
-      const jobCardId = uuid.v4(); // Using UUID for generating a unique ID
+      const jobCardId = uuid.v4();
+  
+     // Get current date in "dd/mm/yyyy" format
+     const currentDate = new Date();
+    //  const formattedDate = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
+ 
   
       const jobCard = new newJobCardSchema({
         clientId,
@@ -43,7 +49,10 @@ router.post("/", async (req, res) => {
         address,
         vehicle_Make,
         model_Year,
-        vehicle_Number
+        vehicle_Number,
+        jobCardDate: currentDate, // Assign currentDate to jobCardDate field,
+        vehicle_Category,
+        vehicle_Treatment,
       });
   
       await jobCard.save();
@@ -55,35 +64,6 @@ router.post("/", async (req, res) => {
     }
   });
 
-  router.get("/jobCardId/:id", async (req, res) => {
-    const jobCardId = req.params.id;
-  
-    try {
-      const jobCard = await newJobCardSchema.findOne({ JobCardId: jobCardId });
-      if (!jobCard) {
-        return res.status(404).json({ message: "Job Card not found" });
-      }
-      res.json(jobCard);
-    } catch (error) {
-      console.error("Error fetching job card:", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  });
-
-  router.get("/email/:email" , async(req,res)=>{
-    const jobcardemail = req.params.email
-
-    try{
-        const email = await newJobCardSchema.findOne({email : jobcardemail})
-        if(!email){
-            res.status(404).json({message : "Email not found"})
-
-        }
-        res.send(email)
-    }catch(err){
-        res.status(404).send({message : "Internal server error"})
-    }
-  })
 
 router.get("/:id", async(req, res) => {
 

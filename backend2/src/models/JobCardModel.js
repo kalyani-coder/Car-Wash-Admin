@@ -6,11 +6,14 @@ const JobCardSchema = new mongoose.Schema({
     JobCardId : String,
     name  : String,
     email : String,
-    phone : String,
+    phone : Number,
     address : String,
     vehicle_Make : String,
     model_Year : String,
     vehicle_Number : String,
+    vehicle_Category : String,
+    vehicle_Treatment : String,
+    jobCardDate: Date,
 
 
 
