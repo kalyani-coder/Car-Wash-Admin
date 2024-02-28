@@ -14,6 +14,7 @@ const JobCardSchema = new mongoose.Schema({
     vehicle_Category : String,
     vehicle_Treatment : String,
     jobCardDate: Date,
+    vehicle_Type : String,
 
 
 
