@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Form } from "react-bootstrap";
 import Alert from "./Alert";
-import './ViewServices.css'
+import "./ViewServices.css";
 
 export default function ServiceView() {
   const [services, setServices] = useState([]);
@@ -20,13 +20,16 @@ export default function ServiceView() {
   };
 
   const handleUpdate = () => {
-    fetch(`https://car-wash-backend-api.onrender.com/api/services/${editingService._id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editingService),
-    })
+    fetch(
+      `https://car-wash-backend-api.onrender.com/api/services/${editingService._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editingService),
+      }
+    )
       .then((response) => response.json())
       .then(() => {
         setServices((prevServices) =>
@@ -60,9 +63,12 @@ export default function ServiceView() {
     );
 
     if (shouldDelete) {
-      fetch(`https://car-wash-backend-api.onrender.com/api/services/${service._id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://car-wash-backend-api.onrender.com/api/services/${service._id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((response) => response.json())
         .then(() => {
           setServices((prevServices) =>
@@ -82,7 +88,12 @@ export default function ServiceView() {
       {services.map((service) => (
         <Card key={service._id} className="mb-3">
           {service.serviceImage && (
-            <img variant="top" src={service.serviceImage} height={200} width={200} />
+            <img
+              variant="top"
+              src={service.serviceImage}
+              height={200}
+              width={200}
+            />
           )}
           <Card.Body>
             <Card.Title>{service.serviceName}</Card.Title>
@@ -91,8 +102,9 @@ export default function ServiceView() {
             </Card.Subtitle>
             <Card.Text>{service.serviceDescription}</Card.Text>
             <Card.Text>
-              Price: ₹{service.servicePrice.toLocaleString("en-IN")}
+              Price: ₹{service.servicePrice?.toLocaleString("en-IN")}
             </Card.Text>
+
             <Card.Text>Offer: {service.serviceOffer}</Card.Text>
             {editingService && editingService._id === service._id ? (
               <div className="edit-form">
