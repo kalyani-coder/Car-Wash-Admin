@@ -34,6 +34,10 @@ const JobCard = () => {
     setSelectedWashType(event.target.value);
   };
 
+  // const handleCoatingChange=(event)=> {
+  //   set
+  // }
+
   useEffect(() => {
     fetch('http://localhost:8000/api/master/vehicletype')
       .then(response => response.json())
@@ -48,6 +52,13 @@ const JobCard = () => {
   const handleVehicleTypeChange = (event) => {
     setSelectedVehicleType(event.target.value);
   };
+
+  
+  // const handleWashTypeChange = (event) => {
+  //   setSelectedWashType(event.target.value);
+  // };
+
+
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
@@ -116,7 +127,7 @@ const JobCard = () => {
             vehicle_Number: clientData ? clientData.clientvehicleno : "",
             vehicle_Category: selectedCategory, // Include selected category
             vehicle_Type: selectedVehicleType, // Include selected type
-            wash_type: clientData ? clientData.clientwashType : "",
+            wash_type: selectedWashType,
             coating: clientData ? clientData.clientcoating : ""
         };
 
@@ -302,6 +313,7 @@ const JobCard = () => {
                     className="custom-select"
                     aria-label="Select Car Wash Type"
                     style={{ width: '50%' }}
+                    // onChange={handleCoatingChange}
                   >
                     <option>Coating Type</option>
                     <option>Ceramic (9H)</option>
