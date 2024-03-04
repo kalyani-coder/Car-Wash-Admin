@@ -20,7 +20,7 @@ const JobCard = () => {
   const [selectedWashType, setSelectedWashType] = useState('');
 
   useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/master/washtype')
+    fetch('http://localhost:8000/api/master/washtype')
       .then(response => response.json())
       .then(data => {
         setWashTypes(data);
@@ -35,7 +35,7 @@ const JobCard = () => {
   };
 
   useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/master/vehicletype')
+    fetch('http://localhost:8000/api/master/vehicletype')
       .then(response => response.json())
       .then(data => {
         setVehicleTypes(data);
@@ -55,7 +55,7 @@ const JobCard = () => {
 
   useEffect(() => {
     // Fetch data from the clients API
-    fetch("https://car-wash-backend-api.onrender.com/api/clients")
+    fetch("http://localhost:8000/api/clients")
       .then((response) => response.json())
       .then((data) => {
         setClients(data);
@@ -65,7 +65,7 @@ const JobCard = () => {
       });
 
     // Fetch data from the bookings API
-    fetch("https://car-wash-backend-api.onrender.com/api/bookings")
+    fetch("http://localhost:8000/api/bookings")
       .then((response) => response.json())
       .then((data) => {
         setBookings(data);
@@ -119,7 +119,7 @@ const JobCard = () => {
 
       // Send POST request to the API
       const response = await axios.post(
-        "https://car-wash-backend-api.onrender.com/api/jobcard",
+        "http://localhost:8000/api/jobcard",
         data
       );
 
