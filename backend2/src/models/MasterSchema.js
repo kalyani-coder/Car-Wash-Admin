@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const carDetailSchema = new mongoose.Schema({
     vehicle_Type: { type: String },
+    price : Number,
 });
 
 const carwashtypeSchema = new mongoose.Schema({

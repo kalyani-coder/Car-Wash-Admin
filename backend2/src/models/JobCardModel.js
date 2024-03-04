@@ -11,10 +11,18 @@ const JobCardSchema = new mongoose.Schema({
     vehicle_Make : String,
     model_Year : String,
     vehicle_Number : String,
-    vehicle_Category : String,
     vehicle_Treatment : String,
     jobCardDate: Date,
+    vehicle_Category : String,
     vehicle_Type : String,
+    wash_type  : String,
+    coating : String,
+    paint_protection_field  :String,
+    window_films : String,
+    vinly_wraps : String,
+    premium_seat_cover : String,
+    lamination : String,
+    interiour_decor : String,
 
 
 

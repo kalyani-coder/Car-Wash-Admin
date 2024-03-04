@@ -28,41 +28,86 @@ router.get("/", async(req, res) => {
 // })
 
 
-router.post("/", async (req, res) => {
-    try {
-      const { clientId, name, email, phone, address, vehicle_Make, model_Year, vehicle_Number ,vehicle_Category , vehicle_Treatment} = req.body;
+// router.post("/", async (req, res) => {
+//     try {
+//       const { clientId, name, email, phone, address, vehicle_Make, model_Year, vehicle_Number ,vehicle_Category , vehicle_Treatment} = req.body;
   
-      // Generate a unique JobCardId
-      const jobCardId = uuid.v4();
+//       // Generate a unique JobCardId
+//       const jobCardId = uuid.v4();
   
-     // Get current date in "dd/mm/yyyy" format
-     const currentDate = new Date();
-    //  const formattedDate = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
+//      // Get current date in "dd/mm/yyyy" format
+//      const currentDate = new Date();
+//     //  const formattedDate = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
  
   
-      const jobCard = new newJobCardSchema({
-        clientId,
-        JobCardId: jobCardId,
-        name,
-        email,
-        phone,
-        address,
-        vehicle_Make,
-        model_Year,
-        vehicle_Number,
-        jobCardDate: currentDate, // Assign currentDate to jobCardDate field,
-        vehicle_Category,
-        vehicle_Treatment,
-      });
+//       const jobCard = new newJobCardSchema({
+//         clientId,
+//         JobCardId: jobCardId,
+//         name,
+//         email,
+//         phone,
+//         address,
+//         vehicle_Make,
+//         model_Year,
+//         vehicle_Number,
+//         jobCardDate: currentDate, // Assign currentDate to jobCardDate field,
+//         vehicle_Category,
+//         vehicle_Treatment,
+//       });
   
-      await jobCard.save();
-      res.status(201).send({ message: "Job Card Created Successfully", jobCardId });
+//       await jobCard.save();
+//       res.status(201).send({ message: "Job Card Created Successfully", jobCardId });
   
+//     } catch (err) {
+//       console.error("Error creating job card:", err);
+//       res.status(500).send({ message: "Can't post Data" });
+//     }
+//   });
+
+
+router.post("/", async (req, res) => {
+    try {
+        const { clientId, name, email, phone, address, vehicle_Make, model_Year, vehicle_Number ,vehicle_Category , vehicle_Treatment, vehicle_Type, wash_type, coating, paint_protection_field, window_films, vinly_wraps, premium_seat_cover, lamination, interiour_decor } = req.body;
+
+        // Generate a unique JobCardId
+        const jobCardId = uuid.v4();
+
+        // Get current date
+        const currentDate = new Date();
+
+        const jobCard = new newJobCardSchema({
+            clientId,
+            JobCardId: jobCardId,
+            name,
+            email,
+            phone,
+            address,
+            vehicle_Make,
+            model_Year,
+            vehicle_Number,
+            jobCardDate: currentDate, // Assign currentDate to jobCardDate field,
+            vehicle_Category,
+            vehicle_Treatment,
+            vehicle_Type,
+            wash_type,
+            coating,
+            paint_protection_field,
+            window_films,
+            vinly_wraps,
+            premium_seat_cover,
+            lamination,
+            interiour_decor
+        });
+
+        await jobCard.save();
+        res.status(201).send({ message: "Job Card Created Successfully", jobCardId });
+
     } catch (err) {
-      console.error("Error creating job card:", err);
-      res.status(500).send({ message: "Can't post Data" });
+        console.error("Error creating job card:", err);
+        res.status(500).send({ message: "Can't post Data" });
     }
-  });
+});
+
 
 
 router.get("/:id", async(req, res) => {
