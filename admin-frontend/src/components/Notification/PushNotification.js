@@ -25,7 +25,7 @@ export default function PushNotification() {
     const apiUrl = sendto === "agent" ? "/api/agentnotifications" : "/api/notification";
   
     axios
-      .post(`http://localhost:8000${apiUrl}`, {
+      .post(`https://car-wash-backend-api.onrender.com${apiUrl}`, {
         title: title,
         message: message,
         sendto: sendto,

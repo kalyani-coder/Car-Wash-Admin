@@ -43,7 +43,7 @@ const Addoffers = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch('http://localhost:8000/api/homeoffers', {
+    fetch('https://car-wash-backend-api.onrender.com/api/homeoffers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

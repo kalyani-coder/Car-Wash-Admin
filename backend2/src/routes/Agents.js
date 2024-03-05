@@ -140,7 +140,7 @@ router.delete("/:id", async (req, res) => {
 router.post('/', upload.single('image'), async (req, res) => {
   try {
     if (req.file) {
-      // here for testing use localy backend path http://localhost:8000
+      // here for testing use localy backend path https://car-wash-backend-api.onrender.com
       const publicUrl = `https://car-wash-backend-api.onrender.com/public/uploads/${req.file.originalname}`;
        
       const imageData = new newAgents({

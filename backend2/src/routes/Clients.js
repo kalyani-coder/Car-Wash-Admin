@@ -155,8 +155,8 @@ router.post("/api/login", async (req, res) => {
 // router.post('/', upload.single('image'), async (req, res) => {
 //   try {
 //     if (req.file) {
-//       // here for testing use localy backend path http://localhost:8000
-//       const publicUrl = `http://localhost:8000/public/uploads/${req.file.originalname}`;
+//       // here for testing use localy backend path https://car-wash-backend-api.onrender.com
+//       const publicUrl = `https://car-wash-backend-api.onrender.com/public/uploads/${req.file.originalname}`;
        
 //       const imageData = new Client({
 //         filename: req.file.originalname,
@@ -197,7 +197,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     }
 
     if (req.file) {
-      // here for testing use locally backend path http://localhost:8000
+      // here for testing use locally backend path https://car-wash-backend-api.onrender.com
       const publicUrl = `https://car-wash-backend-api.onrender.com/public/uploads/${req.file.originalname}`;
 
       const imageData = new Client({
