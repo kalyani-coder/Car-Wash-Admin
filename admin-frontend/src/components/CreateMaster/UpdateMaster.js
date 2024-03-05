@@ -88,36 +88,6 @@ const UpdateMaster = () => {
 
 
 
-
-  const [washTypes, setWashTypes] = useState([]);
-  const [selectedWashType, setSelectedWashType] = useState('');
-  const [editModeWashType, setEditModeWashType] = useState(false);
-
-  useEffect(() => {
-    fetch('http://localhost:8000/api/master/mainmaster')
-      .then(response => response.json())
-      .then(data => {
-        // Assuming data structure is { carWashTypes: [...] }
-        setWashTypes(data.carWashTypes);
-      })
-      .catch(error => console.error('Error fetching wash types:', error));
-  }, []);
-
-  const handleWashTypeChange = event => {
-    const selectedId = event.target.value;
-    setSelectedWashType(selectedId);
-    setEditModeWashType(false); // Exit edit mode when selecting a new wash type
-  };
-
-  const handleEditWashType = () => {
-    setEditModeWashType(true);
-    // Implement edit functionality
-  };
-
-  const handleDeleteWashType = () => {
-    // Implement delete functionality
-  };
-
   return (
     <div className='container'>
       <h1>Create Master</h1>
@@ -173,34 +143,8 @@ const UpdateMaster = () => {
         </Modal.Footer>
       </Modal>
 
-
-       <Form.Group controlId="washtype">
-        <Form.Label>Wash Type Update And Delete:</Form.Label>
-        <div className="relative">
-          <Form.Select
-            className="custom-select"
-            aria-label="Select Wash Type"
-            style={{ width: '50%' }}
-            value={selectedWashType}
-            onChange={handleWashTypeChange}
-          >
-            <option value="">Select Wash Type</option>
-            {washTypes.map(washType => (
-              <option key={washType._id} value={washType._id}>{washType.wash_type}</option>
-            ))}
-          </Form.Select><br/>
-          {selectedWashType && (
-            <div>
-              {editModeWashType ? (
-                <Button variant="primary" onClick={handleEditWashType}>Save Changes</Button>
-              ) : (
-                <Button variant="info" onClick={handleEditWashType}>Edit</Button>
-              )}
-              <Button variant="danger" onClick={handleDeleteWashType}>Delete Wash Type</Button>
-            </div>
-          )}
-        </div>
-      </Form.Group>
+     
+       
     </div>
   );
 }

@@ -13,16 +13,35 @@ const JobCardSchema = new mongoose.Schema({
     vehicle_Number : String,
     vehicle_Treatment : String,
     jobCardDate: Date,
+
     vehicle_Category : String,
+
     vehicle_Type : String,
+    vehicletype_Price : Number,
+
     wash_type  : String,
+    wash_type_price : Number,
+
     coating : String,
+    coating_Price : Number,
+
     paint_protection_field  :String,
+    paint_protection_field_Price : Number,
+
     window_films : String,
+    window_films_Price : Number,
+
     vinly_wraps : String,
+    vinly_wraps_Price :Number,
+
     premium_seat_cover : String,
+    premium_seat_cover_Price :Number,
+
     lamination : String,
+    lamination_Price : Number,
+
     interiour_decor : String,
+    interiour_decor_Price : Number,
 
 
 
