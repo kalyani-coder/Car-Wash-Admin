@@ -260,14 +260,45 @@ export default function Sidebar() {
                   </ul>
                 </li>
 
-                <li>
+
+
+
+                <li className="active">
+                  <a
+                    href="#master"
+                    data-toggle="collapse"
+                    aria-expanded="false"
+                    className="dropdown-toggle"
+                  >
+                    Master
+                  </a>
+                  <ul
+                    className="collapse list-unstyled"
+                    id="master"
+                  >
+                    <li>
+                    <Link to={"/master"} onClick={closeSidebar}>Create Master</Link>
+                    </li>
+                    <li>
+                    <Link to={"/updatemaster"} onClick={closeSidebar}>Update Master</Link>
+                    </li>
+                  </ul>
+                </li>
+
+
+
+
+
+                {/* <li>
                       <Link to={"/master"} onClick={closeSidebar}>Master</Link>
                     </li>
 
                     <li>
                       <Link to={"/updatemaster"} onClick={closeSidebar}>Update Master</Link>
-                    </li>
+                    </li> */}
 
+
+                
                 <li>
                 <Link className="logout bg-danger" onClick={handleLogout}>
                   Logout

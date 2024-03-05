@@ -25,7 +25,7 @@ const Master = () => {
 
   const handlePriceChange = (event) => {
     setPrice(event.target.value);
-};
+  };
 
   const handleInteriorTypeChange = (event) => {
     setInteriorType(event.target.value);
@@ -71,32 +71,32 @@ const Master = () => {
   const handleVehicleTypeSubmit = async (event) => {
     event.preventDefault();
     try {
-        const response = await fetch('http://localhost:8000/api/master/cars/vehicletype', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                vehicle_Type: vehicleType,
-                price: price
-            })
-        });
-        if (response.ok) {
-            console.log('Vehicle type and price added successfully!');
-            alert('Vehicle type and price added successfully!');
-            // Optionally, you can reset the form fields after successful submission
-            setVehicleType('');
-            setPrice('');
-        } else {
-            console.error('Failed to add vehicle type and price');
-        }
+      const response = await fetch('http://localhost:8000/api/master/cars/vehicletype', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          vehicle_Type: vehicleType,
+          price: price
+        })
+      });
+      if (response.ok) {
+        console.log('Vehicle type and price added successfully!');
+        alert('Vehicle type and price added successfully!');
+        // Optionally, you can reset the form fields after successful submission
+        setVehicleType('');
+        setPrice('');
+      } else {
+        console.error('Failed to add vehicle type and price');
+      }
     } catch (error) {
-        console.error('Error adding vehicle type and price:', error);
+      console.error('Error adding vehicle type and price:', error);
     }
-};
+  };
 
 
-  const handleWashTypeSubmit = async (event) => {
+  const handleWashTypeSubmit = async event => {
     event.preventDefault();
     try {
       const response = await fetch('http://localhost:8000/api/master/cars/washtype', {
@@ -105,59 +105,37 @@ const Master = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          wash_type: washType,
+          wash_Type: washType,
+          price: price
         })
       });
       if (response.ok) {
-        console.log('Wash type added successfully!');
-        alert('Wash type added successfully!');
-        // Optionally, you can reset the form field after successful submission
+        console.log('Wash type and price added successfully!');
+        alert('Wash type and price added successfully!');
         setWashType('');
+        setPrice('');
       } else {
-        console.error('Failed to add wash type');
+        console.error('Failed to add wash type and price');
       }
     } catch (error) {
-      console.error('Error adding wash type:', error);
+      console.error('Error adding wash type and price:', error);
     }
   };
 
 
-  const handleCoatingTypeSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch('http://localhost:8000/api/master/coating', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          coating_type: coatingType
-        })
-      });
-      if (response.ok) {
-        console.log('Coating type added successfully!');
-        alert('Coating type added successfully!');
-        // Optionally, you can reset the form field after successful submission
-        setCoatingType('');
-      } else {
-        console.error('Failed to add coating type');
-      }
-    } catch (error) {
-      console.error('Error adding coating type:', error);
-    }
-  };
 
 
   const handlePaintProtectionTypeSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/api/master/paintprotection', {
+      const response = await fetch('http://localhost:8000/api/master/cars/paintprotection', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          paintProtection_Type: paintProtectionType
+          paintProtection_Type: paintProtectionType,
+          price: paintProtectionprice
         })
       });
       if (response.ok) {
@@ -182,7 +160,8 @@ const Master = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          windowFilm_Type: windowFilmType
+          windowFilm_Type: windowFilmType,
+          price: windowfilmnprice
         })
       });
       if (response.ok) {
@@ -208,7 +187,8 @@ const Master = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          VinylWraps_Type: vinylWrapsType
+          VinylWraps_Type: vinylWrapsType,
+          price: vinalwrapsprice
         })
       });
       if (response.ok) {
@@ -233,7 +213,8 @@ const Master = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          premiumSeat_Type: premiumSeatType
+          premiumSeat_Type: premiumSeatType,
+          price: premiumseatprice
         })
       });
       if (response.ok) {
@@ -258,7 +239,8 @@ const Master = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          lamination_Type: laminationType
+          lamination_Type: laminationType,
+          price: laminationprice
         })
       });
       if (response.ok) {
@@ -284,7 +266,8 @@ const Master = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          interiour_Type: interiorType
+          interiour_Type: interiorType,
+          price: interiorprice
         })
       });
       if (response.ok) {
@@ -300,6 +283,77 @@ const Master = () => {
     }
   };
 
+  const handleCoatingTypeSubmit = async event => {
+    event.preventDefault();
+    try {
+      const response = await fetch('http://localhost:8000/api/master/cars/coating', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          coating_type: coatingType,
+          price: coatingprice // Use coatingprice here
+        })
+      });
+      if (response.ok) {
+        console.log('Coating type added successfully!');
+        alert('Coating type added successfully!');
+        setCoatingType('');
+        setCoatingPrice(''); // Reset coatingprice state variable
+      } else {
+        console.error('Failed to add coating type');
+      }
+    } catch (error) {
+      console.error('Error adding coating type:', error);
+    }
+  };
+
+  const [coatingprice, setCoatingPrice] = useState('');
+
+
+
+  const handleCoatingPriceChange = event => {
+    setCoatingPrice(event.target.value);
+  };
+
+
+  const [paintProtectionprice, setpaintProtectionPrice] = useState('');
+
+  const handlepaintProtectionPriceChange = event => {
+    setpaintProtectionPrice(event.target.value);
+  };
+
+  const [windowfilmnprice, setwindowfilmPrice] = useState('');
+
+  const handlewindowfilmPriceChange = event => {
+    setwindowfilmPrice(event.target.value);
+  };
+
+  const [vinalwrapsprice, setvinalwrapsPrice] = useState('');
+  const handlevinalwrapsPriceChange = event => {
+    setvinalwrapsPrice(event.target.value);
+  };
+
+  const [premiumseatprice, setpremiumseatPrice] = useState('');
+
+
+  const handlepremiumseatPriceChange = event => {
+    setpremiumseatPrice(event.target.value);
+  };
+
+
+  const [laminationprice, setlaminationPrice] = useState('');
+
+  const handlelaminationPriceChange = event => {
+    setlaminationPrice(event.target.value);
+  };
+
+  const [interiorprice, setinteriorPrice] = useState('');
+
+  const handleinteriorPriceChange = event => {
+    setinteriorPrice(event.target.value);
+  };
 
   return (
     <>
@@ -325,34 +379,34 @@ const Master = () => {
         {/* Conditional rendering based on selected category */}
         {selectedCategory === 'cars' && (
           <>
-             <Form onSubmit={handleVehicleTypeSubmit}>
-                <Form.Group controlId="CarVehicleType">
-                    <Form.Label>Vehicle Type:</Form.Label>
-                    <div className="relative">
-                        <Form.Control
-                            type="text"
-                            placeholder="Add Car Vehicle Type"
-                            style={{ width: '50%' }}
-                            value={vehicleType}
-                            onChange={handleVehicleTypeChange}
-                            required
-                        />
-                    </div>
-                </Form.Group>
-                <Form.Group controlId="CarPrice">
-                    <Form.Label>Price:</Form.Label>
-                    <div className="relative">
-                        <Form.Control
-                            type="number"
-                            placeholder="Add Price"
-                            style={{ width: '50%' }}
-                            value={price}
-                            onChange={handlePriceChange}
-                            required
-                        />
-                    </div>
-                </Form.Group>
-                <button type="submit" className='btn btn-primary'>Add</button>
+            <Form onSubmit={handleVehicleTypeSubmit}>
+              <Form.Group controlId="CarVehicleType">
+                <Form.Label>Vehicle Type:</Form.Label>
+                <div className="relative">
+                  <Form.Control
+                    type="text"
+                    placeholder="Add Car Vehicle Type"
+                    style={{ width: '50%' }}
+                    value={vehicleType}
+                    onChange={handleVehicleTypeChange}
+                    required
+                  />
+                </div>
+              </Form.Group>
+              <Form.Group controlId="CarPrice">
+                <Form.Label>Price:</Form.Label>
+                <div className="relative">
+                  <Form.Control
+                    type="number"
+                    placeholder="Add Price"
+                    style={{ width: '50%' }}
+                    value={price}
+                    onChange={handlePriceChange}
+                    required
+                  />
+                </div>
+              </Form.Group>
+              <button type="submit" className='btn btn-primary'>Add</button>
             </Form>
 
             <Form onSubmit={handleWashTypeSubmit}>
@@ -365,6 +419,14 @@ const Master = () => {
                     style={{ width: '50%' }}
                     value={washType}
                     onChange={handleWashTypeChange}
+                  />
+                  <Form.Label>Wash Type Price:</Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder="Add Price"
+                    style={{ width: '50%' }}
+                    value={price}
+                    onChange={handlePriceChange}
                   />
                   <button type="submit" className='btn btn-primary'>Add</button>
                 </div>
@@ -382,6 +444,13 @@ const Master = () => {
                     value={coatingType}
                     onChange={handleCoatingTypeChange}
                   />
+                  <Form.Control
+                    type="number"
+                    placeholder="Add Price"
+                    style={{ width: '50%' }}
+                    value={coatingprice}
+                    onChange={handleCoatingPriceChange}
+                  />
                   <button type="submit" className='btn btn-primary'>Add</button>
                 </div>
               </Form.Group>
@@ -397,6 +466,13 @@ const Master = () => {
                     style={{ width: '50%' }}
                     value={paintProtectionType}
                     onChange={handlePaintProtectionTypeChange}
+                  />
+                  <Form.Control
+                    type="number"
+                    placeholder="Add Price"
+                    style={{ width: '50%' }}
+                    value={paintProtectionprice}
+                    onChange={handlepaintProtectionPriceChange}
                   />
                   <button type="submit" className='btn btn-primary'>Add</button>
                 </div>
@@ -414,6 +490,13 @@ const Master = () => {
                     value={windowFilmType}
                     onChange={handleWindowFilmTypeChange}
                   />
+                  <Form.Control
+                    type="number"
+                    placeholder="Add Price"
+                    style={{ width: '50%' }}
+                    value={windowfilmnprice}
+                    onChange={handlewindowfilmPriceChange}
+                  />
                   <button type="submit" className='btn btn-primary'>Add</button>
                 </div>
               </Form.Group>
@@ -430,6 +513,13 @@ const Master = () => {
                     value={vinylWrapsType}
                     onChange={handleVinylWrapsTypeChange}
                   />
+                  <Form.Control
+                    type="number"
+                    placeholder="Add Price"
+                    style={{ width: '50%' }}
+                    value={vinalwrapsprice}
+                    onChange={handlevinalwrapsPriceChange}
+                  />
                   <button type="submit" className='btn btn-primary'>Add</button>
                 </div>
               </Form.Group>
@@ -445,6 +535,13 @@ const Master = () => {
                     style={{ width: '50%' }}
                     value={premiumSeatType}
                     onChange={handlePremiumSeatTypeChange}
+                  />
+                  <Form.Control
+                    type="number"
+                    placeholder="Add Price"
+                    style={{ width: '50%' }}
+                    value={premiumseatprice}
+                    onChange={handlepremiumseatPriceChange}
                   />
                   <button type="submit" className='btn btn-primary'>Add</button>
                 </div>
@@ -463,11 +560,17 @@ const Master = () => {
                     value={laminationType}
                     onChange={handleLaminationTypeChange}
                   />
+                  <Form.Control
+                    type="number"
+                    placeholder="Add Price"
+                    style={{ width: '50%' }}
+                    value={laminationprice}
+                    onChange={handlelaminationPriceChange}
+                  />
                   <button type="submit" className='btn btn-primary'>Add</button>
                 </div>
               </Form.Group>
             </Form>
-
 
             <Form onSubmit={handleInteriorTypeSubmit}>
               <Form.Group controlId="CarInteriorType">
@@ -479,6 +582,13 @@ const Master = () => {
                     style={{ width: '50%', marginBottom: "20px" }}
                     value={interiorType}
                     onChange={handleInteriorTypeChange}
+                  />
+                  <Form.Control
+                    type="number"
+                    placeholder="Add Price"
+                    style={{ width: '50%' }}
+                    value={interiorprice}
+                    onChange={handleinteriorPriceChange}
                   />
                   <button type="submit" className='btn btn-primary'>Add</button>
                 </div>

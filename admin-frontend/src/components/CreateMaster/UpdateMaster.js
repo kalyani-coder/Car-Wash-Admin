@@ -144,6 +144,7 @@ const UpdateMaster = () => {
           )}
         </div>
       </Form.Group>
+      
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Vehicle Type</Modal.Title>
