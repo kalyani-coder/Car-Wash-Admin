@@ -32,6 +32,7 @@ import AddClients from "./components/Client/AddClients";
 import JobCard from "./components/JobCard/JobCard";
 import ViewJobCard from "./components/JobCard/ViewJobCard";
 import Master from "./components/CreateMaster/Master";
+import UpdateMaster from "./components/CreateMaster/UpdateMaster";
 
 
 
@@ -68,6 +69,7 @@ function App() {
           <Route path="/jobcard" element={<JobCard /> } />
           <Route path="viewjobcard" element={<ViewJobCard/>} />
           <Route path="/master" element={<Master/>} />
+          <Route path="/updatemaster" element={<UpdateMaster/>} />
         </Routes>
       </Router>
     </>

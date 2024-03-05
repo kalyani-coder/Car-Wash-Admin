@@ -54,6 +54,8 @@ const jobcard = require("./src/routes/JobCard")
 
 const masterRoute = require("./src/routes/MasterRoute")
 
+const NewMasterApi = require('./src/routes/NewMasterRoute')
+
 
 apiRouter.use("/services", servicesRouter);
 apiRouter.use("/topservices", topServicesRouter);
@@ -72,6 +74,7 @@ apiRouter.use("/agentlocation", agentLocation);
 apiRouter.use("/adminlogin" , adminlogin);
 apiRouter.use("/jobcard" , jobcard);
 apiRouter.use("/master", masterRoute);
+apiRouter.use("/newmaster", NewMasterApi);
 
 app.post("/api/login", async (req, res) => {
   console.log("Received login request");

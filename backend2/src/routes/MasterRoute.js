@@ -4,6 +4,44 @@ const router = express.Router();
 const { CarDetailModel, CarWashTypeModel ,CarCoatingTypeModel,CarpaintprotectionTypeModel,CarWindowFilmsTypeModel,CarVinylWrapsTypeModel,CarPremiumSeatTypeModel,CarLaminationTypeModel,CarInteriorTypeModel} = require('../models/MasterSchema');
 
 // all routes for CarDetailModel 
+
+router.get("/mainmaster", async (req, res) => {
+  try {
+      // Fetch data from all models
+      const carDetails = await CarDetailModel.find();
+      const carWashTypes = await CarWashTypeModel.find();
+      const carCoatingTypes = await CarCoatingTypeModel.find();
+      const carPaintProtectionTypes = await CarpaintprotectionTypeModel.find();
+      const carWindowFilmsTypes = await CarWindowFilmsTypeModel.find();
+      const carVinylWrapsTypes = await CarVinylWrapsTypeModel.find();
+      const carPremiumSeatTypes = await CarPremiumSeatTypeModel.find();
+      const carLaminationTypes = await CarLaminationTypeModel.find();
+      const carInteriorTypes = await CarInteriorTypeModel.find();
+
+      // Construct the response object
+      const responseData = {
+          carDetails,
+          carWashTypes,
+          carCoatingTypes,
+          carPaintProtectionTypes,
+          carWindowFilmsTypes,
+          carVinylWrapsTypes,
+          carPremiumSeatTypes,
+          carLaminationTypes,
+          carInteriorTypes
+      };
+
+      // Send the response
+      res.status(200).json(responseData);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+// vehicle types all here 
 router.get("/vehicletype", async (req, res) => {
 
     try{
@@ -15,6 +53,7 @@ router.get("/vehicletype", async (req, res) => {
 
 })
 
+
 router.post("/cars/vehicletype", async (req, res) => {
   try {
     const newService = new CarDetailModel(req.body);
@@ -25,8 +64,29 @@ router.post("/cars/vehicletype", async (req, res) => {
   }
 });
 
+router.patch("/vehicletype/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
 
-  router.delete("/cars/:id", async (req, res) => {
+    // Find the document by ID and update it with the new data
+    const updatedService = await CarDetailModel.findByIdAndUpdate(id, updatedData, { new: true });
+
+    // Check if the document was found and updated successfully
+    if (!updatedService) {
+      return res.status(404).json({ message: "Vehicle type not found" });
+    }
+
+    res.status(200).json(updatedService);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+
+
+  router.delete("/vehicletype/:id", async (req, res) => {
     const masterId = req.params.id;
     try {
       const deletedService = await CarDetailModel.findByIdAndRemove(masterId);
@@ -111,7 +171,7 @@ router.delete("/cars/:id", async (req, res) => {
   // paintprotection all routes 
 
   router.get("/paintprotection", async (req, res) => {
-
+    
     try{
         const masterData = await CarpaintprotectionTypeModel.find()
         res.send(masterData)

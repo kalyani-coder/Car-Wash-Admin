@@ -19,6 +19,10 @@ const JobCard = () => {
   const [washTypes, setWashTypes] = useState([]);
   const [selectedWashType, setSelectedWashType] = useState('');
 
+  const [selectedCoating, setSelectedCoating] = useState('');
+
+  const [coatingTypes, setCoatingTypes] = useState([]);
+
   useEffect(() => {
     fetch('http://localhost:8000/api/master/washtype')
       .then(response => response.json())
@@ -53,7 +57,7 @@ const JobCard = () => {
     setSelectedVehicleType(event.target.value);
   };
 
-  
+
   // const handleWashTypeChange = (event) => {
   //   setSelectedWashType(event.target.value);
   // };
@@ -110,41 +114,198 @@ const JobCard = () => {
     e.preventDefault(); // Prevent the default form submission behavior
 
     if (!selectedVehicleType || !selectedCategory) {
-        console.error('Please select both a vehicle category and type.');
-        alert('Please select both a vehicle category and type.');
-        return; // Exit early if either the category or type is not selected
+      console.error('Please select both a vehicle category and type.');
+      alert('Please select both a vehicle category and type.');
+      return; // Exit early if either the category or type is not selected
     }
 
     try {
-        // Prepare data for the POST request
-        const data = {
-            clientId: selectedClient,
-            name: clientData ? clientData.clientName : "",
-            email: clientData ? clientData.clientEmail : "",
-            phone: clientData ? clientData.clientPhone : "",
-            address: clientData ? clientData.clientAddress : "",
-            vehicle_Make: clientData ? clientData.clientcarmodelno : "",
-            vehicle_Number: clientData ? clientData.clientvehicleno : "",
-            vehicle_Category: selectedCategory, // Include selected category
-            vehicle_Type: selectedVehicleType, // Include selected type
-            wash_type: selectedWashType,
-            coating: clientData ? clientData.clientcoating : ""
-        };
+      // Prepare data for the POST request
+      const data = {
+        clientId: selectedClient,
+        name: clientData ? clientData.clientName : "",
+        email: clientData ? clientData.clientEmail : "",
+        phone: clientData ? clientData.clientPhone : "",
+        address: clientData ? clientData.clientAddress : "",
+        vehicle_Make: clientData ? clientData.clientcarmodelno : "",
+        vehicle_Number: clientData ? clientData.clientvehicleno : "",
+        vehicle_Category: selectedCategory, // Include selected category
+        vehicle_Type: selectedVehicleType, // Include selected type
+        wash_type: selectedWashType,
+        coating: clientData ? clientData.clientcoating : ""
+      };
 
-        // Send POST request to the API
-        const response = await axios.post(
-            "http://localhost:8000/api/jobcard",
-            data
-        );
+      // Send POST request to the API
+      const response = await axios.post(
+        "http://localhost:8000/api/jobcard",
+        data
+      );
 
-        // Set the response message
-        setResponseMessage(response.data.message);
-        alert('Data posted successfully');
+      // Set the response message
+      setResponseMessage(response.data.message);
+      alert('Data posted successfully');
     } catch (error) {
-        console.error("Error posting data:", error);
-        setResponseMessage("An error occurred while posting data.");
+      console.error("Error posting data:", error);
+      setResponseMessage("An error occurred while posting data.");
     }
-};
+  };
+
+  const handleCoatingChange = (event) => {
+    setSelectedCoating(event.target.value);
+  };
+
+
+  const fetchCoatingTypes = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/master/coating');
+      if (response.ok) {
+        const data = await response.json();
+        setCoatingTypes(data);
+      } else {
+        console.error('Failed to fetch coating types');
+      }
+    } catch (error) {
+      console.error('Error fetching coating types:', error);
+    }
+  };
+
+  const [paintProtection, setPaintProtection] = useState([]);
+  const [selectedOption, setSelectedOption] = useState('');
+
+  const [windowFilms, setWindowFilms] = useState([]);
+  const [windowselectedOption, setwindowSelectedOption] = useState('');
+
+  const handleSelectChange = event => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleWindowSelectChange = event => {
+    setwindowSelectedOption(event.target.value);
+  };
+
+  const fetchPaintProtection = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/master/paintprotection');
+      if (response.ok) {
+        const data = await response.json();
+        setPaintProtection(data);
+      } else {
+        console.error('Failed to fetch coating types');
+      }
+    } catch (error) {
+      console.error('Error fetching coating types:', error);
+    }
+  };
+
+  const fetchWindowFilms = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/master/windowfilm');
+      if (response.ok) {
+        const data = await response.json();
+        setWindowFilms(data);
+      } else {
+        console.error('Failed to fetch window films');
+      }
+    } catch (error) {
+      console.error('Error fetching window films:', error);
+    }
+  };
+
+  const fetchVinylWraps = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/master/vinalwraps');
+      if (response.ok) {
+        const data = await response.json();
+        setVinylWraps(data); // No need to wrap data inside an array
+      } else {
+        console.error('Failed to fetch vinyl wraps');
+      }
+    } catch (error) {
+      console.error('Error fetching vinyl wraps:', error);
+    }
+  };
+  const handleVinylWrapsSelectChange = event => {
+    setVinylWrapsSelectedOption(event.target.value);
+  };
+
+  const fetchPremiumSeatCovers = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/master/premiumseat');
+      if (response.ok) {
+        const data = await response.json();
+        setPremiumSeatCovers(data);
+      } else {
+        console.error('Failed to fetch premium leather seat covers');
+      }
+    } catch (error) {
+      console.error('Error fetching premium leather seat covers:', error);
+    }
+  };
+
+  const handleseatcoverSelectChange = event => {
+    setSeatcoverSelectedOption(event.target.value);
+  };
+
+  const fetchLaminationTypes = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/master/lamination');
+      if (response.ok) {
+        const data = await response.json();
+        setLaminationTypes(data);
+      } else {
+        console.error('Failed to fetch lamination types');
+      }
+    } catch (error) {
+      console.error('Error fetching lamination types:', error);
+    }
+  };
+  const handleLaminationSelectChange = event => {
+    setLaminationSelectedOption(event.target.value);
+  };
+
+  const fetchInteriorDecorOptions = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/master/interior');
+      if (response.ok) {
+        const data = await response.json();
+        setInteriorDecorOptions(data);
+      } else {
+        console.error('Failed to fetch interior decor options');
+      }
+    } catch (error) {
+      console.error('Error fetching interior decor options:', error);
+    }
+  };
+
+  const handleInteriorDecorSelectChange = event => {
+    setInteriorDecorSelectedOption(event.target.value);
+  };
+
+
+
+
+  const [vinylWraps, setVinylWraps] = useState([]);
+  const [vinylWrapsSelectedOption, setVinylWrapsSelectedOption] = useState('');
+
+  const [premiumSeatCovers, setPremiumSeatCovers] = useState([]);
+  const [seatcoverselectedOption, setSeatcoverSelectedOption] = useState('');
+
+  const [laminationTypes, setLaminationTypes] = useState([]);
+  const [laminationSelectedOption, setLaminationSelectedOption] = useState('');
+
+  const [interiorDecorOptions, setInteriorDecorOptions] = useState([]);
+  const [interiorDecorselectedOption, setInteriorDecorSelectedOption] = useState('');
+
+
+  useEffect(() => {
+    fetchCoatingTypes();
+    fetchPaintProtection();
+    fetchWindowFilms();
+    fetchVinylWraps();
+    fetchPremiumSeatCovers();
+    fetchLaminationTypes();
+    fetchInteriorDecorOptions();
+  }, []);
 
 
   return (
@@ -313,16 +474,15 @@ const JobCard = () => {
                     className="custom-select"
                     aria-label="Select Car Wash Type"
                     style={{ width: '50%' }}
-                    // onChange={handleCoatingChange}
+                    value={selectedCoating}
+                    onChange={handleCoatingChange}
                   >
-                    <option>Coating Type</option>
-                    <option>Ceramic (9H)</option>
-                    <option>Regular 1 & 2 year warranty (1 maintenance in 2 years)</option>
-                    <option>Premium 3 years warranty (2 maintenance in 3 years)</option>
-                    <option>Luxury 5 years and lifetime warranty (4 or 14 maintenance in 5 or 15 years)</option>
-                    <option>Engine Coating</option>
-                    <option>Silencer Coating</option>
-                    <option>Underbody Coating</option>
+                    <option value="">Coating Type</option>
+                    {coatingTypes.map((coating) => (
+                      <option key={coating._id} value={coating.coating_type}>
+                        {coating.coating_type}
+                      </option>
+                    ))}
                   </Form.Select>
                 </div>
               </Form.Group>
@@ -334,16 +494,13 @@ const JobCard = () => {
                     className="custom-select"
                     aria-label="Select Car Wash Type"
                     style={{ width: '50%' }}
+                    value={selectedOption}
+                    onChange={handleSelectChange}
                   >
-                    <option>Paint Protection Films</option>
-                    <option>Glossy
-                      Regular 3 years warranty (Glossgenic & Garware )</option>
-                    <option>Premium 5 years warranty
-                      (Glossgenic, Garware & Llumar)</option>
-                    <option>Exclusive 7 years warranty
-                      (Glossgenic)</option>
-                    <option>Luxe 10 years warranty (Glossgenic & Llumar)</option>
-                    <option>Elegance 12 years warranty (Llumar)</option>
+                    <option value="">Select an option</option>
+                    {paintProtection.map((option, index) => (
+                      <option key={index} value={option._id}>{option.paintProtection_Type}</option>
+                    ))}
                   </Form.Select>
                 </div>
               </Form.Group>
@@ -354,13 +511,15 @@ const JobCard = () => {
                 <div className="relative">
                   <Form.Select
                     className="custom-select"
-                    aria-label="Select Car Wash Type"
+                    aria-label="Select Window Film Type"
                     style={{ width: '50%' }}
+                    value={windowselectedOption}
+                    onChange={handleWindowSelectChange}
                   >
-                    <option>Window Films</option>
-                    <option>Garware</option>
-                    <option>Llumar </option>
-
+                    <option value="">Select an option</option>
+                    {windowFilms.map(film => (
+                      <option key={film._id} value={film._id}>{film.windowFilm_Type}</option>
+                    ))}
                   </Form.Select>
                 </div>
               </Form.Group>
@@ -370,13 +529,15 @@ const JobCard = () => {
                 <div className="relative">
                   <Form.Select
                     className="custom-select"
-                    aria-label="Select Car Wash Type"
+                    aria-label="Select Vinyl Wrap Type"
                     style={{ width: '50%' }}
+                    value={vinylWrapsSelectedOption}
+                    onChange={handleVinylWrapsSelectChange}
                   >
-                    <option>Vinyl Wraps</option>
-                    <option>Regular</option>
-                    <option>Ceramic Coating</option>
-
+                    <option value="">Select an option</option>
+                    {vinylWraps.map((wrap, index) => (
+                      <option key={index} value={wrap.VinylWraps_Type}>{wrap.VinylWraps_Type}</option>
+                    ))}
                   </Form.Select>
                 </div>
               </Form.Group>
@@ -386,33 +547,33 @@ const JobCard = () => {
                 <div className="relative">
                   <Form.Select
                     className="custom-select"
-                    aria-label="Select Car Wash Type"
+                    aria-label="Select Premium Leather Seat Cover Type"
                     style={{ width: '50%' }}
+                    value={seatcoverselectedOption}
+                    onChange={handleseatcoverSelectChange}
                   >
-                    <option>Premium Leather Seat Covers</option>
-                    <option>Bentley Leather</option>
-                    <option>German Leather</option>
-                    <option>NAPA Leather</option>
-                    <option>Lavish Leather</option>
-
+                    <option value="">Select an option</option>
+                    {premiumSeatCovers.map((cover, index) => (
+                      <option key={index} value={cover._id}>{cover.premiumSeat_Type}</option>
+                    ))}
                   </Form.Select>
                 </div>
               </Form.Group>
-
 
               <Form.Group controlId="CarWashType">
                 <Form.Label>Lamination:</Form.Label>
                 <div className="relative">
                   <Form.Select
                     className="custom-select"
-                    aria-label="Select Car Wash Type"
+                    aria-label="Select Lamination Type"
                     style={{ width: '50%' }}
+                    value={laminationSelectedOption}
+                    onChange={handleLaminationSelectChange}
                   >
-                    <option>Lamination</option>
-                    <option>Exotic Floor Lamination</option>
-                    <option>7D Mats</option>
-                    <option>3D Mats</option>
-
+                    <option value="">Select an option</option>
+                    {laminationTypes.map((lamination, index) => (
+                      <option key={index} value={lamination._id}>{lamination.lamination_Type}</option>
+                    ))}
                   </Form.Select>
                 </div>
               </Form.Group>
@@ -423,13 +584,15 @@ const JobCard = () => {
                 <div className="relative">
                   <Form.Select
                     className="custom-select"
-                    aria-label="Select Car Wash Type"
+                    aria-label="Select Interior Décor Type"
                     style={{ width: '50%', marginBottom: "20px" }}
+                    value={interiorDecorselectedOption}
+                    onChange={handleInteriorDecorSelectChange}
                   >
-                    <option>Interior Décor</option>
-                    <option>Ambient lighting</option>
-                    <option>Full Interior Modification</option>
-
+                    <option value="">Select an option</option>
+                    {interiorDecorOptions.map((decor, index) => (
+                      <option key={index} value={decor._id}>{decor.interiour_Type}</option>
+                    ))}
                   </Form.Select>
                 </div>
               </Form.Group>

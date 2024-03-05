@@ -21,6 +21,12 @@ const Master = () => {
 
   const [interiorType, setInteriorType] = useState('');
 
+  const [price, setPrice] = useState('');
+
+  const handlePriceChange = (event) => {
+    setPrice(event.target.value);
+};
+
   const handleInteriorTypeChange = (event) => {
     setInteriorType(event.target.value);
   };
@@ -65,27 +71,29 @@ const Master = () => {
   const handleVehicleTypeSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/api/master/cars/vehicletype', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          vehicle_Type: vehicleType
-        })
-      });
-      if (response.ok) {
-        console.log('Vehicle type added successfully!');
-        alert('Vehicle type added successfully!');
-        // Optionally, you can reset the form field after successful submission
-        setVehicleType('');
-      } else {
-        console.error('Failed to add vehicle type');
-      }
+        const response = await fetch('http://localhost:8000/api/master/cars/vehicletype', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                vehicle_Type: vehicleType,
+                price: price
+            })
+        });
+        if (response.ok) {
+            console.log('Vehicle type and price added successfully!');
+            alert('Vehicle type and price added successfully!');
+            // Optionally, you can reset the form fields after successful submission
+            setVehicleType('');
+            setPrice('');
+        } else {
+            console.error('Failed to add vehicle type and price');
+        }
     } catch (error) {
-      console.error('Error adding vehicle type:', error);
+        console.error('Error adding vehicle type and price:', error);
     }
-  };
+};
 
 
   const handleWashTypeSubmit = async (event) => {
@@ -97,7 +105,7 @@ const Master = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          wash_type: washType
+          wash_type: washType,
         })
       });
       if (response.ok) {
@@ -317,20 +325,34 @@ const Master = () => {
         {/* Conditional rendering based on selected category */}
         {selectedCategory === 'cars' && (
           <>
-            <Form onSubmit={handleVehicleTypeSubmit}>
-              <Form.Group controlId="CarVehicleType">
-                <Form.Label>Vehicle Type:</Form.Label>
-                <div className="relative">
-                  <Form.Control
-                    type="text"
-                    placeholder="Add Car Vehicle Type"
-                    style={{ width: '50%' }}
-                    value={vehicleType}
-                    onChange={handleVehicleTypeChange}
-                  />
-                  <button type="submit" className='btn btn-primary'>Add</button>
-                </div>
-              </Form.Group>
+             <Form onSubmit={handleVehicleTypeSubmit}>
+                <Form.Group controlId="CarVehicleType">
+                    <Form.Label>Vehicle Type:</Form.Label>
+                    <div className="relative">
+                        <Form.Control
+                            type="text"
+                            placeholder="Add Car Vehicle Type"
+                            style={{ width: '50%' }}
+                            value={vehicleType}
+                            onChange={handleVehicleTypeChange}
+                            required
+                        />
+                    </div>
+                </Form.Group>
+                <Form.Group controlId="CarPrice">
+                    <Form.Label>Price:</Form.Label>
+                    <div className="relative">
+                        <Form.Control
+                            type="number"
+                            placeholder="Add Price"
+                            style={{ width: '50%' }}
+                            value={price}
+                            onChange={handlePriceChange}
+                            required
+                        />
+                    </div>
+                </Form.Group>
+                <button type="submit" className='btn btn-primary'>Add</button>
             </Form>
 
             <Form onSubmit={handleWashTypeSubmit}>

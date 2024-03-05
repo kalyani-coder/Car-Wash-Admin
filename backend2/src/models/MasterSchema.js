@@ -7,35 +7,43 @@ const carDetailSchema = new mongoose.Schema({
 
 const carwashtypeSchema = new mongoose.Schema({
     wash_type : { type: String },
+    price : Number,
 });
 
 const carcoatingtypeSchema = new mongoose.Schema({
     coating_type : { type: String },
+    price : Number,
 });
 
 const carpaintprotectiontypeSchema = new mongoose.Schema({
     paintProtection_Type : { type: String },
+    price : Number,
 });
 
 const carWindowFilmstypeSchema = new mongoose.Schema({
     windowFilm_Type : { type: String },
+    price : Number,
 });
 
 const carVinylWrapstypeSchema = new mongoose.Schema({
     VinylWraps_Type : { type: String },
+    price : Number,
 });
 
 const carPremiumSeattypeSchema = new mongoose.Schema({
     premiumSeat_Type : { type: String },
+    price : Number,
 });
 
 
 const carLaminationtypeSchema = new mongoose.Schema({
     lamination_Type : { type: String },
+    price : Number,
 });
 
 const carInteriortypeSchema = new mongoose.Schema({
     interiour_Type : { type: String },
+    price : Number,
 });
 
 const CarDetailModel = mongoose.model('CarDetail', carDetailSchema);

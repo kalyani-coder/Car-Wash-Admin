@@ -264,6 +264,10 @@ export default function Sidebar() {
                       <Link to={"/master"} onClick={closeSidebar}>Master</Link>
                     </li>
 
+                    <li>
+                      <Link to={"/updatemaster"} onClick={closeSidebar}>Update Master</Link>
+                    </li>
+
                 <li>
                 <Link className="logout bg-danger" onClick={handleLogout}>
                   Logout
