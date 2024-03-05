@@ -121,7 +121,27 @@ router.post("/cars/washtype", async (req, res) => {
   }
 });
 
-router.delete("/cars/:id", async (req, res) => {
+router.patch("/washtype/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
+
+    // Find the document by ID and update it with the new data
+    const updatedService = await CarWashTypeModel.findByIdAndUpdate(id, updatedData, { new: true });
+
+    // Check if the document was found and updated successfully
+    if (!updatedService) {
+      return res.status(404).json({ message: "washtype not found" });
+    }
+
+    res.status(200).json(updatedService);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.delete("/washtype/:id", async (req, res) => {
   const masterId = req.params.id;
   try {
     const deletedService = await CarWashTypeModel.findByIdAndRemove(masterId);
@@ -156,7 +176,27 @@ router.post("/cars/coating", async (req, res) => {
   }
 });
 
-router.delete("/cars/:id", async (req, res) => {
+router.patch("/coating/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
+
+    // Find the document by ID and update it with the new data
+    const updatedService = await CarCoatingTypeModel.findByIdAndUpdate(id, updatedData, { new: true });
+
+    // Check if the document was found and updated successfully
+    if (!updatedService) {
+      return res.status(404).json({ message: "Vehicle type not found" });
+    }
+
+    res.status(200).json(updatedService);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.delete("/coating/:id", async (req, res) => {
   const masterId = req.params.id;
   try {
     const deletedService = await CarCoatingTypeModel.findByIdAndRemove(masterId);
@@ -191,7 +231,28 @@ router.post("/cars/paintprotection", async (req, res) => {
   }
 });
 
-router.delete("/cars/:id", async (req, res) => {
+router.patch("/paintprotection/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
+
+    // Find the document by ID and update it with the new data
+    const updatedService = await CarpaintprotectionTypeModel.findByIdAndUpdate(id, updatedData, { new: true });
+
+    // Check if the document was found and updated successfully
+    if (!updatedService) {
+      return res.status(404).json({ message: "Vehicle type not found" });
+    }
+
+    res.status(200).json(updatedService);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+
+router.delete("/paintprotection/:id", async (req, res) => {
   const masterId = req.params.id;
   try {
     const deletedService = await CarpaintprotectionTypeModel.findByIdAndRemove(masterId);
@@ -226,7 +287,28 @@ router.post("/cars/windowfilm", async (req, res) => {
   }
 });
 
-router.delete("/cars/:id", async (req, res) => {
+router.patch("/windowfilm/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
+
+    // Find the document by ID and update it with the new data
+    const updatedService = await CarWindowFilmsTypeModel.findByIdAndUpdate(id, updatedData, { new: true });
+
+    // Check if the document was found and updated successfully
+    if (!updatedService) {
+      return res.status(404).json({ message: "Vehicle type not found" });
+    }
+
+    res.status(200).json(updatedService);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+
+router.delete("/windowfilm/:id", async (req, res) => {
   const masterId = req.params.id;
   try {
     const deletedService = await CarWindowFilmsTypeModel.findByIdAndRemove(masterId);
@@ -260,8 +342,27 @@ router.post("/cars/vinalwraps", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+router.patch("/vinalwraps/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
 
-router.delete("/cars/:id", async (req, res) => {
+    // Find the document by ID and update it with the new data
+    const updatedService = await CarVinylWrapsTypeModel.findByIdAndUpdate(id, updatedData, { new: true });
+
+    // Check if the document was found and updated successfully
+    if (!updatedService) {
+      return res.status(404).json({ message: "Vehicle type not found" });
+    }
+
+    res.status(200).json(updatedService);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.delete("/vinalwraps/:id", async (req, res) => {
   const masterId = req.params.id;
   try {
     const deletedService = await CarVinylWrapsTypeModel.findByIdAndRemove(masterId);
@@ -295,7 +396,27 @@ try {
 }
 });
 
-router.delete("/cars/:id", async (req, res) => {
+router.patch("/premiumseat/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
+
+    // Find the document by ID and update it with the new data
+    const updatedService = await CarPremiumSeatTypeModel.findByIdAndUpdate(id, updatedData, { new: true });
+
+    // Check if the document was found and updated successfully
+    if (!updatedService) {
+      return res.status(404).json({ message: "Vehicle type not found" });
+    }
+
+    res.status(200).json(updatedService);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.delete("/premiumseat/:id", async (req, res) => {
 const masterId = req.params.id;
 try {
   const deletedService = await CarPremiumSeatTypeModel.findByIdAndRemove(masterId);
@@ -328,7 +449,27 @@ try {
 }
 });
 
-router.delete("/cars/:id", async (req, res) => {
+router.patch("/interior/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
+
+    // Find the document by ID and update it with the new data
+    const updatedService = await CarInteriorTypeModel.findByIdAndUpdate(id, updatedData, { new: true });
+
+    // Check if the document was found and updated successfully
+    if (!updatedService) {
+      return res.status(404).json({ message: "Vehicle type not found" });
+    }
+
+    res.status(200).json(updatedService);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.delete("/interior/:id", async (req, res) => {
 const masterId = req.params.id;
 try {
   const deletedService = await CarInteriorTypeModel.findByIdAndRemove(masterId);
@@ -362,7 +503,27 @@ try {
 }
 });
 
-router.delete("/cars/:id", async (req, res) => {
+router.patch("/lamination/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
+
+    // Find the document by ID and update it with the new data
+    const updatedService = await CarLaminationTypeModel.findByIdAndUpdate(id, updatedData, { new: true });
+
+    // Check if the document was found and updated successfully
+    if (!updatedService) {
+      return res.status(404).json({ message: "Vehicle type not found" });
+    }
+
+    res.status(200).json(updatedService);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.delete("/lamination/:id", async (req, res) => {
 const masterId = req.params.id;
 try {
   const deletedService = await CarLaminationTypeModel.findByIdAndRemove(masterId);

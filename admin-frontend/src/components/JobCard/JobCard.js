@@ -110,45 +110,50 @@ const JobCard = () => {
     setClientData(mergedData);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault(); // Prevent the default form submission behavior
 
-    if (!selectedVehicleType || !selectedCategory) {
-      console.error('Please select both a vehicle category and type.');
-      alert('Please select both a vehicle category and type.');
-      return; // Exit early if either the category or type is not selected
-    }
+  //   if (!selectedVehicleType || !selectedCategory || !selectedWashType) {
+  //     console.error('Please select a vehicle category, type, and wash type.');
+  //     alert('Please select a vehicle category, type, and wash type.');
+  //     return; // Exit early if any required field is not selected
+  //   }
 
-    try {
-      // Prepare data for the POST request
-      const data = {
-        clientId: selectedClient,
-        name: clientData ? clientData.clientName : "",
-        email: clientData ? clientData.clientEmail : "",
-        phone: clientData ? clientData.clientPhone : "",
-        address: clientData ? clientData.clientAddress : "",
-        vehicle_Make: clientData ? clientData.clientcarmodelno : "",
-        vehicle_Number: clientData ? clientData.clientvehicleno : "",
-        vehicle_Category: selectedCategory, // Include selected category
-        vehicle_Type: selectedVehicleType, // Include selected type
-        wash_type: selectedWashType,
-        coating: clientData ? clientData.clientcoating : ""
-      };
+  //   const selectedWashTypeData = washTypes.find(wash => wash.wash_type === selectedWashType);
+  //   const washTypePrice = selectedWashTypeData ? selectedWashTypeData.price : 0;
 
-      // Send POST request to the API
-      const response = await axios.post(
-        "http://localhost:8000/api/jobcard",
-        data
-      );
+  //   try {
+  //     // Prepare data for the POST request
+  //     const data = {
+  //       clientId: selectedClient,
+  //       name: clientData ? clientData.clientName : "",
+  //       email: clientData ? clientData.clientEmail : "",
+  //       phone: clientData ? clientData.clientPhone : "",
+  //       address: clientData ? clientData.clientAddress : "",
+  //       vehicle_Make: clientData ? clientData.clientcarmodelno : "",
+  //       vehicle_Number: clientData ? clientData.clientvehicleno : "",
+  //       vehicle_Category: selectedCategory, // Include selected category
+  //       vehicle_Type: selectedVehicleType, // Include selected type
+  //       wash_type: selectedWashType,
+  //       wash_type_price: washTypePrice,
+  //       coating: clientData ? clientData.clientcoating : ""
+  //     };
 
-      // Set the response message
-      setResponseMessage(response.data.message);
-      alert('Data posted successfully');
-    } catch (error) {
-      console.error("Error posting data:", error);
-      setResponseMessage("An error occurred while posting data.");
-    }
-  };
+  //     // Send POST request to the API
+  //     const response = await axios.post(
+  //       "http://localhost:8000/api/jobcard",
+  //       data
+  //     );
+
+  //     // Set the response message
+  //     setResponseMessage(response.data.message);
+  //     alert('Data posted successfully');
+  //   } catch (error) {
+  //     console.error("Error posting data:", error);
+  //     setResponseMessage("An error occurred while posting data.");
+  //   }
+  // };
+
 
   const handleCoatingChange = (event) => {
     setSelectedCoating(event.target.value);
@@ -306,6 +311,58 @@ const JobCard = () => {
     fetchLaminationTypes();
     fetchInteriorDecorOptions();
   }, []);
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+
+    if (!selectedVehicleType || !selectedCategory || !selectedWashType) {
+      console.error('Please select a vehicle category, type, and wash type.');
+      alert('Please select a vehicle category, type, and wash type.');
+      return; // Exit early if any required field is not selected
+    }
+
+    const selectedWashTypeData = washTypes.find(wash => wash.wash_type === selectedWashType);
+    const washTypePrice = selectedWashTypeData ? selectedWashTypeData.price : 0;
+
+    const selectedCoatingData = coatingTypes.find(coating => coating.coating_type === selectedCoating);
+    const coatingPrice = selectedCoatingData ? selectedCoatingData.price : 0;
+
+    
+
+    try {
+      // Prepare data for the POST request
+      const data = {
+        clientId: selectedClient,
+        name: clientData ? clientData.clientName : "",
+        email: clientData ? clientData.clientEmail : "",
+        phone: clientData ? clientData.clientPhone : "",
+        address: clientData ? clientData.clientAddress : "",
+        vehicle_Make: clientData ? clientData.clientcarmodelno : "",
+        vehicle_Number: clientData ? clientData.clientvehicleno : "",
+        vehicle_Category: selectedCategory, // Include selected category
+        vehicle_Type: selectedVehicleType, // Include selected type
+        wash_type: selectedWashType,
+        wash_type_price: washTypePrice,
+        coating: selectedCoating,
+        coating_Price: coatingPrice
+      };
+
+      // Send POST request to the API
+      const response = await axios.post(
+        "http://localhost:8000/api/jobcard",
+        data
+      );
+
+      // Set the response message
+      setResponseMessage(response.data.message);
+      alert('Data posted successfully');
+    } catch (error) {
+      console.error("Error posting data:", error);
+      setResponseMessage("An error occurred while posting data.");
+    }
+  };
+
 
 
   return (

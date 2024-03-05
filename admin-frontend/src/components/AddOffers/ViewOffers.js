@@ -6,7 +6,7 @@ const ViewOffers = () => {
   // Function to fetch offers from API
   const fetchOffers = async () => {
     try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/homeoffers');
+      const response = await fetch('http://localhost:8000/api/homeoffers');
       const data = await response.json();
       setOffers(data);
     } catch (error) {

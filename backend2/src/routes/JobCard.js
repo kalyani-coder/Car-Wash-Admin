@@ -67,7 +67,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const { clientId, name, email, phone, address, vehicle_Make, model_Year, vehicle_Number, vehicle_Category, vehicle_Treatment, vehicle_Type, wash_type, coating, paint_protection_field, window_films, vinly_wraps, premium_seat_cover, lamination, interiour_decor, vehicletype_Price,
+        const { clientId, name, email, phone, address, vehicle_Make, model_Year, vehicle_Number, vehicle_Category, vehicle_Treatment, vehicle_Type, wash_type, coating, paint_protection_field, window_films, vinly_wraps, premium_seat_cover, lamination, interiour_decor,
             wash_type_price,
             coating_Price,
             paint_protection_field_Price,
@@ -105,7 +105,7 @@ router.post("/", async (req, res) => {
             premium_seat_cover,
             lamination,
             interiour_decor,
-            vehicletype_Price,
+            
             wash_type_price,
             coating_Price,
             paint_protection_field_Price,

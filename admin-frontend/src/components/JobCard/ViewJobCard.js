@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"; // Import Bootstrap's Modal component
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const ViewJobCard = () => {
   const [jobData, setJobData] = useState([]);
@@ -21,6 +23,40 @@ const ViewJobCard = () => {
     modal.show();
   };
 
+  const handleGeneratePDF = (job) => {
+    const pdf = new jsPDF();
+    
+    // Add client details
+    const clientDetails = `
+      Client Name: ${job.name}
+      Email: ${job.email}
+      Phone: ${job.phone}
+      Address: ${job.address}
+    `;
+    pdf.text(clientDetails, 10, 10);
+
+    // Add job card content in table format
+    const tableData = [
+      ['Job Card ID', 'Vehicle Category', 'Vehicle Type'],
+      [job.JobCardId, job.vehicle_Category, job.vehicle_Type],
+      ['Email', 'Phone'],
+      [job.email, job.phone],
+      ['Address', 'Vehicle Make/Model'],
+      [job.address, job.vehicle_Make],
+      ['Vehicle Number', 'Coating'],
+      [job.vehicle_Number, job.coating],
+      ['Paint Protection Films', 'Window Films'],
+      ['...', '...'] // Add more data as needed
+    ];
+
+    pdf.autoTable({
+      head: [['Job Details']],
+      body: tableData,
+      startY: 30
+    });
+
+    pdf.save(`job_${job._id}.pdf`);
+  };
   return (
     <div className="container">
       {jobData.map((job) => (
@@ -31,23 +67,25 @@ const ViewJobCard = () => {
               <tbody>
                 <tr>
                   <td> Job Card id : {job.JobCardId}</td>
-                  <td> Vehicle Category: : </td>
+                  <td> Vehicle Category: {job.vehicle_Category} </td>
                 </tr>
                 <tr>
                   <td>Email : {job.email}</td>
-                  <td> Vehicle Type:</td>
+                  <td> Vehicle Type:{job.vehicle_Type}</td>
                 </tr>
                 <tr>
                   <td>Phone Number : {job.phone}</td>
-                  <td>Wash Type:</td>
+                  <td>Wash Type: {job.wash_type}</td>
+                  <td>Wash Price: {job.wash_type_price}</td>
                 </tr>
                 <tr>
                   <td>Address : {job.address}</td>
-                  <td>Coating: </td>
+                  <td>Coating:{job.coating} </td>
+                  <td>Coating Price:{job.coating_Price} </td>
                 </tr>
                 <tr>
                   <td>Vehicle Make/Model : {job.vehicle_Make}</td>
-                  <td>Paint Protection Films: </td>
+                  <td>Paint Protection Films: {job.vehicle_Make}</td>
                 </tr>
                 <tr>
                   <td>Vehicle Number : {job.vehicle_Number}</td>
@@ -55,7 +93,7 @@ const ViewJobCard = () => {
                 </tr>
               </tbody>
             </table>
-            <div className="flex items-center justify-center">
+            <div className="d-flex justify-content-between align-items-center">
               <div>
                 <button
                   type="button"
@@ -65,6 +103,17 @@ const ViewJobCard = () => {
                   View
                 </button>
               </div>
+
+              <div>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => handleGeneratePDF(job)}
+              >
+                Generate PDF
+              </button>
+            </div>
+              
             </div>
           </div>
         </div>

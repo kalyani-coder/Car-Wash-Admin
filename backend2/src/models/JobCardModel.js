@@ -17,7 +17,6 @@ const JobCardSchema = new mongoose.Schema({
     vehicle_Category : String,
 
     vehicle_Type : String,
-    vehicletype_Price : Number,
 
     wash_type  : String,
     wash_type_price : Number,

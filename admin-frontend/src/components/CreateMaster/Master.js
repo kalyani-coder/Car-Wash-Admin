@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Form } from "react-bootstrap";
+import { Form, Button } from 'react-bootstrap';
 
 const Master = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [vehicleType, setVehicleType] = useState('');
 
-  const [washType, setWashType] = useState('');
+  // const [washType, setWashType] = useState('');
 
   const [coatingType, setCoatingType] = useState('');
 
@@ -55,8 +55,31 @@ const Master = () => {
     setCoatingType(event.target.value);
   };
 
-  const handleWashTypeChange = (event) => {
-    setWashType(event.target.value);
+  const handleWashTypeSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch('http://localhost:8000/api/master/cars/washtype', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          wash_type: washType,
+          price: washPrice
+        })
+      });
+      if (response.ok) {
+        console.log('Wash type and price added successfully!');
+        alert('Wash type and price added successfully!');
+        // Optionally, you can reset the form fields after successful submission
+        setWashType('');
+        setWashPrice('');
+      } else {
+        console.error('Failed to add wash type and price');
+      }
+    } catch (error) {
+      console.error('Error adding wash type and price:', error);
+    }
   };
 
   const handleVehicleTypeChange = (event) => {
@@ -96,31 +119,31 @@ const Master = () => {
   };
 
 
-  const handleWashTypeSubmit = async event => {
-    event.preventDefault();
-    try {
-      const response = await fetch('http://localhost:8000/api/master/cars/washtype', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          wash_Type: washType,
-          price: price
-        })
-      });
-      if (response.ok) {
-        console.log('Wash type and price added successfully!');
-        alert('Wash type and price added successfully!');
-        setWashType('');
-        setPrice('');
-      } else {
-        console.error('Failed to add wash type and price');
-      }
-    } catch (error) {
-      console.error('Error adding wash type and price:', error);
-    }
-  };
+  // const handleWashTypeSubmit = async event => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await fetch('http://localhost:8000/api/master/cars/washtype', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         wash_Type: washType,
+  //         price: price
+  //       })
+  //     });
+  //     if (response.ok) {
+  //       console.log('Wash type and price added successfully!');
+  //       alert('Wash type and price added successfully!');
+  //       setWashType('');
+  //       setPrice('');
+  //     } else {
+  //       console.error('Failed to add wash type and price');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error adding wash type and price:', error);
+  //   }
+  // };
 
 
 
@@ -355,6 +378,17 @@ const Master = () => {
     setinteriorPrice(event.target.value);
   };
 
+
+  const [washType, setWashType] = useState('');
+  const [washPrice, setWashPrice] = useState('');
+
+  const handleWashTypeChange = (event) => {
+    setWashType(event.target.value);
+  };
+
+  const handleWashPriceChange = (event) => {
+    setWashPrice(event.target.value);
+  };
   return (
     <>
       <div className='container'>
@@ -394,7 +428,6 @@ const Master = () => {
                 </div>
               </Form.Group>
               <Form.Group controlId="CarPrice">
-                <Form.Label>Price:</Form.Label>
                 <div className="relative">
                   <Form.Control
                     type="number"
@@ -410,28 +443,34 @@ const Master = () => {
             </Form>
 
             <Form onSubmit={handleWashTypeSubmit}>
-              <Form.Group controlId="CarWashType">
-                <Form.Label>Wash Type:</Form.Label>
-                <div className="relative">
-                  <Form.Control
-                    type="text"
-                    placeholder="Add Wash Type"
-                    style={{ width: '50%' }}
-                    value={washType}
-                    onChange={handleWashTypeChange}
-                  />
-                  <Form.Label>Wash Type Price:</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="Add Price"
-                    style={{ width: '50%' }}
-                    value={price}
-                    onChange={handlePriceChange}
-                  />
-                  <button type="submit" className='btn btn-primary'>Add</button>
-                </div>
-              </Form.Group>
-            </Form>
+      <Form.Group controlId="WashType">
+        <Form.Label>Wash Type:</Form.Label>
+        <div className="relative">
+          <Form.Control
+            type="text"
+            placeholder="Add Wash Type"
+            style={{ width: '50%' }}
+            value={washType}
+            onChange={handleWashTypeChange}
+            required
+          />
+        </div>
+      </Form.Group>
+      <Form.Group controlId="WashPrice">
+        <div className="relative">
+          <Form.Control
+            type="number"
+            placeholder="Add Price"
+            style={{ width: '50%' }}
+            value={washPrice}
+            onChange={handleWashPriceChange}
+            required
+          />
+        </div>
+      </Form.Group>
+      <Button type="submit" variant="primary">Add</Button>
+    </Form>
+
 
             <Form onSubmit={handleCoatingTypeSubmit}>
               <Form.Group controlId="CarCoatingType">

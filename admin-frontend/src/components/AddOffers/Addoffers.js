@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Alert from '../Service/Alert';
 
 const Addoffers = () => {
   const [offerData, setOfferData] = useState({
@@ -22,10 +23,27 @@ const Addoffers = () => {
     });
   };
 
+  const [successAlert, setSuccessAlert] = useState(null);
+  const [errorAlert, setErrorAlert] = useState(null);
+
+  const showAlert = (message, type) => {
+    if (type === "success") {
+      setSuccessAlert({ msg: message, type: type });
+      setTimeout(() => {
+        setSuccessAlert(null);
+      }, 5000);
+    } else if (type === "error") {
+      setErrorAlert({ msg: message, type: type });
+      setTimeout(() => {
+        setErrorAlert(null);
+      }, 5000);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch('https://car-wash-backend-api.onrender.com/api/homeoffers', {
+    fetch('http://localhost:8000/api/homeoffers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,6 +53,8 @@ const Addoffers = () => {
       .then(response => response.json())
       .then(data => {
         console.log('Offer added successfully', data);
+        showAlert("Offer Added Successfully", "success");
+        
         setOfferData({
           offerName: '',
           offer: '',
@@ -52,6 +72,10 @@ const Addoffers = () => {
   return (
     <div className='container mt-5'>
       <h1>Add Offer</h1>
+
+      {successAlert && <Alert alert={successAlert} />}
+      {errorAlert && <Alert alert={errorAlert} />}
+      
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="offerName" className="form-label">Offer Name</label>
