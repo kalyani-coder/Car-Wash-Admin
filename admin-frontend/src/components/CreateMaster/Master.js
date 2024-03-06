@@ -21,11 +21,11 @@ const Master = () => {
 
   const [interiorType, setInteriorType] = useState('');
 
-  const [price, setPrice] = useState('');
+  // const [price, setPrice] = useState('');
 
-  const handlePriceChange = (event) => {
-    setPrice(event.target.value);
-  };
+  // const handlePriceChange = (event) => {
+  //   setPrice(event.target.value);
+  // };
 
   const handleInteriorTypeChange = (event) => {
     setInteriorType(event.target.value);
@@ -101,7 +101,6 @@ const Master = () => {
         },
         body: JSON.stringify({
           vehicle_Type: vehicleType,
-          price: price
         })
       });
       if (response.ok) {
@@ -109,7 +108,6 @@ const Master = () => {
         alert('Vehicle type and price added successfully!');
         // Optionally, you can reset the form fields after successful submission
         setVehicleType('');
-        setPrice('');
       } else {
         console.error('Failed to add vehicle type and price');
       }
@@ -427,7 +425,7 @@ const Master = () => {
                   />
                 </div>
               </Form.Group>
-              <Form.Group controlId="CarPrice">
+              {/* <Form.Group controlId="CarPrice">
                 <div className="relative">
                   <Form.Control
                     type="number"
@@ -438,7 +436,7 @@ const Master = () => {
                     required
                   />
                 </div>
-              </Form.Group>
+              </Form.Group> */}
               <button type="submit" className='btn btn-primary'>Add</button>
             </Form>
 

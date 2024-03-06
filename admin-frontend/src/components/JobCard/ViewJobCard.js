@@ -23,40 +23,93 @@ const ViewJobCard = () => {
     modal.show();
   };
 
+  // const handleGeneratePDF = (job) => {
+  //   const pdf = new jsPDF();
+    
+  //   // Add client details
+  //   const clientDetails = `
+  //     Client Name: ${job.name}
+  //     Email: ${job.email}
+  //     Phone: ${job.phone}
+  //     Address: ${job.address}
+  //   `;
+  //   pdf.text(clientDetails, 10, 10);
+
+  //   // Add job card content in table format
+  //   const tableData = [
+  //     ['Job Card ID', 'Vehicle Category', 'Vehicle Type'],
+  //     [job.JobCardId, job.vehicle_Category, job.vehicle_Type],
+  //     ['Email', 'Phone'],
+  //     [job.email, job.phone],
+  //     ['Address', 'Vehicle Make/Model'],
+  //     [job.address, job.vehicle_Make],
+  //     ['Vehicle Number', 'Coating'],
+  //     [job.vehicle_Number, job.coating],
+  //     ['Paint Protection Films', 'Window Films'],
+  //     ['...', '...'] // Add more data as needed
+  //   ];
+
+  //   pdf.autoTable({
+  //     head: [['Job Details']],
+  //     body: tableData,
+  //     startY: 30
+  //   });
+
+  //   pdf.save(`job_${job._id}.pdf`);
+  // };
+
   const handleGeneratePDF = (job) => {
     const pdf = new jsPDF();
-    
-    // Add client details
-    const clientDetails = `
-      Client Name: ${job.name}
-      Email: ${job.email}
-      Phone: ${job.phone}
-      Address: ${job.address}
-    `;
-    pdf.text(clientDetails, 10, 10);
-
-    // Add job card content in table format
-    const tableData = [
-      ['Job Card ID', 'Vehicle Category', 'Vehicle Type'],
-      [job.JobCardId, job.vehicle_Category, job.vehicle_Type],
-      ['Email', 'Phone'],
-      [job.email, job.phone],
-      ['Address', 'Vehicle Make/Model'],
-      [job.address, job.vehicle_Make],
-      ['Vehicle Number', 'Coating'],
-      [job.vehicle_Number, job.coating],
-      ['Paint Protection Films', 'Window Films'],
-      ['...', '...'] // Add more data as needed
+  
+    // Add job card content
+    const jobDetails = [
+      [{content: 'Job Card Details', styles: {fillColor: [0, 0, 0], textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center'}, colSpan: 2}],
+      ['Job Card ID:', job.JobCardId],
+      ['Client Name:', job.name],
+      ['Email:', job.email],
+      ['Phone:', job.phone],
+      ['Address:', job.address],
+      ['Vehicle Make:', job.vehicle_Make],
+      ['Vehicle Number:', job.vehicle_Number],
+      ['Vehicle Category:', job.vehicle_Category],
+      ['Vehicle Type:', job.vehicle_Type],
+      ['Wash Type:', job.wash_type],
+      ['Wash Type Price:', job.wash_type_price],
+      ['Coating:', job.coating],
+      ['Coating Price:', job.coating_Price],
+      ['Paint Protection Films:', job.paint_protection_field],
+      ['Paint Protection Films Price:', job.paint_protection_field_Price],
+      ['Window Films:', job.window_films],
+      ['Window Films Price:', job.window_films_Price],
+      ['Vinyl Wraps:', job.vinly_wraps],
+      ['Vinyl Wraps Price:', job.vinly_wraps_Price],
+      ['Premium Seat Cover:', job.premium_seat_cover],
+      ['Premium Seat Cover Price:', job.premium_seat_cover_Price],
+      ['Lamination:', job.lamination],
+      ['Lamination Price:', job.lamination_Price],
+      ['Interior Decor:', job.interiour_decor],
+      ['Interior Decor Price:', job.interiour_decor_Price,],
+      // ['Total Amount:', job.TotalAmount]
+      [{content: 'Total Amount:', styles: {fillColor: [169, 169, 169], textColor: [0, 0, 0]}} , job.TotalAmount]
+      // [{content: 'Job Card Details', styles: {fillColor: [0, 0, 0], textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center'}, colSpan: 2}],
     ];
 
+    // Set up margins
+    const marginLeft = 10;
+    const marginTop = 10;
+
+    // Add job details table
     pdf.autoTable({
-      head: [['Job Details']],
-      body: tableData,
-      startY: 30
+      startY: marginTop,
+      body: jobDetails,
+      theme: 'grid',
+      margin: { left: marginLeft }
     });
 
     pdf.save(`job_${job._id}.pdf`);
-  };
+};
+
+  
   return (
     <div className="container">
       {jobData.map((job) => (
@@ -76,20 +129,43 @@ const ViewJobCard = () => {
                 <tr>
                   <td>Phone Number : {job.phone}</td>
                   <td>Wash Type: {job.wash_type}</td>
-                  <td>Wash Price: {job.wash_type_price}</td>
+                  <td>Price: {job.wash_type_price}</td>
                 </tr>
                 <tr>
                   <td>Address : {job.address}</td>
                   <td>Coating:{job.coating} </td>
-                  <td>Coating Price:{job.coating_Price} </td>
+                  <td>Price:{job.coating_Price} </td>
                 </tr>
                 <tr>
                   <td>Vehicle Make/Model : {job.vehicle_Make}</td>
                   <td>Paint Protection Films: {job.vehicle_Make}</td>
+                  <td>Price: {job.paint_protection_field_Price}</td>
                 </tr>
                 <tr>
                   <td>Vehicle Number : {job.vehicle_Number}</td>
-                  <td>Window Films: </td>
+                  <td>Window Films: {job.window_films}</td>
+                  <td>Price: {job.window_films_Price}</td>
+                </tr>
+                <tr>
+                  <td>vinly_wraps: {job.vinly_wraps}</td>
+                  <td>Price: {job.vinly_wraps_Price}</td>
+                </tr>
+                <tr>
+                  <td>premium_seat_cover: {job.premium_seat_cover}</td>
+                  <td>Price: {job.premium_seat_cover_Price}</td>
+                </tr>
+                <tr>
+                  <td>lamination: {job.lamination}</td>
+                  <td>Price: {job.lamination_Price}</td>
+                </tr>
+                <tr>
+                  <td>interiour_decor: {job.interiour_decor}</td>
+                  <td>Price: {job.interiour_decor_Price}</td>
+                </tr>
+
+                <tr>
+                  <th>Total Amount: {job.TotalAmount}</th>
+                  
                 </tr>
               </tbody>
             </table>

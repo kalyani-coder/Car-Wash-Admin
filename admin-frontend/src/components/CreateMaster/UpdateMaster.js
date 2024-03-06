@@ -283,7 +283,7 @@ const UpdateMaster = () => {
     if (!selectedPaintProtectionType) return;
 
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/paintprotectiontype/${selectedPaintProtectionType}`, {
+      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/paintprotection/${selectedPaintProtectionType}`, {
         method: 'DELETE'
       });
       if (response.ok) {
@@ -713,7 +713,7 @@ const UpdateMaster = () => {
             value={selectedCategory}
             onChange={handleCategoryChange}
           >
-            <option value="">Select Vehicle Category</option>
+            <option value="">Select Vehicle Type</option>
             {vehicleTypes.map(vehicle => (
               <option key={vehicle._id} value={vehicle._id}>{vehicle.vehicle_Type}</option>
             ))}
@@ -740,14 +740,14 @@ const UpdateMaster = () => {
               onChange={e => setEditedVehicleType(e.target.value)}
             />
           </Form.Group>
-          <Form.Group controlId="editPrice">
+          {/* <Form.Group controlId="editPrice">
             <Form.Label>Price</Form.Label>
             <Form.Control
               type="text"
               value={editedPrice}
               onChange={e => setEditedPrice(e.target.value)}
             />
-          </Form.Group>
+          </Form.Group> */}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>Cancel</Button>

@@ -301,7 +301,7 @@ const JobCard = () => {
   const [interiorDecorOptions, setInteriorDecorOptions] = useState([]);
   const [interiorDecorselectedOption, setInteriorDecorSelectedOption] = useState('');
 
-
+ 
   useEffect(() => {
     fetchCoatingTypes();
     fetchPaintProtection();
@@ -312,15 +312,30 @@ const JobCard = () => {
     fetchInteriorDecorOptions();
   }, []);
 
+  // const [totalAmount, setTotalAmount] = useState(0);
+  
+
+  // const calculateTotalAmount = () => {
+  //   const total = wash_type_price +
+  //                 coating_Price +
+  //                 paint_protection_field_Price +
+  //                 window_films_Price +
+  //                 vinly_wraps_Price +
+  //                 premium_seat_cover_Price +
+  //                 lamination_Price +
+  //                 interiour_decor_Price;
+  //   return total;
+  // };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
 
     if (!selectedVehicleType || !selectedCategory || !selectedWashType) {
       console.error('Please select a vehicle category, type, and wash type.');
       alert('Please select a vehicle category, type, and wash type.');
-      return; // Exit early if any required field is not selected
+      return;
     }
+
 
     const selectedWashTypeData = washTypes.find(wash => wash.wash_type === selectedWashType);
     const washTypePrice = selectedWashTypeData ? selectedWashTypeData.price : 0;
@@ -328,10 +343,42 @@ const JobCard = () => {
     const selectedCoatingData = coatingTypes.find(coating => coating.coating_type === selectedCoating);
     const coatingPrice = selectedCoatingData ? selectedCoatingData.price : 0;
 
-    
+    const selectedPaintProtectionData = paintProtection.find(option => option._id === selectedOption);
+    const paintProtectionPrice = selectedPaintProtectionData ? selectedPaintProtectionData.price : 0;
+    const paintProtectionName = selectedPaintProtectionData ? selectedPaintProtectionData.paintProtection_Type : "";
+
+    const selectedWindowFilmData = windowFilms.find(windowfilm => windowfilm._id === windowselectedOption)
+    const windowFilmPrice = selectedWindowFilmData ? selectedWindowFilmData.price : 0;
+    const windowFilmName = selectedWindowFilmData ? selectedWindowFilmData.windowFilm_Type : "";
+
+    const selectedPremiumSeatCoverData = premiumSeatCovers.find(cover => cover._id === seatcoverselectedOption);
+    const premiumSeatCoverPrice = selectedPremiumSeatCoverData ? selectedPremiumSeatCoverData.price : 0;
+    const premiumSeatCoverName = selectedPremiumSeatCoverData ? selectedPremiumSeatCoverData.premiumSeat_Type : "";
+
+    const selectedVinylWrapData = vinylWraps.find(wrap => wrap.VinylWraps_Type === vinylWrapsSelectedOption);
+    const vinylWrapName = selectedVinylWrapData ? selectedVinylWrapData.VinylWraps_Type : "";
+    const vinylWrapPrice = selectedVinylWrapData ? selectedVinylWrapData.price : 0;
+
+    const selectedLaminationData = laminationTypes.find(lamination => lamination._id === laminationSelectedOption);
+    const laminationName = selectedLaminationData ? selectedLaminationData.lamination_Type : "";
+    const laminationPrice = selectedLaminationData ? selectedLaminationData.price : 0;
+
+
+    const selectedInteriorDecorData = interiorDecorOptions.find(decor => decor._id === interiorDecorselectedOption);
+    const interiorDecorName = selectedInteriorDecorData ? selectedInteriorDecorData.interiour_Type : "";
+    const interiorDecorPrice = selectedInteriorDecorData ? selectedInteriorDecorData.price : 0;
+
+    const totalAmount = washTypePrice +
+                    coatingPrice +
+                    paintProtectionPrice +
+                    windowFilmPrice +
+                    premiumSeatCoverPrice +
+                    vinylWrapPrice +
+                    laminationPrice +
+                    interiorDecorPrice;
 
     try {
-      // Prepare data for the POST request
+
       const data = {
         clientId: selectedClient,
         name: clientData ? clientData.clientName : "",
@@ -340,12 +387,26 @@ const JobCard = () => {
         address: clientData ? clientData.clientAddress : "",
         vehicle_Make: clientData ? clientData.clientcarmodelno : "",
         vehicle_Number: clientData ? clientData.clientvehicleno : "",
-        vehicle_Category: selectedCategory, // Include selected category
-        vehicle_Type: selectedVehicleType, // Include selected type
+        vehicle_Category: selectedCategory,
+        vehicle_Type: selectedVehicleType,
         wash_type: selectedWashType,
         wash_type_price: washTypePrice,
         coating: selectedCoating,
-        coating_Price: coatingPrice
+        coating_Price: coatingPrice,
+        paint_protection_field: paintProtectionName,
+        paint_protection_field_Price: paintProtectionPrice,
+        window_films: windowFilmName,
+        window_films_Price: windowFilmPrice,
+        premium_seat_cover: premiumSeatCoverName,
+        premium_seat_cover_Price: premiumSeatCoverPrice,
+        vinly_wraps: vinylWrapName,
+        vinly_wraps_Price: vinylWrapPrice,
+        lamination: laminationName,
+        lamination_Price: laminationPrice,
+        interiour_decor: interiorDecorName,
+        interiour_decor_Price: interiorDecorPrice,
+        TotalAmount :totalAmount
+
       };
 
       // Send POST request to the API
@@ -356,7 +417,7 @@ const JobCard = () => {
 
       // Set the response message
       setResponseMessage(response.data.message);
-      alert('Data posted successfully');
+      alert('Job Card Created successfully');
     } catch (error) {
       console.error("Error posting data:", error);
       setResponseMessage("An error occurred while posting data.");

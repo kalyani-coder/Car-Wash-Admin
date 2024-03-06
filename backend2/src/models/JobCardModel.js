@@ -42,6 +42,8 @@ const JobCardSchema = new mongoose.Schema({
     interiour_decor : String,
     interiour_decor_Price : Number,
 
+    TotalAmount : Number,
+
 
 
 })

@@ -75,7 +75,8 @@ router.post("/", async (req, res) => {
             vinly_wraps_Price,
             premium_seat_cover_Price,
             lamination_Price,
-            interiour_decor_Price, } = req.body;
+            interiour_decor_Price, 
+            TotalAmount,} = req.body;
 
         // Generate a unique JobCardId
         const jobCardId = uuid.v4();
@@ -114,6 +115,7 @@ router.post("/", async (req, res) => {
             premium_seat_cover_Price,
             lamination_Price,
             interiour_decor_Price,
+            TotalAmount
         });
 
         await jobCard.save();
