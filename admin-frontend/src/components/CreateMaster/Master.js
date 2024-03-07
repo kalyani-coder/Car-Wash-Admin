@@ -74,6 +74,9 @@ const Master = () => {
         // Optionally, you can reset the form fields after successful submission
         setWashType('');
         setWashPrice('');
+      } else if (response.status === 409) {
+        const responseData = await response.json();
+        alert(responseData.message);
       } else {
         console.error('Failed to add wash type and price');
       }
@@ -91,30 +94,30 @@ const Master = () => {
   };
 
 
-  const handleVehicleTypeSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/vehicletype', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          vehicle_Type: vehicleType,
-        })
-      });
-      if (response.ok) {
-        console.log('Vehicle type and price added successfully!');
-        alert('Vehicle type and price added successfully!');
-        // Optionally, you can reset the form fields after successful submission
-        setVehicleType('');
-      } else {
-        console.error('Failed to add vehicle type and price');
-      }
-    } catch (error) {
-      console.error('Error adding vehicle type and price:', error);
-    }
-  };
+  // const handleVehicleTypeSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/vehicletype', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         vehicle_Type: vehicleType,
+  //       })
+  //     });
+  //     if (response.ok) {
+  //       console.log('Vehicle type and price added successfully!');
+  //       alert('Vehicle type and price added successfully!');
+  //       // Optionally, you can reset the form fields after successful submission
+  //       setVehicleType('');
+  //     } else {
+  //       console.error('Failed to add vehicle type and price');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error adding vehicle type and price:', error);
+  //   }
+  // };
 
 
   // const handleWashTypeSubmit = async event => {
@@ -143,166 +146,220 @@ const Master = () => {
   //   }
   // };
 
-
-
-
-  const handlePaintProtectionTypeSubmit = async (event) => {
+  const handleVehicleTypeSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/paintprotection', {
+      const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/vehicletype', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          paintProtection_Type: paintProtectionType,
-          price: paintProtectionprice
+          vehicle_Type: vehicleType,
         })
       });
       if (response.ok) {
-        console.log('Paint protection type added successfully!');
-        alert('Paint protection type added successfully!');
-        // Optionally, you can reset the form field after successful submission
-        setPaintProtectionType('');
+        console.log('Vehicle type and price added successfully!');
+        alert('Vehicle type  added successfully!');
+        // Optionally, you can reset the form fields after successful submission
+        setVehicleType('');
+      } else if (response.status === 409) { // HTTP status 409 indicates conflict
+        const responseData = await response.json();
+        console.log('Name already exists:', responseData.message);
+        alert(responseData.message);
       } else {
-        console.error('Failed to add paint protection type');
+        console.error('Failed to add vehicle type and price');
       }
     } catch (error) {
-      console.error('Error adding paint protection type:', error);
+      console.error('Error adding vehicle type and price:', error);
     }
   };
+  
 
-  const handleWindowFilmTypeSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/windowfilm', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          windowFilm_Type: windowFilmType,
-          price: windowfilmnprice
-        })
-      });
-      if (response.ok) {
-        console.log('Window film type added successfully!');
-        alert('Window film type added successfully!');
-        // Optionally, you can reset the form field after successful submission
-        setWindowFilmType('');
-      } else {
-        console.error('Failed to add window film type');
-      }
-    } catch (error) {
-      console.error('Error adding window film type:', error);
+
+ const handlePaintProtectionTypeSubmit = async (event) => {
+  event.preventDefault();
+  try {
+    const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/paintprotection', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        paintProtection_Type: paintProtectionType,
+        price: paintProtectionprice // Use paintProtectionPrice here
+      })
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log('Paint protection type added successfully:', responseData);
+      alert('Paint protection type added successfully!');
+      setPaintProtectionType('');
+      setPaintProtectionType('');
+    } else if (response.status === 409) {
+      const responseData = await response.json();
+      alert(responseData.message);
+    } else {
+      console.error('Failed to add paint protection type');
     }
-  };
+  } catch (error) {
+    console.error('Error adding paint protection type:', error);
+  }
+};
 
-
-  const handleVinylWrapsTypeSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/vinalwraps', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          VinylWraps_Type: vinylWrapsType,
-          price: vinalwrapsprice
-        })
-      });
-      if (response.ok) {
-        console.log('Vinyl wraps type added successfully!');
-        alert('Vinyl wraps type added successfully!');
-        // Optionally, you can reset the form field after successful submission
-        setVinylWrapsType('');
-      } else {
-        console.error('Failed to add vinyl wraps type');
-      }
-    } catch (error) {
-      console.error('Error adding vinyl wraps type:', error);
+ const handleWindowFilmTypeSubmit = async (event) => {
+  event.preventDefault();
+  try {
+    const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/windowfilm', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        windowFilm_Type: windowFilmType,
+        price: windowfilmnprice // Use windowFilmPrice here
+      })
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log('Window film type added successfully:', responseData);
+      alert('Window film type added successfully!');
+      setWindowFilmType('');
+      setWindowFilmType('');
+    } else if (response.status === 409) {
+      const responseData = await response.json();
+      alert(responseData.message);
+    } else {
+      console.error('Failed to add window film type');
     }
-  };
+  } catch (error) {
+    console.error('Error adding window film type:', error);
+  }
+};
 
-  const handlePremiumSeatTypeSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/premiumseat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          premiumSeat_Type: premiumSeatType,
-          price: premiumseatprice
-        })
-      });
-      if (response.ok) {
-        console.log('Premium leather seat type added successfully!');
-        alert('Premium leather seat type added successfully!');
-        // Optionally, you can reset the form field after successful submission
-        setPremiumSeatType('');
-      } else {
-        console.error('Failed to add premium leather seat type');
-      }
-    } catch (error) {
-      console.error('Error adding premium leather seat type:', error);
+const handleVinylWrapsTypeSubmit = async (event) => {
+  event.preventDefault();
+  try {
+    const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/vinalwraps', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        VinylWraps_Type: vinylWrapsType,
+        price: vinalwrapsprice // Use vinylWrapsPrice here
+      })
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log('Vinyl wraps type added successfully:', responseData);
+      alert('Vinyl wraps type added successfully!');
+      setVinylWrapsType('');
+      setVinylWrapsType('');
+    } else if (response.status === 409) {
+      const responseData = await response.json();
+      alert(responseData.message);
+    } else {
+      console.error('Failed to add vinyl wraps type');
     }
-  };
+  } catch (error) {
+    console.error('Error adding vinyl wraps type:', error);
+  }
+};
 
-  const handleLaminationTypeSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/lamination', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          lamination_Type: laminationType,
-          price: laminationprice
-        })
-      });
-      if (response.ok) {
-        console.log('Lamination type added successfully!');
-        alert('Lamination type added successfully!');
-        // Optionally, you can reset the form field after successful submission
-        setLaminationType('');
-      } else {
-        console.error('Failed to add lamination type');
-      }
-    } catch (error) {
-      console.error('Error adding lamination type:', error);
+
+const handlePremiumSeatTypeSubmit = async (event) => {
+  event.preventDefault();
+  try {
+    const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/premiumseat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        premiumSeat_Type: premiumSeatType,
+        price: premiumseatprice // Use premiumSeatPrice here
+      })
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log('Premium leather seat type added successfully:', responseData);
+      alert('Premium leather seat type added successfully!');
+      setPremiumSeatType('');
+      setPremiumSeatType('');
+    } else if (response.status === 409) {
+      const responseData = await response.json();
+      alert(responseData.message);
+    } else {
+      console.error('Failed to add premium leather seat type');
     }
-  };
+  } catch (error) {
+    console.error('Error adding premium leather seat type:', error);
+  }
+};
 
 
-  const handleInteriorTypeSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/interior', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          interiour_Type: interiorType,
-          price: interiorprice
-        })
-      });
-      if (response.ok) {
-        console.log('Interior décor type added successfully!');
-        alert('Interior décor type added successfully!');
-        // Optionally, you can reset the form field after successful submission
-        setInteriorType('');
-      } else {
-        console.error('Failed to add interior décor type');
-      }
-    } catch (error) {
-      console.error('Error adding interior décor type:', error);
+const handleLaminationTypeSubmit = async (event) => {
+  event.preventDefault();
+  try {
+    const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/lamination', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        lamination_Type: laminationType,
+        price: laminationprice // Use laminationPrice here
+      })
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log('Lamination type added successfully:', responseData);
+      alert('Lamination type added successfully!');
+      setLaminationType('');
+      setLaminationType('');
+    } else if (response.status === 409) {
+      const responseData = await response.json();
+      alert(responseData.message);
+    } else {
+      console.error('Failed to add lamination type');
     }
-  };
+  } catch (error) {
+    console.error('Error adding lamination type:', error);
+  }
+};
+
+
+
+const handleInteriorTypeSubmit = async (event) => {
+  event.preventDefault();
+  try {
+    const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/interior', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        interiour_Type: interiorType,
+        price: interiorprice // Use interiorPrice here
+      })
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log('Interior décor type added successfully:', responseData);
+      alert('Interior décor type added successfully!');
+      setInteriorType('');
+      setInteriorType('');
+    } else if (response.status === 409) {
+      const responseData = await response.json();
+      alert(responseData.message);
+    } else {
+      console.error('Failed to add interior décor type');
+    }
+  } catch (error) {
+    console.error('Error adding interior décor type:', error);
+  }
+};
 
   const handleCoatingTypeSubmit = async event => {
     event.preventDefault();
@@ -314,14 +371,18 @@ const Master = () => {
         },
         body: JSON.stringify({
           coating_type: coatingType,
-          price: coatingprice // Use coatingprice here
+          price: coatingprice // Use coatingPrice here
         })
       });
       if (response.ok) {
-        console.log('Coating type added successfully!');
+        const responseData = await response.json();
+        console.log('Coating type added successfully:', responseData);
         alert('Coating type added successfully!');
         setCoatingType('');
-        setCoatingPrice(''); // Reset coatingprice state variable
+        setCoatingPrice('');
+      } else if (response.status === 409) {
+        const responseData = await response.json();
+        alert(responseData.message);
       } else {
         console.error('Failed to add coating type');
       }
@@ -329,6 +390,7 @@ const Master = () => {
       console.error('Error adding coating type:', error);
     }
   };
+  
 
   const [coatingprice, setCoatingPrice] = useState('');
 

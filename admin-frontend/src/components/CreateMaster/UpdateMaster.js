@@ -64,6 +64,15 @@ const UpdateMaster = () => {
     setSelectedCategory(selectedId);
     setSelectedVehicle(vehicleTypes.find(vehicle => vehicle._id === selectedId));
     setEditMode(false); // Exit edit mode when selecting a new vehicle type
+    setSelectedWashType('');
+    setSelectedCoatingType('');
+    setSelectedPaintProtectionType('');
+    setSelectedWindowFilmType('');
+    setSelectedPremiumSeatType('');
+    setSelectedVinylWrapsType('');
+    setSelectedLaminationType('');
+    setSelectedInteriorType('');
+
   };
 
   const handleDelete = async () => {
@@ -104,8 +113,18 @@ const UpdateMaster = () => {
       })
       .catch(error => console.error('Error fetching vehicle types:', error));
   }, []);
-  const handleWashTypeChange = (e) => {
-    setSelectedWashType(e.target.value);
+
+
+  const handleWashTypeChange = (event) => {
+    setSelectedWashType(event.target.value);
+    setSelectedCategory('');
+    setSelectedCoatingType('');
+    setSelectedPaintProtectionType('');
+    setSelectedWindowFilmType('');
+    setSelectedPremiumSeatType('');
+    setSelectedVinylWrapsType('');
+    setSelectedLaminationType('');
+    setSelectedInteriorType('');
   };
 
  const handleEditWashType = () => {
@@ -190,8 +209,16 @@ const UpdateMaster = () => {
       .catch(error => console.error('Error fetching car coating types:', error));
   }, []);
 
-  const handleCoatingTypeChange = (e) => {
-    setSelectedCoatingType(e.target.value);
+  const handleCoatingTypeChange = (event) => {
+    setSelectedCoatingType(event.target.value);
+    setSelectedCategory('');
+    setSelectedWashType('');
+    setSelectedPaintProtectionType('');
+    setSelectedWindowFilmType('');
+    setSelectedPremiumSeatType('');
+    setSelectedVinylWrapsType('');
+    setSelectedLaminationType('');
+    setSelectedInteriorType('');
   };
 
   const handleEditCoatingType = () => {
@@ -268,8 +295,16 @@ const UpdateMaster = () => {
       .catch(error => console.error('Error fetching car paint protection types:', error));
   }, []);
 
-  const handlePaintProtectionTypeChange = (e) => {
-    setSelectedPaintProtectionType(e.target.value);
+  const handlePaintProtectionTypeChange = (event) => {
+    setSelectedPaintProtectionType(event.target.value);
+    setSelectedCategory('');
+    setSelectedWashType('');
+    setSelectedCoatingType('');
+    setSelectedWindowFilmType('');
+    setSelectedPremiumSeatType('');
+    setSelectedVinylWrapsType('');
+    setSelectedLaminationType('');
+    setSelectedInteriorType('');
   };
 
   const handleEditPaintProtectionType = () => {
@@ -343,8 +378,16 @@ const UpdateMaster = () => {
       .catch(error => console.error('Error fetching car window films types:', error));
   }, []);
 
-  const handleWindowFilmTypeChange = (e) => {
-    setSelectedWindowFilmType(e.target.value);
+  const handleWindowFilmTypeChange = (event) => {
+    setSelectedWindowFilmType(event.target.value);
+    setSelectedCategory('');
+    setSelectedWashType('');
+    setSelectedCoatingType('');
+    setSelectedPaintProtectionType('');
+    setSelectedPremiumSeatType('');
+    setSelectedVinylWrapsType('');
+    setSelectedLaminationType('');
+    setSelectedInteriorType('');
   };
 
   const handleEditWindowFilmType = () => {
@@ -418,8 +461,16 @@ const UpdateMaster = () => {
       .catch(error => console.error('Error fetching car vinyl wraps types:', error));
   }, []);
 
-  const handleVinylWrapsTypeChange = (e) => {
-    setSelectedVinylWrapsType(e.target.value);
+  const handleVinylWrapsTypeChange = (event) => {
+    setSelectedVinylWrapsType(event.target.value);
+    setSelectedCategory('');
+    setSelectedWashType('');
+    setSelectedCoatingType('');
+    setSelectedPaintProtectionType('');
+    setSelectedWindowFilmType('');
+    setSelectedPremiumSeatType('');
+    setSelectedLaminationType('');
+    setSelectedInteriorType('');
   };
 
   const handleEditVinylWrapsType = () => {
@@ -492,10 +543,17 @@ const UpdateMaster = () => {
       .catch(error => console.error('Error fetching car premium seat types:', error));
   }, []);
 
-  const handlePremiumSeatTypeChange = (e) => {
-    setSelectedPremiumSeatType(e.target.value);
+  const handlePremiumSeatTypeChange = (event) => {
+    setSelectedPremiumSeatType(event.target.value);
+    setSelectedCategory('');
+    setSelectedWashType('');
+    setSelectedCoatingType('');
+    setSelectedPaintProtectionType('');
+    setSelectedWindowFilmType('');
+    setSelectedVinylWrapsType('');
+    setSelectedLaminationType('');
+    setSelectedInteriorType('');
   };
-
   const handleEditPremiumSeatType = () => {
     const selectedPremiumSeat = premiumSeatTypes.find(premiumSeat => premiumSeat._id === selectedPremiumSeatType);
     setEditedPremiumSeatType(selectedPremiumSeat.premiumSeat_Type);
@@ -566,10 +624,17 @@ const UpdateMaster = () => {
       .catch(error => console.error('Error fetching car lamination types:', error));
   }, []);
 
-  const handleLaminationTypeChange = (e) => {
-    setSelectedLaminationType(e.target.value);
+  const handleLaminationTypeChange = (event) => {
+    setSelectedLaminationType(event.target.value);
+    setSelectedCategory('');
+    setSelectedWashType('');
+    setSelectedCoatingType('');
+    setSelectedPaintProtectionType('');
+    setSelectedWindowFilmType('');
+    setSelectedPremiumSeatType('');
+    setSelectedVinylWrapsType('');
+    setSelectedInteriorType('');
   };
-
   const handleEditLaminationType = () => {
     const selectedLamination = laminationTypes.find(lamination => lamination._id === selectedLaminationType);
     setEditedLaminationType(selectedLamination.lamination_Type);
@@ -641,8 +706,16 @@ const UpdateMaster = () => {
       .catch(error => console.error('Error fetching car interior types:', error));
   }, []);
 
-  const handleInteriorTypeChange = (e) => {
-    setSelectedInteriorType(e.target.value);
+  const handleInteriorTypeChange = (event) => {
+    setSelectedInteriorType(event.target.value);
+    setSelectedCategory('');
+    setSelectedWashType('');
+    setSelectedCoatingType('');
+    setSelectedPaintProtectionType('');
+    setSelectedWindowFilmType('');
+    setSelectedPremiumSeatType('');
+    setSelectedVinylWrapsType('');
+    setSelectedLaminationType('');
   };
 
   const handleEditInteriorType = () => {
@@ -718,7 +791,7 @@ const UpdateMaster = () => {
               <option key={vehicle._id} value={vehicle._id}>{vehicle.vehicle_Type}</option>
             ))}
           </Form.Select><br />
-          {selectedVehicle && (
+          {selectedCategory && (
             <div>
               <Button variant="info" onClick={handleEdit}>Edit</Button>
               <Button variant="danger" onClick={handleDelete}>Delete Vehicle Type</Button>

@@ -25,7 +25,7 @@ const ViewJobCard = () => {
 
   // const handleGeneratePDF = (job) => {
   //   const pdf = new jsPDF();
-    
+
   //   // Add client details
   //   const clientDetails = `
   //     Client Name: ${job.name}
@@ -60,10 +60,10 @@ const ViewJobCard = () => {
 
   const handleGeneratePDF = (job) => {
     const pdf = new jsPDF();
-  
+
     // Add job card content
     const jobDetails = [
-      [{content: 'Job Card Details', styles: {fillColor: [0, 0, 0], textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center'}, colSpan: 2}],
+      [{ content: 'Job Card Details', styles: { fillColor: [0, 0, 0], textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center' }, colSpan: 2 }],
       ['Job Card ID:', job.JobCardId],
       ['Client Name:', job.name],
       ['Email:', job.email],
@@ -89,8 +89,11 @@ const ViewJobCard = () => {
       ['Lamination Price:', job.lamination_Price],
       ['Interior Decor:', job.interiour_decor],
       ['Interior Decor Price:', job.interiour_decor_Price,],
+      [{ content: 'Total Amount:', styles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] } }, job.TotalAmount.toLocaleString() + " Rs"]
+
+
       // ['Total Amount:', job.TotalAmount]
-      [{content: 'Total Amount:', styles: {fillColor: [169, 169, 169], textColor: [0, 0, 0]}} , job.TotalAmount]
+      // [{ content: 'Total Amount:', styles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] } }, job.TotalAmount]
       // [{content: 'Job Card Details', styles: {fillColor: [0, 0, 0], textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center'}, colSpan: 2}],
     ];
 
@@ -107,69 +110,107 @@ const ViewJobCard = () => {
     });
 
     pdf.save(`job_${job._id}.pdf`);
-};
+  };
 
-  
+
   return (
     <div className="container">
       {jobData.map((job) => (
         <div key={job._id} className="card mb-4">
           <div className="card-body">
             <h4 className="card-title">Customer Name : {job.name}</h4>
-            <table className="table table-bordered table-striped mb-3">
+
+            <table className="table table-bordered table-striped">
               <tbody>
                 <tr>
                   <td> Job Card id : {job.JobCardId}</td>
-                  <td> Vehicle Category: {job.vehicle_Category} </td>
                 </tr>
                 <tr>
+
                   <td>Email : {job.email}</td>
-                  <td> Vehicle Type:{job.vehicle_Type}</td>
-                </tr>
-                <tr>
-                  <td>Phone Number : {job.phone}</td>
-                  <td>Wash Type: {job.wash_type}</td>
-                  <td>Price: {job.wash_type_price}</td>
-                </tr>
-                <tr>
-                  <td>Address : {job.address}</td>
-                  <td>Coating:{job.coating} </td>
-                  <td>Price:{job.coating_Price} </td>
-                </tr>
-                <tr>
-                  <td>Vehicle Make/Model : {job.vehicle_Make}</td>
-                  <td>Paint Protection Films: {job.vehicle_Make}</td>
-                  <td>Price: {job.paint_protection_field_Price}</td>
-                </tr>
-                <tr>
-                  <td>Vehicle Number : {job.vehicle_Number}</td>
-                  <td>Window Films: {job.window_films}</td>
-                  <td>Price: {job.window_films_Price}</td>
-                </tr>
-                <tr>
-                  <td>vinly_wraps: {job.vinly_wraps}</td>
-                  <td>Price: {job.vinly_wraps_Price}</td>
-                </tr>
-                <tr>
-                  <td>premium_seat_cover: {job.premium_seat_cover}</td>
-                  <td>Price: {job.premium_seat_cover_Price}</td>
-                </tr>
-                <tr>
-                  <td>lamination: {job.lamination}</td>
-                  <td>Price: {job.lamination_Price}</td>
-                </tr>
-                <tr>
-                  <td>interiour_decor: {job.interiour_decor}</td>
-                  <td>Price: {job.interiour_decor_Price}</td>
                 </tr>
 
                 <tr>
-                  <th>Total Amount: {job.TotalAmount}</th>
-                  
+                  <td>Phone Number : {job.phone}</td>
+                </tr>
+                <tr>
+                  <td>Address : {job.address}</td>
+                </tr>
+                <tr>
+                  <td>Vehicle Make/Model : {job.vehicle_Make}</td>
+                </tr>
+                <tr>
+                  <td>Vehicle Number : {job.vehicle_Number}</td>
                 </tr>
               </tbody>
             </table>
-            <div className="d-flex justify-content-between align-items-center">
+
+
+
+            <h4>Job Card Details</h4>
+            <table className="table table-bordered table-striped mt-3">
+              <tbody>
+                <tr>
+                  <td>Vehicle Category</td>
+                  <td>{job.vehicle_Category}</td>
+                </tr>
+                <tr>
+                  <td>Vehicle Type</td>
+                  <td>{job.vehicle_Type}</td>
+                </tr>
+                <tr>
+                  <td>Wash Type</td>
+                  <td>{job.wash_type}</td>
+                  <td>{job.wash_type_price} Rs</td>
+                </tr>
+                <tr>
+                  <td>Coating</td>
+                  <td>{job.coating}</td>
+                  <td>{job.coating_Price} Rs</td>
+                </tr>
+                <tr>
+                  <td>Paint Protection</td>
+                  <td>{job.paint_protection_field}</td>
+                  <td>{job.paint_protection_field_Price} Rs</td>
+                </tr>
+                <tr>
+                  <td>Window</td>
+                  <td>{job.window_films}</td>
+                  <td>{job.window_films_Price} Rs</td>
+                </tr>
+                <tr>
+                  <td>Vinly Wrap</td>
+                  <td>{job.vinly_wraps}</td>
+                  <td>{job.vinly_wraps_Price} Rs</td>
+                </tr>
+
+                <tr>
+                  <td>Premium Seat Cover</td>
+                  <td>{job.premium_seat_cover}</td>
+                  <td>{job.premium_seat_cover_Price} Rs</td>
+                </tr>
+                <tr>
+                  <td>Lamination</td>
+                  <td>{job.lamination}</td>
+                  <td>{job.lamination_Price} Rs</td>
+                </tr>
+                <tr>
+                  <td>Interior Decor</td>
+                  <td>{job.interiour_decor}</td>
+                  <td>{job.interiour_decor_Price} Rs</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div className="mt-3 d-flex justify-content-end">
+              <strong>Total Amount: {job.TotalAmount} Rs</strong>
+            </div>
+
+
+
+
+
+            <div className="d-flex justify-content-between align-items-center mt-4">
               <div>
                 <button
                   type="button"
@@ -181,15 +222,15 @@ const ViewJobCard = () => {
               </div>
 
               <div>
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={() => handleGeneratePDF(job)}
-              >
-                Generate PDF
-              </button>
-            </div>
-              
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => handleGeneratePDF(job)}
+                >
+                  Generate PDF
+                </button>
+              </div>
+
             </div>
           </div>
         </div>
