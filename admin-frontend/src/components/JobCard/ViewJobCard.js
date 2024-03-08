@@ -171,6 +171,7 @@ const ViewJobCard = () => {
         ['Lamination Price:', job.lamination_Price],
         ['Interior Decor:', job.interiour_decor],
         ['Interior Decor Price:', job.interiour_decor_Price],
+        [{ content: 'Total Amount:', styles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] } }, job.TotalAmount.toLocaleString() + " Rs"]
     ];
 
     const marginLeft = 10;
@@ -183,24 +184,17 @@ const ViewJobCard = () => {
         margin: { left: marginLeft }
     });
 
-    const totalAmountX = 52; 
-    const totalAmountY = marginTop + (jobDetails.length * 7) + 15; 
+    // const totalAmountX = 52; 
+    // const totalAmountY = marginTop + (jobDetails.length * 7) + 15; 
 
-    doc.text('TOTAL AMOUNT:', totalAmountX, totalAmountY); 
-    doc.text(`${job.TotalAmount.toLocaleString() + " Rs"}`, totalAmountX + 40, totalAmountY); 
+    // doc.text('TOTAL AMOUNT:', totalAmountX, totalAmountY); 
+    // doc.text(`${job.TotalAmount.toLocaleString() + " Rs"}`, totalAmountX + 40, totalAmountY); 
 
     doc.save(`invoice_${invoiceNumber}.pdf`);
 
     invoiceNumber++;
 }
 
-
-
-  
-
-
-  
-  
 
   return (
     <div className="container">
