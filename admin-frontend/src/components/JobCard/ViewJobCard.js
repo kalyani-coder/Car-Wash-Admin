@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"; // Import Bootstrap's Modal component
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import logo from '../../assects/logo.jpeg'
 
 const ViewJobCard = () => {
   const [jobData, setJobData] = useState([]);
@@ -58,60 +59,148 @@ const ViewJobCard = () => {
   //   pdf.save(`job_${job._id}.pdf`);
   // };
 
+  // const handleGeneratePDF = (job) => {
+  //   const pdf = new jsPDF();
+
+  //   const jobDetails = [
+  //     [{ content: 'Job Card Details', styles: { fillColor: [0, 0, 0], textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center' }, colSpan: 2 }],
+  //     ['Job Card ID:', job.JobCardId],
+  //     ['Client Name:', job.name],
+  //     ['Email:', job.email],
+  //     ['Phone:', job.phone],
+  //     ['Address:', job.address],
+  //     ['Vehicle Make:', job.vehicle_Make],
+  //     ['Vehicle Number:', job.vehicle_Number],
+  //     ['Vehicle Category:', job.vehicle_Category],
+  //     ['Vehicle Type:', job.vehicle_Type],
+  //     ['Wash Type:', job.wash_type],
+  //     ['Wash Type Price:', job.wash_type_price],
+  //     ['Coating:', job.coating],
+  //     ['Coating Price:', job.coating_Price],
+  //     ['Paint Protection Films:', job.paint_protection_field],
+  //     ['Paint Protection Films Price:', job.paint_protection_field_Price],
+  //     ['Window Films:', job.window_films],
+  //     ['Window Films Price:', job.window_films_Price],
+  //     ['Vinyl Wraps:', job.vinly_wraps],
+  //     ['Vinyl Wraps Price:', job.vinly_wraps_Price],
+  //     ['Premium Seat Cover:', job.premium_seat_cover],
+  //     ['Premium Seat Cover Price:', job.premium_seat_cover_Price],
+  //     ['Lamination:', job.lamination],
+  //     ['Lamination Price:', job.lamination_Price],
+  //     ['Interior Decor:', job.interiour_decor],
+  //     ['Interior Decor Price:', job.interiour_decor_Price,],
+  //     [{ content: 'Total Amount:', styles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] } }, job.TotalAmount.toLocaleString() + " Rs"]
+
+
+    
+  //   ];
+
+  //   const marginLeft = 10;
+  //   const marginTop = 10;
+
+  //   pdf.autoTable({
+  //     startY: marginTop,
+  //     body: jobDetails,
+  //     theme: 'grid',
+  //     margin: { left: marginLeft }
+  //   });
+
+  //   pdf.save(`job_${job._id}.pdf`);
+  // };
+
+  let invoiceNumber = 1; 
+
   const handleGeneratePDF = (job) => {
-    const pdf = new jsPDF();
+    const doc = new jsPDF();
 
-    // Add job card content
+    const currentDate = new Date();
+
+    const formattedDate = currentDate.toLocaleDateString(); 
+
+    doc.setFillColor(60,181,205);
+    doc.rect(0, 0, doc.internal.pageSize.getWidth(), 7, 'F');
+
+    const img = new Image();
+    img.src = logo;
+    doc.addImage(img, 'JPEG', 5, 12, 26, 26); 
+
+    doc.setFillColor(211, 211, 211);
+
+    doc.setFontSize(11);
+    doc.text('Navnath Gunjawate', 140, 15);
+    doc.text('Ambrosia Alley, Amanora Park Town', 140, 20);
+    doc.text('411028', 140, 25);
+    doc.text('P 7560039600', 140, 30);
+    doc.text('www.Glossgenic.com', 140, 35);
+
+    doc.text(`Invoice Number: ${invoiceNumber}`, 10, 50);
+    doc.text(`Invoice Date: ${formattedDate}`, 10, 55); 
+
+    doc.setDrawColor(0, 0, 255); 
+    doc.line(10, 60, 200, 60); 
+
+    doc.text('BILL TO', 10, 68); 
+
+    doc.text(`Client Name: ${job.name}`, 10, 75);
+    doc.text(`Email: ${job.email}`, 10, 80);
+    doc.text(`Phone: ${job.phone}`, 10, 85);
+    doc.text(`Address: ${job.address}`, 10, 90);
+    doc.text(`Vehicle Make: ${job.vehicle_Make}`, 10, 95);
+    doc.text(`Vehicle Number: ${job.vehicle_Number}`, 10, 100);
+
+    doc.line(10, 105, 200, 105);
+
+    doc.text('JOB CARD DETAILS', 10, 120); 
+
     const jobDetails = [
-      [{ content: 'Job Card Details', styles: { fillColor: [0, 0, 0], textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center' }, colSpan: 2 }],
-      ['Job Card ID:', job.JobCardId],
-      ['Client Name:', job.name],
-      ['Email:', job.email],
-      ['Phone:', job.phone],
-      ['Address:', job.address],
-      ['Vehicle Make:', job.vehicle_Make],
-      ['Vehicle Number:', job.vehicle_Number],
-      ['Vehicle Category:', job.vehicle_Category],
-      ['Vehicle Type:', job.vehicle_Type],
-      ['Wash Type:', job.wash_type],
-      ['Wash Type Price:', job.wash_type_price],
-      ['Coating:', job.coating],
-      ['Coating Price:', job.coating_Price],
-      ['Paint Protection Films:', job.paint_protection_field],
-      ['Paint Protection Films Price:', job.paint_protection_field_Price],
-      ['Window Films:', job.window_films],
-      ['Window Films Price:', job.window_films_Price],
-      ['Vinyl Wraps:', job.vinly_wraps],
-      ['Vinyl Wraps Price:', job.vinly_wraps_Price],
-      ['Premium Seat Cover:', job.premium_seat_cover],
-      ['Premium Seat Cover Price:', job.premium_seat_cover_Price],
-      ['Lamination:', job.lamination],
-      ['Lamination Price:', job.lamination_Price],
-      ['Interior Decor:', job.interiour_decor],
-      ['Interior Decor Price:', job.interiour_decor_Price,],
-      [{ content: 'Total Amount:', styles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] } }, job.TotalAmount.toLocaleString() + " Rs"]
-
-
-      // ['Total Amount:', job.TotalAmount]
-      // [{ content: 'Total Amount:', styles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] } }, job.TotalAmount]
-      // [{content: 'Job Card Details', styles: {fillColor: [0, 0, 0], textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center'}, colSpan: 2}],
+        ['Vehicle Category:', job.vehicle_Category],
+        ['Vehicle Type:', job.vehicle_Type],
+        ['Wash Type:', job.wash_type],
+        ['Wash Type Price:', job.wash_type_price],
+        ['Coating:', job.coating],
+        ['Coating Price:', job.coating_Price],
+        ['Paint Protection Films:', job.paint_protection_field],
+        ['Paint Protection Films Price:', job.paint_protection_field_Price], 
+        ['Window Films:', job.window_films],
+        ['Window Films Price:', job.window_films_Price], 
+        ['Vinyl Wraps:', job.vinly_wraps],
+        ['Vinyl Wraps Price:', job.vinly_wraps_Price], 
+        ['Premium Seat Cover:', job.premium_seat_cover],
+        ['Premium Seat Cover Price:', job.premium_seat_cover_Price],
+        ['Lamination:', job.lamination],
+        ['Lamination Price:', job.lamination_Price],
+        ['Interior Decor:', job.interiour_decor],
+        ['Interior Decor Price:', job.interiour_decor_Price],
     ];
 
-    // Set up margins
     const marginLeft = 10;
-    const marginTop = 10;
+    const marginTop = 130;
 
-    // Add job details table
-    pdf.autoTable({
-      startY: marginTop,
-      body: jobDetails,
-      theme: 'grid',
-      margin: { left: marginLeft }
+    doc.autoTable({
+        startY: marginTop,
+        body: jobDetails,
+        theme: 'grid',
+        margin: { left: marginLeft }
     });
 
-    pdf.save(`job_${job._id}.pdf`);
-  };
+    const totalAmountX = 52; 
+    const totalAmountY = marginTop + (jobDetails.length * 7) + 15; 
 
+    doc.text('TOTAL AMOUNT:', totalAmountX, totalAmountY); 
+    doc.text(`${job.TotalAmount.toLocaleString() + " Rs"}`, totalAmountX + 40, totalAmountY); 
+
+    doc.save(`invoice_${invoiceNumber}.pdf`);
+
+    invoiceNumber++;
+}
+
+
+
+  
+
+
+  
+  
 
   return (
     <div className="container">
