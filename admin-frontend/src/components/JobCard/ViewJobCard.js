@@ -11,6 +11,7 @@ const ViewJobCard = () => {
 
   useEffect(() => {
     fetch("https://car-wash-backend-api.onrender.com/api/jobcard")
+    
       .then((response) => response.json())
       .then((data) => setJobData(data))
       .catch((error) => console.error("Error fetching data:", error));
