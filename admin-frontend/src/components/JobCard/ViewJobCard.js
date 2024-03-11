@@ -122,7 +122,7 @@ const ViewJobCard = () => {
 
     const img = new Image();
     img.src = logo;
-    doc.addImage(img, 'JPEG', 5, 12, 26, 26); 
+    doc.addImage(img, 'JPEG', 5, 10, 45, 32); 
 
     doc.setFillColor(211, 211, 211);
 
@@ -133,8 +133,8 @@ const ViewJobCard = () => {
     doc.text('P 7560039600', 140, 30);
     doc.text('www.Glossgenic.com', 140, 35);
 
-    doc.text(`Invoice Number: ${invoiceNumber}`, 10, 50);
-    doc.text(`Invoice Date: ${formattedDate}`, 10, 55); 
+    doc.text(`Job Card No. : ${invoiceNumber}`, 10, 50);
+    doc.text(`Job Card Date: ${formattedDate}`, 10, 55); 
 
     doc.setDrawColor(0, 0, 255); 
     doc.line(10, 60, 200, 60); 
@@ -155,15 +155,15 @@ const ViewJobCard = () => {
     const jobDetails = [
       ['Vehicle Category:', 'Services:', 'Price:'],
       [job.vehicle_Category],
-      ['Wash Type', job.wash_type, job.wash_type_price + " Rs"],
-      ['Coating', job.coating, job.coating_Price + " Rs"],
-      ['Paint Protection', job.paint_protection_field, job.paint_protection_field_Price + " Rs"],
-      ['Window Films', job.window_films, job.window_films_Price + " RS"],
-      ['Vinly Warp', job.vinly_wraps, job.vinly_wraps_Price + " Rs"],
-      ['Seat Cover', job.premium_seat_cover, job.premium_seat_cover_Price + " Rs"],
-      ['Lamination', job.lamination, job.lamination_Price + " Rs"],
-      ['Interiour Decor', job.interiour_decor, job.interiour_decor_Price + " Rs"],
-      [{ content: 'Total Amount:', styles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] } }, '', job.TotalAmount.toLocaleString() + " Rs"]
+      ['Wash Type', job.wash_type, "Rs. " + job.wash_type_price],
+      ['Coating', job.coating, "Rs. " + job.coating_Price],
+      ['Paint Protection', job.paint_protection_field, "Rs. " + job.paint_protection_field_Price],
+      ['Window Films', job.window_films, "Rs. " + job.window_films_Price],
+      ['Vinly Warp', job.vinly_wraps, "Rs. " + job.vinly_wraps_Price],
+      ['Seat Cover', job.premium_seat_cover, "Rs. " + job.premium_seat_cover_Price],
+      ['Lamination', job.lamination, "Rs. " + job.lamination_Price],
+      ['Interiour Decor', job.interiour_decor, "Rs. " + job.interiour_decor_Price],
+      [{ content: 'Total Amount:', styles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] } }, '', "Rs. " + job.TotalAmount.toLocaleString()]
   ];
   
   const marginLeft = 10;
@@ -178,7 +178,7 @@ const ViewJobCard = () => {
   
   
 
-    doc.save(`invoice_${invoiceNumber}.pdf`);
+    doc.save(`JobCard_${invoiceNumber}.pdf`);
 
     invoiceNumber++;
 }
@@ -232,49 +232,49 @@ const ViewJobCard = () => {
                 <tr>
                   <td>Wash Type</td>
                   <td>{job.wash_type}</td>
-                  <td>{job.wash_type_price} Rs</td>
+                  <td>Rs. {job.wash_type_price}</td>
                 </tr>
                 <tr>
                   <td>Coating</td>
                   <td>{job.coating}</td>
-                  <td>{job.coating_Price} Rs</td>
+                  <td>Rs. {job.coating_Price}</td>
                 </tr>
                 <tr>
                   <td>Paint Protection</td>
                   <td>{job.paint_protection_field}</td>
-                  <td>{job.paint_protection_field_Price} Rs</td>
+                  <td>Rs. {job.paint_protection_field_Price}</td>
                 </tr>
                 <tr>
                   <td>Window</td>
                   <td>{job.window_films}</td>
-                  <td>{job.window_films_Price} Rs</td>
+                  <td>Rs. {job.window_films_Price} </td>
                 </tr>
                 <tr>
                   <td>Vinly Wrap</td>
                   <td>{job.vinly_wraps}</td>
-                  <td>{job.vinly_wraps_Price} Rs</td>
+                  <td>Rs. {job.vinly_wraps_Price} </td>
                 </tr>
 
                 <tr>
                   <td>Premium Seat Cover</td>
                   <td>{job.premium_seat_cover}</td>
-                  <td>{job.premium_seat_cover_Price} Rs</td>
+                  <td>Rs. {job.premium_seat_cover_Price} </td>
                 </tr>
                 <tr>
                   <td>Lamination</td>
                   <td>{job.lamination}</td>
-                  <td>{job.lamination_Price} Rs</td>
+                  <td>Rs. {job.lamination_Price} </td>
                 </tr>
                 <tr>
                   <td>Interior Decor</td>
                   <td>{job.interiour_decor}</td>
-                  <td>{job.interiour_decor_Price} Rs</td>
+                  <td>Rs. {job.interiour_decor_Price}</td>
                 </tr>
               </tbody>
             </table>
 
             <div className="mt-3 d-flex justify-content-end">
-              <strong>Total Amount: {job.TotalAmount} Rs</strong>
+              <strong>Total Amount: Rs. {job.TotalAmount} </strong>
             </div>
 
 
