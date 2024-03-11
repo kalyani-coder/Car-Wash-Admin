@@ -153,42 +153,30 @@ const ViewJobCard = () => {
     doc.text('JOB CARD DETAILS', 10, 120); 
 
     const jobDetails = [
-        ['Vehicle Category:', job.vehicle_Category],
-        ['Vehicle Type:', job.vehicle_Type],
-        ['Wash Type:', job.wash_type],
-        ['Wash Type Price:', job.wash_type_price],
-        ['Coating:', job.coating],
-        ['Coating Price:', job.coating_Price],
-        ['Paint Protection Films:', job.paint_protection_field],
-        ['Paint Protection Films Price:', job.paint_protection_field_Price], 
-        ['Window Films:', job.window_films],
-        ['Window Films Price:', job.window_films_Price], 
-        ['Vinyl Wraps:', job.vinly_wraps],
-        ['Vinyl Wraps Price:', job.vinly_wraps_Price], 
-        ['Premium Seat Cover:', job.premium_seat_cover],
-        ['Premium Seat Cover Price:', job.premium_seat_cover_Price],
-        ['Lamination:', job.lamination],
-        ['Lamination Price:', job.lamination_Price],
-        ['Interior Decor:', job.interiour_decor],
-        ['Interior Decor Price:', job.interiour_decor_Price],
-        [{ content: 'Total Amount:', styles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] } }, job.TotalAmount.toLocaleString() + " Rs"]
-    ];
-
-    const marginLeft = 10;
-    const marginTop = 130;
-
-    doc.autoTable({
-        startY: marginTop,
-        body: jobDetails,
-        theme: 'grid',
-        margin: { left: marginLeft }
-    });
-
-    // const totalAmountX = 52; 
-    // const totalAmountY = marginTop + (jobDetails.length * 7) + 15; 
-
-    // doc.text('TOTAL AMOUNT:', totalAmountX, totalAmountY); 
-    // doc.text(`${job.TotalAmount.toLocaleString() + " Rs"}`, totalAmountX + 40, totalAmountY); 
+      ['Vehicle Category:', 'Services:', 'Price:'],
+      [job.vehicle_Category],
+      ['Wash Type', job.wash_type, job.wash_type_price + " Rs"],
+      ['Coating', job.coating, job.coating_Price + " Rs"],
+      ['Paint Protection', job.paint_protection_field, job.paint_protection_field_Price + " Rs"],
+      ['Window Films', job.window_films, job.window_films_Price + " RS"],
+      ['Vinly Warp', job.vinly_wraps, job.vinly_wraps_Price + " Rs"],
+      ['Seat Cover', job.premium_seat_cover, job.premium_seat_cover_Price + " Rs"],
+      ['Lamination', job.lamination, job.lamination_Price + " Rs"],
+      ['Interiour Decor', job.interiour_decor, job.interiour_decor_Price + " Rs"],
+      [{ content: 'Total Amount:', styles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] } }, '', job.TotalAmount.toLocaleString() + " Rs"]
+  ];
+  
+  const marginLeft = 10;
+  const marginTop = 130;
+  
+  doc.autoTable({
+      startY: marginTop,
+      body: jobDetails,
+      theme: 'grid',
+      margin: { left: marginLeft }
+  });
+  
+  
 
     doc.save(`invoice_${invoiceNumber}.pdf`);
 
