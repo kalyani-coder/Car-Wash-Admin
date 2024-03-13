@@ -3,6 +3,7 @@ import "./Sidebar.css";
 import { Link } from "react-router-dom";
 import { faTimes, faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import image from '../../assects/logo.jpeg'
 
 export default function Sidebar() {
   // State to manage sidebar visibility
@@ -72,6 +73,10 @@ export default function Sidebar() {
         <li>
           <h1>Welcome To Admin Dashboard</h1>
         </li>
+
+        {/* <div className="home-image">
+          <img src={image}></img>
+        </div> */}
 
 
       </div>

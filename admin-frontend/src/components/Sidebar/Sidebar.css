@@ -57,14 +57,14 @@ li {
   padding: 8px 10px;
   color: #fff; /* Text color */
   text-decoration: none;
-  background-color: #00a8e8; /* Main background color */
+  background-color: #0d0f0f; /* Main background color */
   border-radius: 4px;
   transition: background-color 0.2s;
   box-shadow: none;
 }
 
 .list-unstyled.components li a:hover {
-  background-color: #0091c2; /* Highlight on hover */
+  background-color: #474747; /* Highlight on hover */
 }
 
 /* Styles for sub-menu items */
@@ -73,12 +73,12 @@ li {
 }
 
 .list-unstyled.components li ul li a {
-  background-color: #007bb3; /* Sub-menu item background color */
+  background-color: #0d0f0f; /* Sub-menu item background color */
   border-radius: 3px;
 }
 
 .list-unstyled.components li ul li a:hover {
-  background-color: #005e91; /* Highlight sub-menu items on hover */
+  background-color: #474747; /* Highlight sub-menu items on hover */
 }
 
 .home-heading h1{
