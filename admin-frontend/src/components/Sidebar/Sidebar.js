@@ -71,7 +71,7 @@ export default function Sidebar() {
 
       <div className="container mt-3 text-center" style={{ fontFamily: 'Arial, sans-serif', color: "black" }}>
         <li>
-          <h1>Welcome To Admin Dashboard</h1>
+          <h1>Welcome To Glossgenic</h1>
         </li>
 
         {/* <div className="home-image">

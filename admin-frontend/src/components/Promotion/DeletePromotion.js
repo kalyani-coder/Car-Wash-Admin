@@ -215,7 +215,7 @@ export default function PromotionView() {
                     />
                   </Form.Group>
                   <Button
-                    variant="primary"
+                    variant="dark"
                     onClick={() => {
                       const shouldSave = window.confirm(
                         "Are you sure you want to save changes?"

@@ -1,161 +1,68 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"; // Import Bootstrap's Modal component
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"; 
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import logo from '../../assects/logo.jpeg'
+import logo from '../../assects/logo.jpeg';
+import footerImg from "../../assects/footer.jpg";
+import headerImg from "../../assects/header.jpg";
 
 const ViewJobCard = () => {
   const [jobData, setJobData] = useState([]);
-  const [selectedJob, setSelectedJob] = useState(null); // State to store the selected job
+  const [selectedJob, setSelectedJob] = useState(null); 
 
   useEffect(() => {
     fetch("https://car-wash-backend-api.onrender.com/api/jobcard")
-    
+
       .then((response) => response.json())
       .then((data) => setJobData(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  // Function to handle "View" button click and set the selected job
   const handleViewClick = (job) => {
     setSelectedJob(job);
-    // Show the Bootstrap modal
     const modal = new Modal(document.getElementById("jobModal"));
     modal.show();
   };
 
-  // const handleGeneratePDF = (job) => {
-  //   const pdf = new jsPDF();
+  
 
-  //   // Add client details
-  //   const clientDetails = `
-  //     Client Name: ${job.name}
-  //     Email: ${job.email}
-  //     Phone: ${job.phone}
-  //     Address: ${job.address}
-  //   `;
-  //   pdf.text(clientDetails, 10, 10);
-
-  //   // Add job card content in table format
-  //   const tableData = [
-  //     ['Job Card ID', 'Vehicle Category', 'Vehicle Type'],
-  //     [job.JobCardId, job.vehicle_Category, job.vehicle_Type],
-  //     ['Email', 'Phone'],
-  //     [job.email, job.phone],
-  //     ['Address', 'Vehicle Make/Model'],
-  //     [job.address, job.vehicle_Make],
-  //     ['Vehicle Number', 'Coating'],
-  //     [job.vehicle_Number, job.coating],
-  //     ['Paint Protection Films', 'Window Films'],
-  //     ['...', '...'] // Add more data as needed
-  //   ];
-
-  //   pdf.autoTable({
-  //     head: [['Job Details']],
-  //     body: tableData,
-  //     startY: 30
-  //   });
-
-  //   pdf.save(`job_${job._id}.pdf`);
-  // };
-
-  // const handleGeneratePDF = (job) => {
-  //   const pdf = new jsPDF();
-
-  //   const jobDetails = [
-  //     [{ content: 'Job Card Details', styles: { fillColor: [0, 0, 0], textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center' }, colSpan: 2 }],
-  //     ['Job Card ID:', job.JobCardId],
-  //     ['Client Name:', job.name],
-  //     ['Email:', job.email],
-  //     ['Phone:', job.phone],
-  //     ['Address:', job.address],
-  //     ['Vehicle Make:', job.vehicle_Make],
-  //     ['Vehicle Number:', job.vehicle_Number],
-  //     ['Vehicle Category:', job.vehicle_Category],
-  //     ['Vehicle Type:', job.vehicle_Type],
-  //     ['Wash Type:', job.wash_type],
-  //     ['Wash Type Price:', job.wash_type_price],
-  //     ['Coating:', job.coating],
-  //     ['Coating Price:', job.coating_Price],
-  //     ['Paint Protection Films:', job.paint_protection_field],
-  //     ['Paint Protection Films Price:', job.paint_protection_field_Price],
-  //     ['Window Films:', job.window_films],
-  //     ['Window Films Price:', job.window_films_Price],
-  //     ['Vinyl Wraps:', job.vinly_wraps],
-  //     ['Vinyl Wraps Price:', job.vinly_wraps_Price],
-  //     ['Premium Seat Cover:', job.premium_seat_cover],
-  //     ['Premium Seat Cover Price:', job.premium_seat_cover_Price],
-  //     ['Lamination:', job.lamination],
-  //     ['Lamination Price:', job.lamination_Price],
-  //     ['Interior Decor:', job.interiour_decor],
-  //     ['Interior Decor Price:', job.interiour_decor_Price,],
-  //     [{ content: 'Total Amount:', styles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] } }, job.TotalAmount.toLocaleString() + " Rs"]
-
-
-    
-  //   ];
-
-  //   const marginLeft = 10;
-  //   const marginTop = 10;
-
-  //   pdf.autoTable({
-  //     startY: marginTop,
-  //     body: jobDetails,
-  //     theme: 'grid',
-  //     margin: { left: marginLeft }
-  //   });
-
-  //   pdf.save(`job_${job._id}.pdf`);
-  // };
-
-  let invoiceNumber = 1; 
+  let invoiceNumber = 1;
 
   const handleGeneratePDF = (job) => {
     const doc = new jsPDF();
 
     const currentDate = new Date();
 
-    const formattedDate = currentDate.toLocaleDateString(); 
-
-    doc.setFillColor(60,181,205);
-    doc.rect(0, 0, doc.internal.pageSize.getWidth(), 7, 'F');
-
-    const img = new Image();
-    img.src = logo;
-    doc.addImage(img, 'JPEG', 5, 10, 45, 32); 
-
-    doc.setFillColor(211, 211, 211);
+    const formattedDate = currentDate.toLocaleDateString();
+    const headerWidth = doc.internal.pageSize.getWidth();
+    const headerHeight = 25; 
+    doc.addImage(headerImg, 'JPEG', 0, 0, headerWidth, headerHeight);
 
     doc.setFontSize(11);
-    doc.text('Navnath Gunjawate', 140, 15);
-    doc.text('Ambrosia Alley, Amanora Park Town', 140, 20);
-    doc.text('411028', 140, 25);
-    doc.text('P 7560039600', 140, 30);
-    doc.text('www.Glossgenic.com', 140, 35);
+
+    const lineHeight = 5;
 
     doc.text(`Job Card No. : ${invoiceNumber}`, 10, 50);
-    doc.text(`Job Card Date: ${formattedDate}`, 10, 55); 
-
-    doc.setDrawColor(0, 0, 255); 
-    doc.line(10, 60, 200, 60); 
-
-    doc.text('BILL TO', 10, 68); 
-
-    doc.text(`Client Name: ${job.name}`, 10, 75);
-    doc.text(`Email: ${job.email}`, 10, 80);
-    doc.text(`Phone: ${job.phone}`, 10, 85);
-    doc.text(`Address: ${job.address}`, 10, 90);
-    doc.text(`Vehicle Make: ${job.vehicle_Make}`, 10, 95);
-    doc.text(`Vehicle Number: ${job.vehicle_Number}`, 10, 100);
+    doc.text(`Job Card Date: ${formattedDate}`, 10, 50 + lineHeight);
+    doc.setDrawColor(0, 0, 255);
+    doc.line(10, 60, 200, 60);
+    doc.text('BILL TO', 10, 68);
+    doc.text(`Client Name: ${job.name}`, 10, 68 + lineHeight);
+    doc.text(`Email: ${job.email}`, 10, 68 + 2 * lineHeight);
+    doc.text(`Phone: ${job.phone}`, 10, 68 + 3 * lineHeight);
+    doc.text(`Address: ${job.address}`, 10, 68 + 4 * lineHeight);
+    doc.text(`Vehicle Make: ${job.vehicle_Make}`, 10, 68 + 5 * lineHeight);
+    doc.text(`Vehicle Number: ${job.vehicle_Number}`, 10, 68 + 6 * lineHeight);
 
     doc.line(10, 105, 200, 105);
 
-    doc.text('JOB CARD DETAILS', 10, 120); 
+    doc.text('JOB CARD DETAILS', 10, 120);
 
     const jobDetails = [
       ['Vehicle Category:', 'Services:', 'Price:'],
       [job.vehicle_Category],
+      ['Treatment Type', job.treatment],
       ['Wash Type', job.wash_type, "Rs. " + job.wash_type_price],
       ['Coating', job.coating, "Rs. " + job.coating_Price],
       ['Paint Protection', job.paint_protection_field, "Rs. " + job.paint_protection_field_Price],
@@ -165,24 +72,29 @@ const ViewJobCard = () => {
       ['Lamination', job.lamination, "Rs. " + job.lamination_Price],
       ['Interiour Decor', job.interiour_decor, "Rs. " + job.interiour_decor_Price],
       [{ content: 'Total Amount:', styles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] } }, '', "Rs. " + job.TotalAmount.toLocaleString()]
-  ];
-  
-  const marginLeft = 10;
-  const marginTop = 130;
-  
-  doc.autoTable({
+    ];
+
+    const marginLeft = 10;
+    const marginTop = 130;
+
+    doc.autoTable({
       startY: marginTop,
       body: jobDetails,
       theme: 'grid',
       margin: { left: marginLeft }
-  });
-  
-  
+    });
+
+    const footerWidth = doc.internal.pageSize.getWidth();
+    const footerHeight = 30;
+    const footerX = 0;
+    const footerY = doc.internal.pageSize.getHeight() - footerHeight;
+
+    doc.addImage(footerImg, 'JPEG', footerX, footerY, footerWidth, footerHeight);
 
     doc.save(`JobCard_${invoiceNumber}.pdf`);
 
     invoiceNumber++;
-}
+  }
 
 
   return (
@@ -286,7 +198,7 @@ const ViewJobCard = () => {
               <div>
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-dark"
                   onClick={() => handleViewClick(job)}
                 >
                   View

@@ -15,55 +15,6 @@ router.get("/", async (req, res) => {
     }
 })
 
-// router.post("/", async(req,res) => {
-//     try{
-
-//         const jobCard = new newJobCardSchema(req.body)
-//         await jobCard.save()
-//         res.status(201).send({message : "Job Card Created Successfully"})
-
-//     }catch(err){
-//         res.status(404).send({message : `Can't post Data${err}`})
-//     }
-// })
-
-
-// router.post("/", async (req, res) => {
-//     try {
-//       const { clientId, name, email, phone, address, vehicle_Make, model_Year, vehicle_Number ,vehicle_Category , vehicle_Treatment} = req.body;
-
-//       // Generate a unique JobCardId
-//       const jobCardId = uuid.v4();
-
-//      // Get current date in "dd/mm/yyyy" format
-//      const currentDate = new Date();
-//     //  const formattedDate = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
-
-
-//       const jobCard = new newJobCardSchema({
-//         clientId,
-//         JobCardId: jobCardId,
-//         name,
-//         email,
-//         phone,
-//         address,
-//         vehicle_Make,
-//         model_Year,
-//         vehicle_Number,
-//         jobCardDate: currentDate, // Assign currentDate to jobCardDate field,
-//         vehicle_Category,
-//         vehicle_Treatment,
-//       });
-
-//       await jobCard.save();
-//       res.status(201).send({ message: "Job Card Created Successfully", jobCardId });
-
-//     } catch (err) {
-//       console.error("Error creating job card:", err);
-//       res.status(500).send({ message: "Can't post Data" });
-//     }
-//   });
-
 
 router.post("/", async (req, res) => {
     try {
@@ -76,12 +27,11 @@ router.post("/", async (req, res) => {
             premium_seat_cover_Price,
             lamination_Price,
             interiour_decor_Price, 
-            TotalAmount,} = req.body;
+            TotalAmount,
+            treatment,} = req.body;
 
-        // Generate a unique JobCardId
         const jobCardId = uuid.v4();
 
-        // Get current date
         const currentDate = new Date();
 
         const jobCard = new newJobCardSchema({
@@ -94,7 +44,7 @@ router.post("/", async (req, res) => {
             vehicle_Make,
             model_Year,
             vehicle_Number,
-            jobCardDate: currentDate, // Assign currentDate to jobCardDate field,
+            jobCardDate: currentDate, 
             vehicle_Category,
             vehicle_Treatment,
             vehicle_Type,
@@ -115,7 +65,8 @@ router.post("/", async (req, res) => {
             premium_seat_cover_Price,
             lamination_Price,
             interiour_decor_Price,
-            TotalAmount
+            TotalAmount,
+            treatment
         });
 
         await jobCard.save();

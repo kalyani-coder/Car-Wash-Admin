@@ -499,7 +499,7 @@ const handleInteriorTypeSubmit = async (event) => {
                   />
                 </div>
               </Form.Group> */}
-              <button type="submit" className='btn btn-primary'>Add</button>
+              <button type="submit" className='btn btn-dark'>Add</button>
             </Form>
 
             <Form onSubmit={handleWashTypeSubmit}>
@@ -528,7 +528,7 @@ const handleInteriorTypeSubmit = async (event) => {
           />
         </div>
       </Form.Group>
-      <Button type="submit" variant="primary">Add</Button>
+      <Button type="submit" variant="dark">Add</Button>
     </Form>
 
 
@@ -550,7 +550,7 @@ const handleInteriorTypeSubmit = async (event) => {
                     value={coatingprice}
                     onChange={handleCoatingPriceChange}
                   />
-                  <button type="submit" className='btn btn-primary'>Add</button>
+                  <button type="submit" className='btn btn-dark'>Add</button>
                 </div>
               </Form.Group>
             </Form>
@@ -573,7 +573,7 @@ const handleInteriorTypeSubmit = async (event) => {
                     value={paintProtectionprice}
                     onChange={handlepaintProtectionPriceChange}
                   />
-                  <button type="submit" className='btn btn-primary'>Add</button>
+                  <button type="submit" className='btn btn-dark'>Add</button>
                 </div>
               </Form.Group>
             </Form>
@@ -596,7 +596,7 @@ const handleInteriorTypeSubmit = async (event) => {
                     value={windowfilmnprice}
                     onChange={handlewindowfilmPriceChange}
                   />
-                  <button type="submit" className='btn btn-primary'>Add</button>
+                  <button type="submit" className='btn btn-dark'>Add</button>
                 </div>
               </Form.Group>
             </Form>
@@ -619,7 +619,7 @@ const handleInteriorTypeSubmit = async (event) => {
                     value={vinalwrapsprice}
                     onChange={handlevinalwrapsPriceChange}
                   />
-                  <button type="submit" className='btn btn-primary'>Add</button>
+                  <button type="submit" className='btn btn-dark'>Add</button>
                 </div>
               </Form.Group>
             </Form>
@@ -642,7 +642,7 @@ const handleInteriorTypeSubmit = async (event) => {
                     value={premiumseatprice}
                     onChange={handlepremiumseatPriceChange}
                   />
-                  <button type="submit" className='btn btn-primary'>Add</button>
+                  <button type="submit" className='btn btn-dark'>Add</button>
                 </div>
               </Form.Group>
             </Form>
@@ -666,7 +666,7 @@ const handleInteriorTypeSubmit = async (event) => {
                     value={laminationprice}
                     onChange={handlelaminationPriceChange}
                   />
-                  <button type="submit" className='btn btn-primary'>Add</button>
+                  <button type="submit" className='btn btn-dark'>Add</button>
                 </div>
               </Form.Group>
             </Form>
@@ -689,7 +689,7 @@ const handleInteriorTypeSubmit = async (event) => {
                     value={interiorprice}
                     onChange={handleinteriorPriceChange}
                   />
-                  <button type="submit" className='btn btn-primary'>Add</button>
+                  <button type="submit" className='btn btn-dark'>Add</button>
                 </div>
               </Form.Group>
             </Form>

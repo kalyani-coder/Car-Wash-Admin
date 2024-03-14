@@ -793,7 +793,7 @@ const UpdateMaster = () => {
           </Form.Select><br />
           {selectedCategory && (
             <div>
-              <Button variant="info" onClick={handleEdit}>Edit</Button>
+              <Button variant="dark" onClick={handleEdit}>Edit</Button>
               <Button variant="danger" onClick={handleDelete}>Delete Vehicle Type</Button>
             </div>
           )}
@@ -824,7 +824,7 @@ const UpdateMaster = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>Cancel</Button>
-          <Button variant="primary" onClick={handleSave}>Save Changes</Button>
+          <Button variant="dark" onClick={handleSave}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
 
@@ -848,7 +848,7 @@ const UpdateMaster = () => {
           </Form.Select><br />
           {selectedWashType && (
             <div>
-              <Button variant="info" onClick={handleEditWashType}>Edit</Button>
+              <Button variant="dark" onClick={handleEditWashType}>Edit</Button>
               <Button variant="danger" onClick={handleDeleteWashType}>Delete Wash Type</Button>
             </div>
           )}
@@ -879,7 +879,7 @@ const UpdateMaster = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseWashModal}>Cancel</Button>
-          <Button variant="primary" onClick={handleSaveWashChanges}>Save Changes</Button>
+          <Button variant="dark" onClick={handleSaveWashChanges}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
 
@@ -901,7 +901,7 @@ const UpdateMaster = () => {
           </Form.Select><br />
           {selectedCoatingType && (
             <div>
-              <Button variant="info" onClick={handleEditCoatingType}>Edit</Button>
+              <Button variant="dark" onClick={handleEditCoatingType}>Edit</Button>
               <Button variant="danger" onClick={handleDeleteCoatingType}>Delete Coating Type</Button>
             </div>
           )}
@@ -932,7 +932,7 @@ const UpdateMaster = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseCoatingModal}>Cancel</Button>
-          <Button variant="primary" onClick={handleSaveCoatingChanges}>Save Changes</Button>
+          <Button variant="dark" onClick={handleSaveCoatingChanges}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
 
@@ -955,7 +955,7 @@ const UpdateMaster = () => {
           </Form.Select><br />
           {selectedPaintProtectionType && (
             <div>
-              <Button variant="info" onClick={handleEditPaintProtectionType}>Edit</Button>
+              <Button variant="dark" onClick={handleEditPaintProtectionType}>Edit</Button>
               <Button variant="danger" onClick={handleDeletePaintProtectionType}>Delete Paint Protection Type</Button>
             </div>
           )}
@@ -986,7 +986,7 @@ const UpdateMaster = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClosePaintProtectionModal}>Cancel</Button>
-          <Button variant="primary" onClick={handleSavePaintProtectionChanges}>Save Changes</Button>
+          <Button variant="dark" onClick={handleSavePaintProtectionChanges}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
 
@@ -1008,7 +1008,7 @@ const UpdateMaster = () => {
           </Form.Select><br />
           {selectedWindowFilmType && (
             <div>
-              <Button variant="info" onClick={handleEditWindowFilmType}>Edit</Button>
+              <Button variant="dark" onClick={handleEditWindowFilmType}>Edit</Button>
               <Button variant="danger" onClick={handleDeleteWindowFilmType}>Delete Window Film Type</Button>
             </div>
           )}
@@ -1039,7 +1039,7 @@ const UpdateMaster = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseWindowFilmModal}>Cancel</Button>
-          <Button variant="primary" onClick={handleSaveWindowFilmChanges}>Save Changes</Button>
+          <Button variant="dark" onClick={handleSaveWindowFilmChanges}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
 
@@ -1062,7 +1062,7 @@ const UpdateMaster = () => {
           </Form.Select><br />
           {selectedVinylWrapsType && (
             <div>
-              <Button variant="info" onClick={handleEditVinylWrapsType}>Edit</Button>
+              <Button variant="dark" onClick={handleEditVinylWrapsType}>Edit</Button>
               <Button variant="danger" onClick={handleDeleteVinylWrapsType}>Delete Vinyl Wraps Type</Button>
             </div>
           )}
@@ -1093,7 +1093,7 @@ const UpdateMaster = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseVinylWrapsModal}>Cancel</Button>
-          <Button variant="primary" onClick={handleSaveVinylWrapsChanges}>Save Changes</Button>
+          <Button variant="dark" onClick={handleSaveVinylWrapsChanges}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
 
@@ -1115,7 +1115,7 @@ const UpdateMaster = () => {
           </Form.Select><br />
           {selectedPremiumSeatType && (
             <div>
-              <Button variant="info" onClick={handleEditPremiumSeatType}>Edit</Button>
+              <Button variant="dark" onClick={handleEditPremiumSeatType}>Edit</Button>
               <Button variant="danger" onClick={handleDeletePremiumSeatType}>Delete Premium Seat Type</Button>
             </div>
           )}
@@ -1146,7 +1146,7 @@ const UpdateMaster = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClosePremiumSeatModal}>Cancel</Button>
-          <Button variant="primary" onClick={handleSavePremiumSeatChanges}>Save Changes</Button>
+          <Button variant="dark" onClick={handleSavePremiumSeatChanges}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
 
@@ -1168,7 +1168,7 @@ const UpdateMaster = () => {
           </Form.Select><br />
           {selectedLaminationType && (
             <div>
-              <Button variant="info" onClick={handleEditLaminationType}>Edit</Button>
+              <Button variant="dark" onClick={handleEditLaminationType}>Edit</Button>
               <Button variant="danger" onClick={handleDeleteLaminationType}>Delete Lamination Type</Button>
             </div>
           )}
@@ -1199,7 +1199,7 @@ const UpdateMaster = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseLaminationModal}>Cancel</Button>
-          <Button variant="primary" onClick={handleSaveLaminationChanges}>Save Changes</Button>
+          <Button variant="dark" onClick={handleSaveLaminationChanges}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
 
@@ -1222,7 +1222,7 @@ const UpdateMaster = () => {
           </Form.Select><br />
           {selectedInteriorType && (
             <div>
-              <Button variant="info" onClick={handleEditInteriorType}>Edit</Button>
+              <Button variant="dark" onClick={handleEditInteriorType}>Edit</Button>
               <Button variant="danger" onClick={handleDeleteInteriorType}>Delete Interior Type</Button>
             </div>
           )}
@@ -1253,7 +1253,7 @@ const UpdateMaster = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseInteriorModal}>Cancel</Button>
-          <Button variant="primary" onClick={handleSaveInteriorChanges}>Save Changes</Button>
+          <Button variant="dark" onClick={handleSaveInteriorChanges}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
 

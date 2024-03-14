@@ -198,7 +198,7 @@ export default function AddPromotion() {
           </Button> */}
 
           <Col xs="auto">
-            <Button variant="primary" onClick={handleUpload}>
+            <Button variant="dark" onClick={handleUpload}>
               Save
             </Button>
           </Col>

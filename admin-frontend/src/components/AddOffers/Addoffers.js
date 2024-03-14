@@ -265,7 +265,7 @@ const Addoffers = () => {
 
 
           <Col xs="auto">
-            <Button variant="primary" onClick={handleUpload} >
+            <Button variant="dark" onClick={handleUpload} >
               Save
             </Button>
           </Col>

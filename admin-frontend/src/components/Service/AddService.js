@@ -191,13 +191,13 @@
 
 //       <Row className="justify-content-between mt-4">
 //         <Col xs="auto">
-//           <Button variant="primary" onClick={handleUpload}>
+//           <Button variant="dark" onClick={handleUpload}>
 //             Save
 //           </Button>
 //         </Col>
 
 //         <Col xs="auto">
-//           <Button variant="primary">Discard</Button>
+//           <Button variant="dark">Discard</Button>
 //         </Col>
 //       </Row>
 //     </div>
@@ -417,13 +417,13 @@ const AddServices = () => {
 
       <Row className="justify-content-between mt-4">
         <Col xs="auto">
-          <Button variant="primary" onClick={handleUpload}>
+          <Button variant="dark" onClick={handleUpload}>
             Save
           </Button>
         </Col>
 
         <Col xs="auto">
-          <Button variant="primary">Discard</Button>
+          <Button variant="dark">Discard</Button>
         </Col>
       </Row>
     </div>

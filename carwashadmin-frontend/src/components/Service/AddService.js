@@ -130,13 +130,13 @@ const AddServices = () => {
 
         <Row className="justify-content-between mt-4">
           <Col xs="auto">
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="dark">
               Save
             </Button>
           </Col>
 
           <Col xs="auto">
-            <Button variant="primary">
+            <Button variant="dark">
               Discard
             </Button>
           </Col>

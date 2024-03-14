@@ -154,7 +154,7 @@ export default function ServiceView() {
                   {/* Similar form fields for other properties */}
                   <div className="mt-3">
                     <Button
-                      variant="primary"
+                      variant="dark"
                       onClick={() => {
                         const shouldSave = window.confirm(
                           "Are you sure you want to save changes?"

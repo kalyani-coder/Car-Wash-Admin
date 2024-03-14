@@ -184,13 +184,13 @@ const AddClients = () => {
 
         <Row className="justify-content-between mt-4">
           <Col xs="auto">
-          <Button variant="primary" onClick={handleUpload}>
+          <Button variant="dark" onClick={handleUpload}>
               Save
             </Button>
           </Col>
 
           <Col xs="auto">
-            <Button variant="primary">
+            <Button variant="dark">
               Discard
             </Button>
           </Col>

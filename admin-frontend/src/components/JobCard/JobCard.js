@@ -38,9 +38,7 @@ const JobCard = () => {
     setSelectedWashType(event.target.value);
   };
 
-  // const handleCoatingChange=(event)=> {
-  //   set
-  // }
+ 
 
   useEffect(() => {
     fetch('https://car-wash-backend-api.onrender.com/api/master/vehicletype')
@@ -58,10 +56,7 @@ const JobCard = () => {
   };
 
 
-  // const handleWashTypeChange = (event) => {
-  //   setSelectedWashType(event.target.value);
-  // };
-
+  
 
 
   const handleCategoryChange = (event) => {
@@ -110,51 +105,7 @@ const JobCard = () => {
     setClientData(mergedData);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault(); // Prevent the default form submission behavior
-
-  //   if (!selectedVehicleType || !selectedCategory || !selectedWashType) {
-  //     console.error('Please select a vehicle category, type, and wash type.');
-  //     alert('Please select a vehicle category, type, and wash type.');
-  //     return; // Exit early if any required field is not selected
-  //   }
-
-  //   const selectedWashTypeData = washTypes.find(wash => wash.wash_type === selectedWashType);
-  //   const washTypePrice = selectedWashTypeData ? selectedWashTypeData.price : 0;
-
-  //   try {
-  //     // Prepare data for the POST request
-  //     const data = {
-  //       clientId: selectedClient,
-  //       name: clientData ? clientData.clientName : "",
-  //       email: clientData ? clientData.clientEmail : "",
-  //       phone: clientData ? clientData.clientPhone : "",
-  //       address: clientData ? clientData.clientAddress : "",
-  //       vehicle_Make: clientData ? clientData.clientcarmodelno : "",
-  //       vehicle_Number: clientData ? clientData.clientvehicleno : "",
-  //       vehicle_Category: selectedCategory, // Include selected category
-  //       vehicle_Type: selectedVehicleType, // Include selected type
-  //       wash_type: selectedWashType,
-  //       wash_type_price: washTypePrice,
-  //       coating: clientData ? clientData.clientcoating : ""
-  //     };
-
-  //     // Send POST request to the API
-  //     const response = await axios.post(
-  //       "https://car-wash-backend-api.onrender.com/api/jobcard",
-  //       data
-  //     );
-
-  //     // Set the response message
-  //     setResponseMessage(response.data.message);
-  //     alert('Data posted successfully');
-  //   } catch (error) {
-  //     console.error("Error posting data:", error);
-  //     setResponseMessage("An error occurred while posting data.");
-  //   }
-  // };
-
-
+ 
   const handleCoatingChange = (event) => {
     setSelectedCoating(event.target.value);
   };
@@ -312,20 +263,7 @@ const JobCard = () => {
     fetchInteriorDecorOptions();
   }, []);
 
-  // const [totalAmount, setTotalAmount] = useState(0);
-  
-
-  // const calculateTotalAmount = () => {
-  //   const total = wash_type_price +
-  //                 coating_Price +
-  //                 paint_protection_field_Price +
-  //                 window_films_Price +
-  //                 vinly_wraps_Price +
-  //                 premium_seat_cover_Price +
-  //                 lamination_Price +
-  //                 interiour_decor_Price;
-  //   return total;
-  // };
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -405,7 +343,8 @@ const JobCard = () => {
         lamination_Price: laminationPrice,
         interiour_decor: interiorDecorName,
         interiour_decor_Price: interiorDecorPrice,
-        TotalAmount :totalAmount
+        TotalAmount :totalAmount,
+        treatment : treatment,
 
       };
 
@@ -424,7 +363,11 @@ const JobCard = () => {
     }
   };
 
+const [treatment , setTreatment] = useState('')
 
+const handleTreatmentChange = (event) => {
+  setTreatment(event.target.value)
+}
 
   return (
     <>
@@ -517,6 +460,33 @@ const JobCard = () => {
               placeholder="Enter Vehicle Number"
               value={clientData ? clientData.clientvehicleno : ""}
               readOnly
+            />
+          </Form.Group>
+
+
+          <Form.Group controlId="modelYear">
+            <Form.Label>Vehicle Make/Model:</Form.Label>
+            <Form.Control
+              type="text"
+              name="modelYear"
+              className=""
+              placeholder="Enter Vehicle Model and Year"
+              value={clientData ? clientData.clientcarmodelno : ""}
+              readOnly
+            />
+          </Form.Group>
+          <Form.Group controlId="treatent">
+            <Form.Label>Treatment:</Form.Label>
+            <Form.Control
+              type="text"
+              name="treatent"
+              className=""
+              placeholder="Enter Treatent"
+              style={{width :"50%"}}
+              value={treatment}
+              onChange={handleTreatmentChange}
+             
+            
             />
           </Form.Group>
 
