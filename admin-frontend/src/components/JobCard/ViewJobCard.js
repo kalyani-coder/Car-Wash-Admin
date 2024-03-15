@@ -62,10 +62,10 @@ const ViewJobCard = () => {
     doc.text(`Address: ${job.address}`, 10, 68 + 4 * lineHeight);
     doc.text(`Vehicle Make: ${job.vehicle_Make}`, 10, 68 + 5 * lineHeight);
     doc.text(`Vehicle Number: ${job.vehicle_Number}`, 10, 68 + 6 * lineHeight);
+    doc.text(`Job Card ID: ${job._id}`, 10, 68 + 7 * lineHeight);
 
     doc.line(10, 105, 200, 105);
 
-    doc.text(`Job Card ID: ${job._id}`, 10, 120);
     doc.text('JOB CARD DETAILS', 10, 120);
 
     const jobDetails = [
