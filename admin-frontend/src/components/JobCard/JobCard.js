@@ -252,6 +252,13 @@ const JobCard = () => {
   const [interiorDecorOptions, setInteriorDecorOptions] = useState([]);
   const [interiorDecorselectedOption, setInteriorDecorSelectedOption] = useState('');
 
+  const [treatment , setTreatment] = useState('')
+
+  const handleTreatmentChange = (event) => {
+    setTreatment(event.target.value)
+  }
+
+
  
   useEffect(() => {
     fetchCoatingTypes();
@@ -263,8 +270,7 @@ const JobCard = () => {
     fetchInteriorDecorOptions();
   }, []);
 
- 
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -363,11 +369,7 @@ const JobCard = () => {
     }
   };
 
-const [treatment , setTreatment] = useState('')
 
-const handleTreatmentChange = (event) => {
-  setTreatment(event.target.value)
-}
 
   return (
     <>
@@ -492,7 +494,7 @@ const handleTreatmentChange = (event) => {
 
         </div>
 
-        {/* cars details for creating job card  */}
+        {/* Cars details for creating job card  */}
         <div>
           <Form.Group controlId="SelectClient">
             <Form.Label>Vehicle Category:</Form.Label>
@@ -505,14 +507,14 @@ const handleTreatmentChange = (event) => {
                 onChange={handleCategoryChange}
               >
                 <option  >Select Vehicle Category</option>
-                <option value="cars">Cars</option>
+                <option value="Car">Car</option>
                 <option value="bikes">Bikes</option>
               </Form.Select>
             </div>
           </Form.Group>
 
           {/* Conditional rendering based on selected category */}
-          {selectedCategory === 'cars' && (
+          {selectedCategory === 'Car' && (
             <>
               <Form.Group controlId="CarVehicleType">
                 <Form.Label>Vehicle Type:</Form.Label>

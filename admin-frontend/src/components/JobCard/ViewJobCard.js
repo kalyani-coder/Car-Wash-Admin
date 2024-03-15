@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"; 
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js";
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import logo from '../../assects/logo.jpeg';
 import footerImg from "../../assects/footer.jpg";
 import headerImg from "../../assects/header.jpg";
+import "./JobCard.css"
 
 const ViewJobCard = () => {
   const [jobData, setJobData] = useState([]);
-  const [selectedJob, setSelectedJob] = useState(null); 
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredJobData, setFilteredJobData] = useState([]);
+
 
   useEffect(() => {
-    fetch("https://car-wash-backend-api.onrender.com/api/jobcard")
-
-      .then((response) => response.json())
-      .then((data) => setJobData(data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+  fetch("https://car-wash-backend-api.onrender.com/api/jobcard")
+    .then((response) => response.json())
+    .then((data) => {
+      // Reverse the order of data before setting it to state
+      const reversedData = data.reverse();
+      setJobData(reversedData);
+      setFilteredJobData(reversedData); // Initialize filtered job data with all job data
+    })
+    .catch((error) => console.error("Error fetching data:", error));
+}, []);
 
   const handleViewClick = (job) => {
     setSelectedJob(job);
@@ -25,7 +33,7 @@ const ViewJobCard = () => {
     modal.show();
   };
 
-  
+
 
   let invoiceNumber = 1;
 
@@ -36,7 +44,7 @@ const ViewJobCard = () => {
 
     const formattedDate = currentDate.toLocaleDateString();
     const headerWidth = doc.internal.pageSize.getWidth();
-    const headerHeight = 25; 
+    const headerHeight = 25;
     doc.addImage(headerImg, 'JPEG', 0, 0, headerWidth, headerHeight);
 
     doc.setFontSize(11);
@@ -57,6 +65,7 @@ const ViewJobCard = () => {
 
     doc.line(10, 105, 200, 105);
 
+    doc.text(`Job Card ID: ${job._id}`, 10, 120);
     doc.text('JOB CARD DETAILS', 10, 120);
 
     const jobDetails = [
@@ -96,10 +105,250 @@ const ViewJobCard = () => {
     invoiceNumber++;
   }
 
+//   const handleSearch = () => {
+//   const searchTerm = searchInput.trim().toLowerCase();
+//   if (searchTerm === "") {
+//     // If search input is empty, reset filteredJobData to display all job data
+//     setFilteredJobData(jobData);
+//   } else {
+//     // Filter job data based on Job Card ID
+//     const filteredJob = jobData.filter(job => job._id.toLowerCase() === searchTerm);
+//     setFilteredJobData(filteredJob);
+//   }
+// };
+
+// const handleSearch = () => {
+//   const searchTerm = searchInput.trim().toLowerCase();
+//   if (searchTerm === "") {
+//     // If search input is empty, reset filteredJobData to display all job data
+//     setFilteredJobData(jobData);
+//   } else {
+//     // Filter job data based on Job Card ID, name, or phone number
+//     const filteredJob = jobData.filter(job => 
+//       job._id.toLowerCase().includes(searchTerm) || // Search by ID
+//       job.name.toLowerCase().includes(searchTerm) || // Search by name
+//       (job.phone && typeof job.phone === 'string' && job.phone.includes(searchTerm)) // Check if phone exists and is a string, then search by phone number
+//     );
+//     setFilteredJobData(filteredJob);
+//   }
+// };
+
+
+const handleSearch = async () => {
+    const searchTerm = searchInput.trim();
+
+    if (searchTerm === '') {
+      // If search input is empty, reset filteredJobData to display all job data
+      setFilteredJobData([]);
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/jobcard/search/${searchTerm}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setFilteredJobData(data);
+    } catch (error) {
+      console.error('Error searching job cards:', error);
+      setFilteredJobData([]);
+    }
+  };
+
+  
+
+
+
+
+const handleClearSearch = () => {
+    setSearchInput(""); // Clear search input
+    setFilteredJobData(jobData); // Reset filtered job data to display all entries
+  };
+
 
   return (
     <div className="container">
-      {jobData.map((job) => (
+
+      {/* <div className="search-job-card">
+        <input
+          type="search"
+          placeholder="Search by JobCard Id, Name & Number"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+        <button
+          className="btn btn-dark pl-5 pr-5"
+          onClick={handleSearch}
+        >
+          Search
+        </button>
+
+        <button className="btn btn-danger" onClick={handleClearSearch}>Clear
+        </button>
+      </div> */}
+
+      <div className="container">
+      <div className="row mt-2 mb-3">
+        <div className="col-12 col-md-8">
+          <input
+            type="search"
+            className="form-control"
+            placeholder="Search by JobCard Id, Name & Number"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </div>
+        <div className="col-6 col-md-2">
+          <button
+            className="btn btn-dark btn-block"
+            onClick={handleSearch}
+          >
+            Search
+          </button>
+        </div>
+        <div className="col-6 col-md-2">
+          <button
+            className="btn btn-danger btn-block"
+            onClick={handleClearSearch}
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+
+      {filteredJobData.length > 0 && (
+  filteredJobData.reverse().map((job) => (
+    // Render job card for filtered job data
+    <div key={job._id} className="card mb-4">
+    <div className="card-body">
+            <h4 className="card-title">Customer Name : {job.name}</h4>
+
+            <table className="table table-bordered table-striped">
+              <tbody>
+                <tr>
+                  <td> Job Card id : {job._id}</td>
+                </tr>
+                <tr>
+
+                  <td>Email : {job.email}</td>
+                </tr>
+
+                <tr>
+                  <td>Phone Number : {job.phone}</td>
+                </tr>
+                <tr>
+                  <td>Address : {job.address}</td>
+                </tr>
+                <tr>
+                  <td>Vehicle Make/Model : {job.vehicle_Make}</td>
+                </tr>
+                <tr>
+                  <td>Vehicle Number : {job.vehicle_Number}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h4>Job Card Details</h4>
+            <table className="table table-bordered table-striped mt-3">
+              <tbody>
+                <tr>
+                  <td>Vehicle Category</td>
+                  <td>{job.vehicle_Category}</td>
+                </tr>
+                <tr>
+                  <td>Vehicle Type</td>
+                  <td>{job.vehicle_Type}</td>
+                </tr>
+                <tr>
+                  <td>Treatment</td>
+                  <td>{job.treatment}</td>
+                </tr>
+                <tr>
+                  <td>Wash Type</td>
+                  <td>{job.wash_type}</td>
+                  <td>Rs. {job.wash_type_price}</td>
+                </tr>
+                <tr>
+                  <td>Coating</td>
+                  <td>{job.coating}</td>
+                  <td>Rs. {job.coating_Price}</td>
+                </tr>
+                <tr>
+                  <td>Paint Protection</td>
+                  <td>{job.paint_protection_field}</td>
+                  <td>Rs. {job.paint_protection_field_Price}</td>
+                </tr>
+                <tr>
+                  <td>Window</td>
+                  <td>{job.window_films}</td>
+                  <td>Rs. {job.window_films_Price} </td>
+                </tr>
+                <tr>
+                  <td>Vinly Wrap</td>
+                  <td>{job.vinly_wraps}</td>
+                  <td>Rs. {job.vinly_wraps_Price} </td>
+                </tr>
+
+                <tr>
+                  <td>Premium Seat Cover</td>
+                  <td>{job.premium_seat_cover}</td>
+                  <td>Rs. {job.premium_seat_cover_Price} </td>
+                </tr>
+                <tr>
+                  <td>Lamination</td>
+                  <td>{job.lamination}</td>
+                  <td>Rs. {job.lamination_Price} </td>
+                </tr>
+                <tr>
+                  <td>Interior Decor</td>
+                  <td>{job.interiour_decor}</td>
+                  <td>Rs. {job.interiour_decor_Price}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div className="mt-3 d-flex justify-content-end">
+              <strong>Total Amount: Rs. {job.TotalAmount} </strong>
+            </div>
+
+            <div className="d-flex justify-content-between align-items-center mt-4">
+              <div>
+                <button
+                  type="button"
+                  className="btn btn-dark"
+                  onClick={() => handleViewClick(job)}
+                >
+                  View
+                </button>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => handleGeneratePDF(job)}
+                >
+                  Generate PDF
+                </button>
+              </div>
+
+            </div>
+    </div>
+    </div>
+  ))
+)}
+
+{filteredJobData.length === 0 && (
+  // Render a message when no matching job is found
+  <div className="alert alert-info mt-3" role="alert">
+    No job found with the entered Job Card ID Or Name.
+  </div>
+)}
+
+
+      {/* {jobData.map((job) => (
         <div key={job._id} className="card mb-4">
           <div className="card-body">
             <h4 className="card-title">Customer Name : {job.name}</h4>
@@ -107,7 +356,7 @@ const ViewJobCard = () => {
             <table className="table table-bordered table-striped">
               <tbody>
                 <tr>
-                  <td> Job Card id : {job.JobCardId}</td>
+                  <td> Job Card id : {job._id}</td>
                 </tr>
                 <tr>
 
@@ -218,7 +467,7 @@ const ViewJobCard = () => {
             </div>
           </div>
         </div>
-      ))}
+      ))} */}
 
       {/* Bootstrap Modal for displaying job details */}
       <div

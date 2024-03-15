@@ -1,0 +1,37 @@
+.search-job-card {
+    width: 700px; /* Adjust width as needed */
+    height: 50px; /* Adjust height as needed */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px; /* Adjust padding as needed */
+    border: 1px solid #ccc; /* Optional: Add border for visual separation */
+    border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-job-card input[type="search"] {
+    flex: 1; /* Take remaining space */
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 5px; /* Adjust padding as needed */
+    border-radius: 15px;
+}
+
+.search-job-card button {
+    border-radius: 15px !important;
+    height: 100%;
+    padding: 0 15px; /* Adjust padding as needed */
+    background-color: #343a40; /* Adjust button color as needed */
+    color: #fff; /* Adjust text color as needed */
+    border: none;
+    border-radius: 3px; /* Optional: Add border-radius for rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Optional: Add transition for button hover effect */
+  }
+
+  .search-job-card button:hover {
+    background-color: #23272b; /* Adjust hover color as needed */
+  }
