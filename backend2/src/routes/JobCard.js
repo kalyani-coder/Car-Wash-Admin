@@ -30,10 +30,12 @@ router.post("/", async (req, res) => {
             lamination_Price,
             interiour_decor_Price,
             TotalAmount,
-            treatment, } = req.body;
+            treatment,
+         } = req.body;
 
         const jobCardId = uuid.v4();
-
+        const count = await newJobCardSchema.countDocuments();
+        const jobcardNumber = String(count + 1).padStart(2, '0');
         const currentDate = new Date();
 
         const jobCard = new newJobCardSchema({
@@ -68,7 +70,8 @@ router.post("/", async (req, res) => {
             lamination_Price,
             interiour_decor_Price,
             TotalAmount,
-            treatment
+            treatment,
+            jobcardNumber: jobcardNumber
         });
 
         await jobCard.save();
@@ -135,21 +138,30 @@ router.delete("/:id", async (req, res) => {
 // });
 
 
+// search by jobCard number  
 router.get("/search/:key", async (req, res) => {
     const key = req.params.key;
     try {
         console.log(key);
         
-        // Check if the provided key is numeric (assuming it's a contact number)
+        // Check if the provided key is numeric and starts with "JC" (assuming it's a jobcard number)
         if (!isNaN(key)) {
+            // Find job cards with the exact jobcardNumber
+            const searchResultsByJobcardNumber = await newJobCardSchema.find({ "jobcardNumber": key });
+            res.json(searchResultsByJobcardNumber);
+        }
+        // Check if the provided key is numeric (assuming it's a phone number)
+        else if (!isNaN(key)) {
             const searchResultsByPhone = await newJobCardSchema.find({ "phone": key });
             res.json(searchResultsByPhone);
-        } else if (mongoose.Types.ObjectId.isValid(key)) {
-            // If the key is a valid ObjectId, perform a search by _id
+        } 
+        // If the key is a valid ObjectId, perform a search by _id
+        else if (mongoose.Types.ObjectId.isValid(key)) {
             const searchResultsById = await newJobCardSchema.findById(key);
             res.json(searchResultsById ? [searchResultsById] : []);
-        } else {
-            // Treat the key as a name and perform a case-insensitive search
+        } 
+        // Treat the key as a name and perform a case-insensitive search
+        else {
             const searchResultsByName = await newJobCardSchema.find({ "name": { $regex: new RegExp(key, 'i') } });
             res.json(searchResultsByName);
         }
@@ -158,6 +170,44 @@ router.get("/search/:key", async (req, res) => {
         res.status(500).json("Internal server Error");
     }
 });
+
+
+// search by Phone Number
+// router.get("/search/:key", async (req, res) => {
+//     const key = req.params.key;
+//     try {
+//         console.log(key);
+        
+//         // Check if the provided key matches the pattern for a jobcard number (e.g., "JC07")
+//         if (/^JC\d+$/.test(key)) {
+//             // Extract numeric part from jobcard number
+//             const numericKey = key.replace(/^JC/, '');
+//             // Find job cards with the exact jobcardNumber
+//             const searchResultsByJobcardNumber = await newJobCardSchema.find({ "jobcardNumber": numericKey });
+//             res.json(searchResultsByJobcardNumber);
+//         } 
+//         // Check if the provided key matches the pattern for a phone number
+//         else if (/^\d+$/.test(key)) {
+//             const searchResultsByPhone = await newJobCardSchema.find({ "phone": key });
+//             res.json(searchResultsByPhone);
+//         } 
+//         // If the key is a valid ObjectId, perform a search by _id
+//         else if (mongoose.Types.ObjectId.isValid(key)) {
+//             const searchResultsById = await newJobCardSchema.findById(key);
+//             res.json(searchResultsById ? [searchResultsById] : []);
+//         } 
+//         // Treat the key as a name and perform a case-insensitive search
+//         else {
+//             const searchResultsByName = await newJobCardSchema.find({ "name": { $regex: new RegExp(key, 'i') } });
+//             res.json(searchResultsByName);
+//         }
+//     } catch (e) {
+//         console.error(e);
+//         res.status(500).json("Internal server Error");
+//     }
+// });
+
+
 
 
 

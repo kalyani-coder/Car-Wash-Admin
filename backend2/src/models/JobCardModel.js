@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const JobCardSchema = new mongoose.Schema({
-
+    jobcardNumber: String,
     clientId : String,
     JobCardId : String,
     name  : String,

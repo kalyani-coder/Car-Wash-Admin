@@ -51,7 +51,7 @@ const ViewJobCard = () => {
 
     const lineHeight = 5;
 
-    doc.text(`Job Card No. : ${invoiceNumber}`, 10, 50);
+    doc.text(`Job Card No. : JC ${job.jobcardNumber}`, 10, 50);
     doc.text(`Job Card Date: ${formattedDate}`, 10, 50 + lineHeight);
     doc.setDrawColor(0, 0, 255);
     doc.line(10, 60, 200, 60);
@@ -62,7 +62,7 @@ const ViewJobCard = () => {
     doc.text(`Address: ${job.address}`, 10, 68 + 4 * lineHeight);
     doc.text(`Vehicle Make: ${job.vehicle_Make}`, 10, 68 + 5 * lineHeight);
     doc.text(`Vehicle Number: ${job.vehicle_Number}`, 10, 68 + 6 * lineHeight);
-    doc.text(`Job Card ID: ${job._id}`, 10, 68 + 7 * lineHeight);
+    // doc.text(`Job Card ID: ${job._id}`, 10, 68 + 7 * lineHeight);
 
     doc.line(10, 105, 200, 105);
 
@@ -194,7 +194,7 @@ const handleClearSearch = () => {
           <input
             type="search"
             className="form-control"
-            placeholder="Search by JobCard Id, Name & Number"
+            placeholder="Search by JobCardNo., Name & Phone"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
@@ -228,7 +228,7 @@ const handleClearSearch = () => {
             <table className="table table-bordered table-striped">
               <tbody>
                 <tr>
-                  <td> Job Card id : {job._id}</td>
+                  <td> Job Card No. : JC {job.jobcardNumber}</td>
                 </tr>
                 <tr>
 
