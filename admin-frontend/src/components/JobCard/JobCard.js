@@ -63,22 +63,38 @@ const JobCard = () => {
     setSelectedCategory(event.target.value);
   };
 
-  useEffect(() => {
-    // Fetch data from the clients API
-    fetch("https://car-wash-backend-api.onrender.com/api/clients")
-      .then((response) => response.json())
-      .then((data) => {
-        setClients(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching clients data:", error);
-      });
+  // useEffect(() => {
+  //   // Fetch data from the clients API
+  //   fetch("https://car-wash-backend-api.onrender.com/api/clients")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setClients(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching clients data:", error);
+  //     });
 
+  //   // Fetch data from the bookings API
+  //   fetch("https://car-wash-backend-api.onrender.com/api/bookings")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setBookings(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching bookings data:", error);
+  //     });
+  // }, []);
+
+
+  useEffect(() => {
     // Fetch data from the bookings API
     fetch("https://car-wash-backend-api.onrender.com/api/bookings")
       .then((response) => response.json())
       .then((data) => {
         setBookings(data);
+        // Extract unique client names from bookings data
+        const uniqueClients = Array.from(new Set(data.map(booking => booking.clientName)));
+        setClients(uniqueClients);
       })
       .catch((error) => {
         console.error("Error fetching bookings data:", error);
@@ -86,24 +102,41 @@ const JobCard = () => {
   }, []);
 
   const handleClientChange = (event) => {
-    const selectedClientId = event.target.value;
-    setSelectedClient(selectedClientId);
-
-    // Find the selected client data
-    const selectedClientData = clients.find(
-      (client) => client._id === selectedClientId
-    );
-
+    const selectedClientName = event.target.value;
+    setSelectedClient(selectedClientName);
     // Find the booking data for the selected client
-    const selectedBookingData = bookings.find(
-      (booking) => booking.clientId === selectedClientId
-    );
-
-    // Merge client data with booking data
-    const mergedData = { ...selectedClientData, ...selectedBookingData };
-
-    setClientData(mergedData);
+    const selectedClientData = bookings.find(booking => booking.clientName === selectedClientName);
+    if (selectedClientData) {
+      // Set the client data with the details fetched from the booking data
+      setClientData(selectedClientData);
+    } else {
+      // If no data found for the selected client, reset clientData
+      setClientData(null);
+    }
   };
+
+  // console.log("newcilent id and name",  selectedClient)
+  
+
+  // const handleClientChange = (event) => {
+  //   const selectedClientId = event.target.value;
+  //   setSelectedClient(selectedClientId);
+
+  //   // Find the selected client data
+  //   const selectedClientData = clients.find(
+  //     (client) => client._id === selectedClientId
+  //   );
+
+  //   // Find the booking data for the selected client
+  //   const selectedBookingData = bookings.find(
+  //     (booking) => booking.clientId === selectedClientId
+  //   );
+
+  //   // Merge client data with booking data
+  //   const mergedData = { ...selectedClientData, ...selectedBookingData };
+
+  //   setClientData(mergedData);
+  // };
 
  
   const handleCoatingChange = (event) => {
@@ -270,7 +303,6 @@ const JobCard = () => {
     fetchInteriorDecorOptions();
   }, []);
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -324,11 +356,11 @@ const JobCard = () => {
     try {
 
       const data = {
-        clientId: selectedClient,
+        clientId: selectedClient, // Use the selected client's ID
         name: clientData ? clientData.clientName : "",
-        email: clientData ? clientData.clientEmail : "",
-        phone: clientData ? clientData.clientPhone : "",
-        address: clientData ? clientData.clientAddress : "",
+        // email: clientData ? clientData.clientEmail : "",
+        phone: clientData ? clientData.clientContact : "",
+        address: clientData ? clientData.pickupAddress : "",
         vehicle_Make: clientData ? clientData.clientcarmodelno : "",
         vehicle_Number: clientData ? clientData.clientvehicleno : "",
         vehicle_Category: selectedCategory,
@@ -378,24 +410,25 @@ const JobCard = () => {
         <div className="abc">
           <h1>Create Job Card</h1>
           <Form.Group controlId="SelectClient">
-            <Form.Label>Select Client:</Form.Label>
-            <div className="relative">
-              <Form.Select
-                className="w-full py-2 pl-3 pr-10 border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-400 focus:border-indigo-400"
-                aria-label="Select Client"
-                value={selectedClient}
-                onChange={handleClientChange}
-              >
-                <option>Select Client</option>
+          <Form.Label>Select Client:</Form.Label>
+          <div className="relative">
+            <Form.Select
+              className="w-full py-2 pl-3 pr-10 border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-400 focus:border-indigo-400"
+              aria-label="Select Client"
+              value={selectedClient}
+              onChange={handleClientChange}
+            >
+              <option>Select Client</option>
+              {clients.map((clientName, index) => (
+                <option key={index} value={clientName}>
+                  {clientName}
+                </option>
+              ))}
+            </Form.Select>
+          </div>
+        </Form.Group>
 
-                {clients.map((client) => (
-                  <option key={client._id} value={client._id}>
-                    {client.clientName}
-                  </option>
-                ))}
-              </Form.Select>
-            </div>
-          </Form.Group>
+
           <Form.Group controlId="name">
             <Form.Label>Customer Name:</Form.Label>
             <Form.Control
@@ -408,7 +441,7 @@ const JobCard = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="email">
+          {/* <Form.Group controlId="email">
             <Form.Label>E-mail:</Form.Label>
             <Form.Control
               type="text"
@@ -418,7 +451,8 @@ const JobCard = () => {
               value={clientData ? clientData.clientEmail : ""}
               readOnly
             />
-          </Form.Group>
+          </Form.Group> */}
+
           <Form.Group controlId="phone">
             <Form.Label>Phone Number:</Form.Label>
             <Form.Control
@@ -426,7 +460,7 @@ const JobCard = () => {
               name="email"
               className=""
               placeholder="Enter Phone Number"
-              value={clientData ? clientData.clientPhone : ""}
+              value={clientData ? clientData.clientContact : ""}
               readOnly
             />
           </Form.Group>
@@ -437,11 +471,15 @@ const JobCard = () => {
               name="email"
               className=""
               placeholder="Enter  Address"
-              value={clientData ? clientData.clientAddress : ""}
+              value={clientData ? clientData.pickupAddress : ""}
               readOnly
             />
           </Form.Group>
+          
 
+        
+      {clientData && (
+        <>
           <Form.Group controlId="modelYear">
             <Form.Label>Vehicle Make/Model:</Form.Label>
             <Form.Control
@@ -449,10 +487,11 @@ const JobCard = () => {
               name="modelYear"
               className=""
               placeholder="Enter Vehicle Model and Year"
-              value={clientData ? clientData.clientcarmodelno : ""}
+              value={clientData.clientcarmodelno || ""}
               readOnly
             />
           </Form.Group>
+
           <Form.Group controlId="vehicleNumber">
             <Form.Label>Vehicle Number:</Form.Label>
             <Form.Control
@@ -460,12 +499,14 @@ const JobCard = () => {
               name="vehicleNumber"
               className=""
               placeholder="Enter Vehicle Number"
-              value={clientData ? clientData.clientvehicleno : ""}
+              value={clientData.clientvehicleno || ""}
               readOnly
             />
           </Form.Group>
+        </>
+      )}
 
-
+{/* 
           <Form.Group controlId="modelYear">
             <Form.Label>Vehicle Make/Model:</Form.Label>
             <Form.Control
@@ -476,7 +517,8 @@ const JobCard = () => {
               value={clientData ? clientData.clientcarmodelno : ""}
               readOnly
             />
-          </Form.Group>
+          </Form.Group> */}
+
           <Form.Group controlId="treatent">
             <Form.Label>Treatment:</Form.Label>
             <Form.Control

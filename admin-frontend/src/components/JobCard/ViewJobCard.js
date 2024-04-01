@@ -57,11 +57,11 @@ const ViewJobCard = () => {
     doc.line(10, 60, 200, 60);
     doc.text('BILL TO', 10, 68);
     doc.text(`Client Name: ${job.name}`, 10, 68 + lineHeight);
-    doc.text(`Email: ${job.email}`, 10, 68 + 2 * lineHeight);
-    doc.text(`Phone: ${job.phone}`, 10, 68 + 3 * lineHeight);
-    doc.text(`Address: ${job.address}`, 10, 68 + 4 * lineHeight);
-    doc.text(`Vehicle Make: ${job.vehicle_Make}`, 10, 68 + 5 * lineHeight);
-    doc.text(`Vehicle Number: ${job.vehicle_Number}`, 10, 68 + 6 * lineHeight);
+    // doc.text(`Email: ${job.email}`, 10, 68 + 2 * lineHeight);
+    doc.text(`Phone: ${job.phone}`, 10, 68 + 2 * lineHeight);
+    doc.text(`Address: ${job.address}`, 10, 68 + 3 * lineHeight);
+    doc.text(`Vehicle Make: ${job.vehicle_Make}`, 10, 68 + 4 * lineHeight);
+    doc.text(`Vehicle Number: ${job.vehicle_Number}`, 10, 68 + 5 * lineHeight);
     // doc.text(`Job Card ID: ${job._id}`, 10, 68 + 7 * lineHeight);
 
     doc.line(10, 105, 200, 105);
@@ -230,10 +230,10 @@ const handleClearSearch = () => {
                 <tr>
                   <td> Job Card No. : JC {job.jobcardNumber}</td>
                 </tr>
-                <tr>
+                {/* <tr>
 
                   <td>Email : {job.email}</td>
-                </tr>
+                </tr> */}
 
                 <tr>
                   <td>Phone Number : {job.phone}</td>
