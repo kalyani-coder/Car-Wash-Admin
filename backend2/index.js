@@ -25,7 +25,13 @@ const upload = multer({ storage: storage });
 
 // MongoDB connection setup
 mongoose.connect(
-  "mongodb+srv://vedantassignment05:X3OrOGJ7kDg5Ze32@carwash.qinnywx.mongodb.net/",
+  // old DB String 
+  // "mongodb+srv://vedantassignment05:X3OrOGJ7kDg5Ze32@carwash.qinnywx.mongodb.net/",
+
+  // New DB String 
+  "mongodb+srv://vedantassignment05:fex6n7xFpTlRBTr6@amarcarwash.xyadmes.mongodb.net/?retryWrites=true&w=majority&appName=amarcarwash",
+
+
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

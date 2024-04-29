@@ -417,6 +417,7 @@ const JobCard = () => {
               aria-label="Select Client"
               value={selectedClient}
               onChange={handleClientChange}
+              
             >
               <option>Select Client</option>
               {clients.map((clientName, index) => (
