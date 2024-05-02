@@ -5,8 +5,8 @@ const cors = require("cors");
 const multer = require('multer');
 const app = express();
 const port = process.env.PORT || 8000;
-const Client = require("./models/ClientModel");
 require('dotenv').config();
+const Client = require("./models/ClientModel");
 
 
 // Middleware to parse JSON request bodies
