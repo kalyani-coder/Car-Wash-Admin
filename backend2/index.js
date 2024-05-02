@@ -5,7 +5,8 @@ const cors = require("cors");
 const multer = require('multer');
 const app = express();
 const port = process.env.PORT || 8000;
-const Client = require("../backend2/src/models/ClientModel");
+const Client = require("./models/ClientModel");
+require('dotenv').config();
 
 
 // Middleware to parse JSON request bodies
@@ -23,44 +24,42 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+
+
 // MongoDB connection setup
-mongoose.connect(
-  // old DB String 
-  "mongodb+srv://vedantassignment05:X3OrOGJ7kDg5Ze32@carwash.qinnywx.mongodb.net/",
+mongoose.connect(process.env.MONGODB_URL)
+.then(() => {
+  console.log(`Database Connected Successfully`)
+}).catch((e)=>{
+    console.log(`Error ${e}`)
+})
 
-  // New DB String 
-  // "mongodb+srv://vedantassignment05:fex6n7xFpTlRBTr6@amarcarwash.xyadmes.mongodb.net/?retryWrites=true&w=majority&appName=amarcarwash",
 
 
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
 
 const apiRouter = express.Router();
 
 // Import and use route files
-const servicesRouter = require("./src/routes/Services");
-const topServicesRouter = require("./src/routes/TopServices");
-const clientsRouter = require("./src/routes/Clients");
-const promotionsRouter = require("./src/routes/Promotion");
-const bookingRouter = require("./src/routes/Booking");
-const assignOrderRouter = require("./src/routes/AssignOrder");
-const agentRouter = require("./src/routes/Agents");
-const notification = require("./src/routes/Notification");
-const homeoffer = require("./src/routes/Homeoffers");
-const addStocks = require("./src/routes/AddStocks");
-const agentnotification = require("./src/routes/AgentNotification");
-const reviews = require("./src/routes/Review");
-const clientLocation = require("./src/routes/ClientLocation");
-const agentLocation = require("./src/routes/AgentsLocation");
-const adminlogin = require('./src/routes/AdminLogin')
-const jobcard = require("./src/routes/JobCard")
+const servicesRouter = require("./routes/Services");
+const topServicesRouter = require("./routes/TopServices");
+const clientsRouter = require("./routes/Clients");
+const promotionsRouter = require("./routes/Promotion");
+const bookingRouter = require("./routes/Booking");
+const assignOrderRouter = require("./routes/AssignOrder");
+const agentRouter = require("./routes/Agents");
+const notification = require("./routes/Notification");
+const homeoffer = require("./routes/Homeoffers");
+const addStocks = require("./routes/AddStocks");
+const agentnotification = require("./routes/AgentNotification");
+const reviews = require("./routes/Review");
+const clientLocation = require("./routes/ClientLocation");
+const agentLocation = require("./routes/AgentsLocation");
+const adminlogin = require('./routes/AdminLogin')
+const jobcard = require("./routes/JobCard")
 
-const masterRoute = require("./src/routes/MasterRoute")
+const masterRoute = require("./routes/MasterRoute")
 
-const NewMasterApi = require('./src/routes/NewMasterRoute')
+const NewMasterApi = require('./routes/NewMasterRoute')
 
 
 apiRouter.use("/services", servicesRouter);
@@ -87,19 +86,12 @@ app.post("/api/login", async (req, res) => {
   const { clientPhone } = req.body;
 
   try {
-    // console.log("Trying to find client");
 
-    // Check if the provided clientPhone exists in the database
     const client = await Client.findOne({ clientPhone: parseInt(clientPhone) });
-
-    // console.log("Found Client:", client);
-
     if (!client) {
-      // console.log("Client not found");
       return res.status(400).json({ message: "User not found. Please sign up.", verified: false });
     }
 
-    // Include the user details in the success response
     const userResponse = {
       message: "Successful login",
       verified: true,
@@ -107,9 +99,6 @@ app.post("/api/login", async (req, res) => {
       clientName: client.clientName,
       clientEmail : client.clientEmail
     };
-
-    // Log the entire response
-    // console.log("Full Response:", userResponse);
 
     res.status(200).json(userResponse);
   } catch (error) {
