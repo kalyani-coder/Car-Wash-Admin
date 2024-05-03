@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import Sidebar from '../Sidebar/Sidebar';
 
 const CustomerDetailsCard = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,6 +20,8 @@ const CustomerDetailsCard = () => {
   );
 
   return (
+    <>
+    <Sidebar/>
     <div className="container mt-4">
       <div className="mb-4">
         <input
@@ -66,6 +69,7 @@ const CustomerDetailsCard = () => {
         ))
       )}
     </div>
+    </>
   );
 };
 

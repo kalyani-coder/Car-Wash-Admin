@@ -140,8 +140,8 @@ router.delete("/:id", async (req, res) => {
 router.post('/', upload.single('image'), async (req, res) => {
   try {
     if (req.file) {
-      // here for testing use localy backend path https://car-wash-backend-api.onrender.com
-      const publicUrl = `https://car-wash-backend-api.onrender.com/public/uploads/${req.file.originalname}`;
+      // here for testing use localy backend path http://backend.eastwayvisa.com
+      const publicUrl = `http://backend.eastwayvisa.com/public/uploads/${req.file.originalname}`;
        
       const imageData = new newAgents({
         filename: req.file.originalname,
@@ -177,7 +177,7 @@ router.patch('/:id/profilepic', upload.single('image'), async (req, res) => {
 
     if (req.file) {
       // Update profile picture only
-      const publicUrl = `https://car-wash-backend-api.onrender.com/public/uploads/${req.file.originalname}`;
+      const publicUrl = `http://backend.eastwayvisa.com/public/uploads/${req.file.originalname}`;
       existingAgent.profilePic = publicUrl;
       await existingAgent.save();
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import Sidebar from '../Sidebar/Sidebar';
 
 const Master = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -58,7 +59,7 @@ const Master = () => {
   const handleWashTypeSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/washtype', {
+      const response = await fetch('http://backend.eastwayvisa.com/api/master/cars/washtype', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -97,7 +98,7 @@ const Master = () => {
   // const handleVehicleTypeSubmit = async (event) => {
   //   event.preventDefault();
   //   try {
-  //     const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/vehicletype', {
+  //     const response = await fetch('http://backend.eastwayvisa.com/api/master/cars/vehicletype', {
   //       method: 'POST',
   //       headers: {
   //         'Content-Type': 'application/json'
@@ -123,7 +124,7 @@ const Master = () => {
   // const handleWashTypeSubmit = async event => {
   //   event.preventDefault();
   //   try {
-  //     const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/washtype', {
+  //     const response = await fetch('http://backend.eastwayvisa.com/api/master/cars/washtype', {
   //       method: 'POST',
   //       headers: {
   //         'Content-Type': 'application/json'
@@ -149,7 +150,7 @@ const Master = () => {
   const handleVehicleTypeSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/vehicletype', {
+      const response = await fetch('http://backend.eastwayvisa.com/api/master/cars/vehicletype', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -180,7 +181,7 @@ const Master = () => {
  const handlePaintProtectionTypeSubmit = async (event) => {
   event.preventDefault();
   try {
-    const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/paintprotection', {
+    const response = await fetch('http://backend.eastwayvisa.com/api/master/cars/paintprotection', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -210,7 +211,7 @@ const Master = () => {
  const handleWindowFilmTypeSubmit = async (event) => {
   event.preventDefault();
   try {
-    const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/windowfilm', {
+    const response = await fetch('http://backend.eastwayvisa.com/api/master/cars/windowfilm', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -240,7 +241,7 @@ const Master = () => {
 const handleVinylWrapsTypeSubmit = async (event) => {
   event.preventDefault();
   try {
-    const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/vinalwraps', {
+    const response = await fetch('http://backend.eastwayvisa.com/api/master/cars/vinalwraps', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -271,7 +272,7 @@ const handleVinylWrapsTypeSubmit = async (event) => {
 const handlePremiumSeatTypeSubmit = async (event) => {
   event.preventDefault();
   try {
-    const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/premiumseat', {
+    const response = await fetch('http://backend.eastwayvisa.com/api/master/cars/premiumseat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -302,7 +303,7 @@ const handlePremiumSeatTypeSubmit = async (event) => {
 const handleLaminationTypeSubmit = async (event) => {
   event.preventDefault();
   try {
-    const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/lamination', {
+    const response = await fetch('http://backend.eastwayvisa.com/api/master/cars/lamination', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -334,7 +335,7 @@ const handleLaminationTypeSubmit = async (event) => {
 const handleInteriorTypeSubmit = async (event) => {
   event.preventDefault();
   try {
-    const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/interior', {
+    const response = await fetch('http://backend.eastwayvisa.com/api/master/cars/interior', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -364,7 +365,7 @@ const handleInteriorTypeSubmit = async (event) => {
   const handleCoatingTypeSubmit = async event => {
     event.preventDefault();
     try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/master/cars/coating', {
+      const response = await fetch('http://backend.eastwayvisa.com/api/master/cars/coating', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -451,6 +452,7 @@ const handleInteriorTypeSubmit = async (event) => {
   };
   return (
     <>
+    <Sidebar/>
       <div className='container'>
         <h1>Create Master</h1>
         <Form.Group controlId="SelectClient">

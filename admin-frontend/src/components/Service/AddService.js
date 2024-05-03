@@ -39,7 +39,7 @@
 //   //   e.preventDefault();
 //   //   try {
 //   //     const response = await axios.post(
-//   //       "https://car-wash-backend-api.onrender.com/api/services",
+//   //       "http://backend.eastwayvisa.com/api/services",
 //   //       formData
 //   //     );
 //   //     console.log("Response Successfully data post:", response.data);
@@ -93,7 +93,7 @@
 //       formData.append("servicePrice", servicePrice);
 //       formData.append("serviceCategory", serviceCategory);
 
-//       fetch("https://car-wash-backend-api.onrender.com/api/services", {
+//       fetch("http://backend.eastwayvisa.com/api/services", {
 //         method: "POST",
 //         body: formData,
 //       })
@@ -209,6 +209,7 @@ import React, { useState } from "react";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import "./AddService.css";
 import Alert from "./Alert";
+import Sidebar from "../Sidebar/Sidebar";
 
 const AddServices = () => {
   // const [formData, setFormData] = useState({
@@ -246,7 +247,7 @@ const AddServices = () => {
   //   e.preventDefault();
   //   try {
   //     const response = await axios.post(
-  //       "https://car-wash-backend-api.onrender.com/api/services",
+  //       "http://backend.eastwayvisa.com/api/services",
   //       formData
   //     );
   //     console.log("Response Successfully data post:", response.data);
@@ -293,7 +294,7 @@ const AddServices = () => {
   const handleUpload = () => {
     if (selectedFile) {
       // Check if the service name already exists
-      fetch("https://car-wash-backend-api.onrender.com/api/services")
+      fetch("http://backend.eastwayvisa.com/api/services")
         .then((response) => response.json())
         .then((data) => {
           const existingServiceNames = data.map(
@@ -311,7 +312,7 @@ const AddServices = () => {
             formData.append("servicePrice", servicePrice);
             formData.append("serviceCategory", serviceCategory);
 
-            fetch("https://car-wash-backend-api.onrender.com/api/services", {
+            fetch("http://backend.eastwayvisa.com/api/services", {
               method: "POST",
               body: formData,
             })
@@ -336,6 +337,10 @@ const AddServices = () => {
   };
 
   return (
+
+    <>
+<Sidebar/>
+  
     <div className="container mt-5">
       <h1>Add Service</h1>
 
@@ -427,6 +432,8 @@ const AddServices = () => {
         </Col>
       </Row>
     </div>
+    </>
+
   );
 };
 

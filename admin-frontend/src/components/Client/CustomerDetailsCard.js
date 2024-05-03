@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Sidebar from "../Sidebar/Sidebar";
 
 const DetailedCustomerInfoPage = () => {
   // const { id } = useParams();
@@ -9,7 +10,7 @@ const DetailedCustomerInfoPage = () => {
   console.log(clients);
 
   useEffect(() => {
-    fetch("https://car-wash-backend-api.onrender.com/api/clients")
+    fetch("http://backend.eastwayvisa.com/api/clients")
       .then((response) => response.json())
       .then((data) => setClients(data))
       .catch((error) =>
@@ -18,6 +19,8 @@ const DetailedCustomerInfoPage = () => {
   }, []);
 
   return (
+    <>
+<Sidebar/>
     <div className="container mt-4">
       {clients.map((client) => (
         <div className="card mb-3" key={client._id}>
@@ -52,6 +55,8 @@ const DetailedCustomerInfoPage = () => {
         </div>
       ))}
     </div>
+    </>
+
   );
 };
 

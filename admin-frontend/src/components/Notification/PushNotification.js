@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Alert from "../Service/Alert"; // Make sure to import the Alert component
+import Sidebar from '../Sidebar/Sidebar';
 
 export default function PushNotification() {
   const [title, setTitle] = useState("");
@@ -25,7 +26,7 @@ export default function PushNotification() {
     const apiUrl = sendto === "agent" ? "/api/agentnotifications" : "/api/notification";
   
     axios
-      .post(`https://car-wash-backend-api.onrender.com${apiUrl}`, {
+      .post(`http://backend.eastwayvisa.com${apiUrl}`, {
         title: title,
         message: message,
         sendto: sendto,
@@ -55,7 +56,9 @@ export default function PushNotification() {
   };
 
   return (
-    <div>
+    
+    <>
+    <Sidebar/>
       <div className="container mt-5">
         <h1>Push Notification</h1>
         {alertval && <Alert alert={alertval} />} {/* Render the alert */}
@@ -111,6 +114,6 @@ export default function PushNotification() {
           </div>
         </form>
       </div>
-    </div>
+      </>
   );
 }

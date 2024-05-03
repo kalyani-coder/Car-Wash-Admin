@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom'
 import './ViewOnGoingBookings.css'
+import Sidebar from '../Sidebar/Sidebar';
+
 const OngoingPage = () => {
     const [ongoingBookings, setOngoingBookings] = useState([]);
 
     useEffect(() => {
-        fetch('https://car-wash-backend-api.onrender.com/api/bookings')
+        fetch('http://backend.eastwayvisa.com/api/bookings')
             .then(response => response.json())
             .then(data => {
                 const filteredBookings = data.filter(booking => booking.status === "Accepted" && booking.agentId);
@@ -15,6 +17,8 @@ const OngoingPage = () => {
     }, []);
 
     return (
+        <>
+    <Sidebar/>
         <div className='container mt-5'>
 
             <div className="bookings-table mt-5" style={{ justifyContent: "space-evenly", display: "flex" }}>
@@ -63,6 +67,7 @@ const OngoingPage = () => {
                 ))}
             </div>
         </div>
+        </>
     );
 }
 

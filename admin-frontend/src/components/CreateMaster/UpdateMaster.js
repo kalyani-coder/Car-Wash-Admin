@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
+import Sidebar from '../Sidebar/Sidebar';
 
 const UpdateMaster = () => {
   const [vehicleTypes, setVehicleTypes] = useState([]);
@@ -24,7 +25,7 @@ const UpdateMaster = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/vehicletype/${selectedVehicle._id}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/vehicletype/${selectedVehicle._id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -50,7 +51,7 @@ const UpdateMaster = () => {
   };
 
   useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/master/mainmaster')
+    fetch('http://backend.eastwayvisa.com/api/master/mainmaster')
       .then(response => response.json())
       .then(data => {
         // Assuming data structure is { carDetails: [...] }
@@ -79,7 +80,7 @@ const UpdateMaster = () => {
     if (!selectedVehicle) return;
 
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/vehicletype/${selectedVehicle._id}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/vehicletype/${selectedVehicle._id}`, {
         method: 'DELETE'
       });
       if (response.ok) {
@@ -105,7 +106,7 @@ const UpdateMaster = () => {
   const [showWashModal, setShowWashModal] = useState(false);
 
   useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/master/mainmaster')
+    fetch('http://backend.eastwayvisa.com/api/master/mainmaster')
       .then(response => response.json())
       .then(data => {
         // Assuming data structure is { carDetails: [...] }
@@ -142,7 +143,7 @@ const UpdateMaster = () => {
     if (!selectedWashType) return;
   
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/washtype/${selectedWashType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/washtype/${selectedWashType}`, {
         method: 'DELETE'
       });
       if (response.ok) {
@@ -166,7 +167,7 @@ const UpdateMaster = () => {
 
   const handleSaveWashChanges = async () => {
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/washtype/${selectedWashType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/washtype/${selectedWashType}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -201,7 +202,7 @@ const UpdateMaster = () => {
   const [showCoatingModal, setShowCoatingModal] = useState(false);
 
   useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/master/mainmaster')
+    fetch('http://backend.eastwayvisa.com/api/master/mainmaster')
       .then(response => response.json())
       .then(data => {
         setCoatingTypes(data.carCoatingTypes);
@@ -233,7 +234,7 @@ const UpdateMaster = () => {
     if (!selectedCoatingType) return;
 
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/coating/${selectedCoatingType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/coating/${selectedCoatingType}`, {
         method: 'DELETE'
       });
       if (response.ok) {
@@ -255,7 +256,7 @@ const UpdateMaster = () => {
 
   const handleSaveCoatingChanges = async () => {
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/coating/${selectedCoatingType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/coating/${selectedCoatingType}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -287,7 +288,7 @@ const UpdateMaster = () => {
 
 
   useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/master/mainmaster')
+    fetch('http://backend.eastwayvisa.com/api/master/mainmaster')
       .then(response => response.json())
       .then(data => {
         setPaintProtectionTypes(data.carPaintProtectionTypes);
@@ -318,7 +319,7 @@ const UpdateMaster = () => {
     if (!selectedPaintProtectionType) return;
 
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/paintprotection/${selectedPaintProtectionType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/paintprotection/${selectedPaintProtectionType}`, {
         method: 'DELETE'
       });
       if (response.ok) {
@@ -339,7 +340,7 @@ const UpdateMaster = () => {
 
   const handleSavePaintProtectionChanges = async () => {
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/paintprotection/${selectedPaintProtectionType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/paintprotection/${selectedPaintProtectionType}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -370,7 +371,7 @@ const UpdateMaster = () => {
 
 
   useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/master/mainmaster')
+    fetch('http://backend.eastwayvisa.com/api/master/mainmaster')
       .then(response => response.json())
       .then(data => {
         setWindowFilmsTypes(data.carWindowFilmsTypes);
@@ -401,7 +402,7 @@ const UpdateMaster = () => {
     if (!selectedWindowFilmType) return;
 
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/windowfilm/${selectedWindowFilmType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/windowfilm/${selectedWindowFilmType}`, {
         method: 'DELETE'
       });
       if (response.ok) {
@@ -422,7 +423,7 @@ const UpdateMaster = () => {
 
   const handleSaveWindowFilmChanges = async () => {
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/windowfilm/${selectedWindowFilmType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/windowfilm/${selectedWindowFilmType}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -453,7 +454,7 @@ const UpdateMaster = () => {
 
 
   useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/master/mainmaster')
+    fetch('http://backend.eastwayvisa.com/api/master/mainmaster')
       .then(response => response.json())
       .then(data => {
         setVinylWrapsTypes(data.carVinylWrapsTypes);
@@ -484,7 +485,7 @@ const UpdateMaster = () => {
     if (!selectedVinylWrapsType) return;
 
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/vinalwraps/${selectedVinylWrapsType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/vinalwraps/${selectedVinylWrapsType}`, {
         method: 'DELETE'
       });
       if (response.ok) {
@@ -505,7 +506,7 @@ const UpdateMaster = () => {
 
   const handleSaveVinylWrapsChanges = async () => {
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/vinalwraps/${selectedVinylWrapsType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/vinalwraps/${selectedVinylWrapsType}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -535,7 +536,7 @@ const UpdateMaster = () => {
   const [showPremiumSeatModal, setShowPremiumSeatModal] = useState(false);
 
   useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/master/mainmaster')
+    fetch('http://backend.eastwayvisa.com/api/master/mainmaster')
       .then(response => response.json())
       .then(data => {
         setPremiumSeatTypes(data.carPremiumSeatTypes);
@@ -565,7 +566,7 @@ const UpdateMaster = () => {
     if (!selectedPremiumSeatType) return;
 
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/premiumseat/${selectedPremiumSeatType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/premiumseat/${selectedPremiumSeatType}`, {
         method: 'DELETE'
       });
       if (response.ok) {
@@ -586,7 +587,7 @@ const UpdateMaster = () => {
 
   const handleSavePremiumSeatChanges = async () => {
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/premiumseat/${selectedPremiumSeatType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/premiumseat/${selectedPremiumSeatType}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -616,7 +617,7 @@ const UpdateMaster = () => {
 
 
   useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/master/mainmaster')
+    fetch('http://backend.eastwayvisa.com/api/master/mainmaster')
       .then(response => response.json())
       .then(data => {
         setLaminationTypes(data.carLaminationTypes);
@@ -646,7 +647,7 @@ const UpdateMaster = () => {
     if (!selectedLaminationType) return;
 
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/lamination/${selectedLaminationType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/lamination/${selectedLaminationType}`, {
         method: 'DELETE'
       });
       if (response.ok) {
@@ -667,7 +668,7 @@ const UpdateMaster = () => {
 
   const handleSaveLaminationChanges = async () => {
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/lamination/${selectedLaminationType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/lamination/${selectedLaminationType}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -698,7 +699,7 @@ const UpdateMaster = () => {
 
 
   useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/master/mainmaster')
+    fetch('http://backend.eastwayvisa.com/api/master/mainmaster')
       .then(response => response.json())
       .then(data => {
         setInteriorTypes(data.carInteriorTypes);
@@ -729,7 +730,7 @@ const UpdateMaster = () => {
     if (!selectedInteriorType) return;
 
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/interior/${selectedInteriorType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/interior/${selectedInteriorType}`, {
         method: 'DELETE'
       });
       if (response.ok) {
@@ -750,7 +751,7 @@ const UpdateMaster = () => {
 
   const handleSaveInteriorChanges = async () => {
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/master/interior/${selectedInteriorType}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/master/interior/${selectedInteriorType}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -774,6 +775,8 @@ const UpdateMaster = () => {
 
 
   return (
+    <>
+    <Sidebar/>
     <div className='container'>
       <h1>Update And Delete Master</h1>
       <Form.Group controlId="vehicletype">
@@ -1258,6 +1261,7 @@ const UpdateMaster = () => {
       </Modal>
 
     </div>
+    </>
   );
 }
 

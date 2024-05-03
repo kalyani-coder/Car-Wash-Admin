@@ -34,16 +34,18 @@ import ViewJobCard from "./components/JobCard/ViewJobCard";
 import Master from "./components/CreateMaster/Master";
 import UpdateMaster from "./components/CreateMaster/UpdateMaster";
 import Login from "./components/Login/Login";
-
+import Login2 from "./components/Login/Login2";
 
 
 function App() {
   return (
     <>
       <Router>
-        <Sidebar />
+      {/* sidebar seperately call on each component  */}
+        {/* <Sidebar /> */}
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Login2 />} />
+          <Route path="/home" element={<Login />} />
           <Route path="/clientdetails" element={<CustomerDetailsCard />} />
           <Route path="/customer/:id" element={<DetailedCustomerInfoPage />} />
           <Route path="/pushnotification" element={<PushNotification />} />

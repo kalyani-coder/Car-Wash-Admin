@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit,faTrash } from '@fortawesome/free-solid-svg-icons';
 import Alert from '../Promotion/Alert';
+import Sidebar from '../Sidebar/Sidebar';
 
 const ViewAvailableStocks = () => {
   const [stockValues, setStockValues] = useState([]);
@@ -10,7 +11,7 @@ const ViewAvailableStocks = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://car-wash-backend-api.onrender.com/api/stocks');
+        const response = await fetch('http://backend.eastwayvisa.com/api/stocks');
         const data = await response.json();
         setStockValues(data);
       } catch (error) {
@@ -25,7 +26,7 @@ const ViewAvailableStocks = () => {
   const handleDelete = async (_id) => {
     console.log("Deleting stock with ID:", _id);
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/stocks/${_id}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/stocks/${_id}`, {
         method: 'DELETE',
       });
   
@@ -42,6 +43,8 @@ const ViewAvailableStocks = () => {
   
 
   return (
+    <>
+    <Sidebar/>
     <div className="container mt-5">
       <h1>View Available Stocks</h1>
       <table className="table">
@@ -75,6 +78,7 @@ const ViewAvailableStocks = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 }
 

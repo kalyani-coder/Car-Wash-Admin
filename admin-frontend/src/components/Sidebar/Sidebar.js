@@ -42,7 +42,7 @@ export default function Sidebar() {
     // Perform any additional logout logic if needed
 
     // Redirect to the specified URL after logout
-    window.location.href = 'https://carwash-admin.onrender.com';
+    window.location.href = 'http://eastwayvisa.com';
   }
   return (
     <div>
@@ -110,7 +110,7 @@ export default function Sidebar() {
               {/* Collapse 1 */}
               <ul className="list-unstyled components">
                 <li>
-                  <Link to={"/"} onClick={closeSidebar}>Home</Link>
+                  <Link to={"/home"} onClick={closeSidebar}>Home</Link>
                 </li>
                 <li className="active">
                   <a
@@ -209,7 +209,7 @@ export default function Sidebar() {
                       <Link to={"/addpromotion"} onClick={closeSidebar}>Add Promotion</Link>
                     </li>
                     <li>
-                      <Link to={"/deletepromotion"} onClick={closeSidebar}>Delete Promotion</Link>
+                      <Link to={"/deletepromotion"} onClick={closeSidebar}>View Promotion</Link>
                     </li>
                   </ul>
                 </li>
@@ -245,7 +245,7 @@ export default function Sidebar() {
                     aria-expanded="false"
                     className="dropdown-toggle"
                   >
-                    Check Available Stocks
+                     Available Stocks
                   </a>
                   <ul
                     className="collapse list-unstyled"
@@ -255,7 +255,7 @@ export default function Sidebar() {
                       <Link to={"/addstocks"} onClick={closeSidebar}>Add Stocks</Link>
                     </li>
                     <li>
-                      <Link to={"/viewavailablestocks"} onClick={closeSidebar}>View vailable Stocks</Link>
+                      <Link to={"/viewavailablestocks"} onClick={closeSidebar}>View Stocks</Link>
                     </li>
                   </ul>
                 </li>

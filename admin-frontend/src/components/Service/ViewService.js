@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Button, Form } from "react-bootstrap";
 import Alert from "./Alert";
 import "./ViewServices.css";
+import Sidebar from '../Sidebar/Sidebar';
 
 export default function ServiceView() {
   const [services, setServices] = useState([]);
@@ -9,7 +10,7 @@ export default function ServiceView() {
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    fetch("https://car-wash-backend-api.onrender.com/api/services")
+    fetch("http://backend.eastwayvisa.com/api/services")
       .then((response) => response.json())
       .then((data) => setServices(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -21,7 +22,7 @@ export default function ServiceView() {
 
   const handleUpdate = () => {
     fetch(
-      `https://car-wash-backend-api.onrender.com/api/services/${editingService._id}`,
+      `http://backend.eastwayvisa.com/api/services/${editingService._id}`,
       {
         method: "PATCH",
         headers: {
@@ -64,7 +65,7 @@ export default function ServiceView() {
 
     if (shouldDelete) {
       fetch(
-        `https://car-wash-backend-api.onrender.com/api/services/${service._id}`,
+        `http://backend.eastwayvisa.com/api/services/${service._id}`,
         {
           method: "DELETE",
         }
@@ -82,6 +83,8 @@ export default function ServiceView() {
   };
 
   return (
+    <>
+    <Sidebar/>
     <div className="container mt-5">
       <h1>View Services</h1>
       <Alert alert={alert} />
@@ -194,5 +197,6 @@ export default function ServiceView() {
         </Card>
       ))}
     </div>
+    </>
   );
 }

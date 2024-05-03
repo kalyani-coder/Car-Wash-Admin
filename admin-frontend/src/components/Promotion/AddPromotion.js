@@ -3,6 +3,7 @@ import { Form, Button,Col } from "react-bootstrap";
 import "./AddPromotion.css";
 import Alert from "./Alert";
 import axios from 'axios'
+import Sidebar from '../Sidebar/Sidebar';
 
 export default function AddPromotion() {
 
@@ -62,7 +63,7 @@ export default function AddPromotion() {
   useEffect(() => {
     async function fetchServices() {
       try {
-        const response = await axios.get("https://car-wash-backend-api.onrender.com/api/services");
+        const response = await axios.get("http://backend.eastwayvisa.com/api/services");
         const servicesData = response.data;
         setServices(servicesData);
       } catch (error) {
@@ -84,7 +85,7 @@ export default function AddPromotion() {
       formData.append('couponCode', couponCode)
 
 
-      fetch('https://car-wash-backend-api.onrender.com/api/promotions', {
+      fetch('http://backend.eastwayvisa.com/api/promotions', {
         method: 'POST',
         body: formData,
       })
@@ -103,6 +104,8 @@ export default function AddPromotion() {
 
 
   return (
+    <>
+    <Sidebar/>
     <div className="container mt-5">
       <h1>Add Promotion</h1>
       {successAlert && <Alert alert={successAlert} />}
@@ -213,5 +216,6 @@ export default function AddPromotion() {
         </form>
       </div>
     </div>
+    </>
   );
 }

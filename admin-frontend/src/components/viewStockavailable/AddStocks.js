@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Alert from '../Promotion/Alert'
+import Sidebar from '../Sidebar/Sidebar';
 
 const AddStocks = () => {
   const [alertval, setAlert] = useState(null);
@@ -20,7 +21,7 @@ const AddStocks = () => {
     e.preventDefault();
   
     try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/stocks', {
+      const response = await fetch('http://backend.eastwayvisa.com/api/stocks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,6 +55,8 @@ const AddStocks = () => {
   };
   
   return (
+    <>
+    <Sidebar/>
     <div className="container mt-5">
       <h1>Add Stock</h1>
       <Alert alert={alertval} />
@@ -87,6 +90,7 @@ const AddStocks = () => {
         </button>
       </form>
     </div>
+    </>
   );
 };
 

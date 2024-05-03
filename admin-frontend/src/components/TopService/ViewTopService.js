@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Button  } from "react-bootstrap";
 import axios from "axios";
 import Alert from "./Alert";
+import Sidebar from '../Sidebar/Sidebar';
 
 export default function ViewTopServices() {
   const [topServices, setTopServices] = useState([]);
@@ -10,7 +11,7 @@ export default function ViewTopServices() {
   useEffect(() => {
     async function fetchTopServices() {
       try {
-        const response = await axios.get("https://car-wash-backend-api.onrender.com/api/topservices");
+        const response = await axios.get("http://backend.eastwayvisa.com/api/topservices");
         setTopServices(response.data);
       } catch (error) {
         console.error("Error fetching top services:", error);
@@ -26,7 +27,7 @@ export default function ViewTopServices() {
     );
 
     if (shouldDelete) {
-      axios.delete(`https://car-wash-backend-api.onrender.com/api/topservices/${service._id}`)
+      axios.delete(`http://backend.eastwayvisa.com/api/topservices/${service._id}`)
         .then(() => {
           setTopServices((prevTopServices) =>
             prevTopServices.filter((item) => item._id !== service._id)
@@ -38,6 +39,8 @@ export default function ViewTopServices() {
   };
 
   return (
+    <>
+    <Sidebar/>
     <div className="container mt-5">
       <h1>View Top Services</h1>
       <Alert alert={alert} />
@@ -61,5 +64,6 @@ export default function ViewTopServices() {
         </Card>
       ))}
     </div>
+    </>
   );
 }

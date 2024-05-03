@@ -5,6 +5,7 @@ import Alert from "../Promotion/Alert";
 import './ViewLatestBookings.css'
 import axios from "axios"
 import { Link } from 'react-router-dom'
+import Sidebar from '../Sidebar/Sidebar';
 
 export default function ViewLatestBooking() {
     const [bookingData, setBookingData] = useState([]);
@@ -20,14 +21,14 @@ export default function ViewLatestBooking() {
     const [errorAlert, setErrorAlert] = useState(null);
 
     useEffect(() => {
-        fetch("https://car-wash-backend-api.onrender.com/api/bookings")
+        fetch("http://backend.eastwayvisa.com/api/bookings")
             .then((response) => response.json())
             .then((data) => setBookingData(data))
             .catch((error) => console.error("Error fetching data", error));
     }, []);
 
     useEffect(() => {
-        fetch("https://car-wash-backend-api.onrender.com/api/agents")
+        fetch("http://backend.eastwayvisa.com/api/agents")
             .then((response) => response.json())
             .then((data) => setAgents(data))
             .catch((error) => console.error("Error fetching agents", error));
@@ -78,7 +79,7 @@ export default function ViewLatestBooking() {
               };
             
                await axios
-              .post('https://car-wash-backend-api.onrender.com/api/agentlocation', locationData)
+              .post('http://backend.eastwayvisa.com/api/agentlocation', locationData)
               .then(response => {
                 console.log('Location posted successfully:', response.data);
                  locationID = (response.data._id);
@@ -109,7 +110,7 @@ export default function ViewLatestBooking() {
         //   agentEmail: selectedAgentObj.email
         // };
 
-        fetch(`https://car-wash-backend-api.onrender.com/api/bookings/${booking._id}`, {
+        fetch(`http://backend.eastwayvisa.com/api/bookings/${booking._id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -139,6 +140,8 @@ export default function ViewLatestBooking() {
     }, [bookingData]);
 
     return (
+        <>
+    <Sidebar/>
         <div className="container">
 
             <div className="bookings-table mt-5" style={{ justifyContent: "space-evenly", display: "flex" }}>
@@ -233,5 +236,6 @@ export default function ViewLatestBooking() {
                 </div>
             </div>
         </div>
+        </>
     );
 }

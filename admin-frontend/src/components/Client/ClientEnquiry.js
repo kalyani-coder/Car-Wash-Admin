@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ClientEnquiry.css";
+import Sidebar from '../Sidebar/Sidebar';
 
 const ClientEnquiry = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -9,7 +10,7 @@ const ClientEnquiry = () => {
 
   useEffect(() => {
     // Fetch client data from the API
-    fetch("https://car-wash-backend-api.onrender.com/api/clients")
+    fetch("http://backend.eastwayvisa.com/api/clients")
       .then((response) => response.json())
       .then((data) => setClients(data))
       .catch((error) => console.error("Error fetching client data", error));
@@ -31,6 +32,8 @@ const ClientEnquiry = () => {
   const displayedClients = searchQuery ? filteredClients : clients;
 
   return (
+    <>
+    <Sidebar/>
     <div className="container">
       <div className="row mb-3">
         <div className="col-md-6 offset-md-3">
@@ -69,6 +72,7 @@ const ClientEnquiry = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

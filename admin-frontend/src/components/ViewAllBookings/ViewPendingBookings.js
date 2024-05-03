@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
+import Sidebar from '../Sidebar/Sidebar';
 
 const ViewPendingBookings = () => {
     const [pendingBookings, setPendingBookings] = useState([]);
 
     useEffect(() => {
         // Fetch pending bookings from the API
-        fetch('https://car-wash-backend-api.onrender.com/api/bookings/status/Pending')
+        fetch('http://backend.eastwayvisa.com/api/bookings/status/Pending')
             .then(response => response.json())
             .then(data => setPendingBookings(data))
             .catch(error => console.error('Error fetching pending bookings', error));
     }, []);
 
     return (
+        <>
+    <Sidebar/>
         <div className='container mt-5'>
 
             <div className="bookings-table mt-5" style={{ justifyContent: "space-evenly", display: "flex" }}>
@@ -62,6 +65,7 @@ const ViewPendingBookings = () => {
                 ))}
             </div>
         </div>
+        </>
     );
 }
 

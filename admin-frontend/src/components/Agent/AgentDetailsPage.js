@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Sidebar from '../Sidebar/Sidebar';
 
 const AgentDetailsPage = () => {
   const location = useLocation();
@@ -28,7 +29,7 @@ const AgentDetailsPage = () => {
     }
     try {
       await axios.patch(
-        `https://car-wash-backend-api.onrender.com/api/agents/${editedAgent._id}`,
+        `http://backend.eastwayvisa.com/api/agents/${editedAgent._id}`,
         editedAgent
       );
       navigate("/viewagent");
@@ -41,7 +42,7 @@ const AgentDetailsPage = () => {
   const handleDeleteAgent = async () => {
     try {
       await axios.delete(
-        `https://car-wash-backend-api.onrender.com/api/agents/${agent._id}`
+        `http://backend.eastwayvisa.com/api/agents/${agent._id}`
       );
       navigate("/viewagent");
       alert("Deleted Successfully!");
@@ -55,6 +56,8 @@ const AgentDetailsPage = () => {
   };
 
   return (
+    <>
+    <Sidebar/>
     <div className="container mt-4">
       <h2>Edit {agent.name} Details</h2>
       <div className="card">
@@ -113,6 +116,7 @@ const AgentDetailsPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

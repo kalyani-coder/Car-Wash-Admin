@@ -7,6 +7,8 @@ import logo from '../../assects/logo.jpeg';
 import footerImg from "../../assects/footer.jpg";
 import headerImg from "../../assects/header.jpg";
 import "./JobCard.css"
+import Sidebar from '../Sidebar/Sidebar';
+
 
 const ViewJobCard = () => {
   const [jobData, setJobData] = useState([]);
@@ -16,7 +18,7 @@ const ViewJobCard = () => {
 
 
   useEffect(() => {
-  fetch("https://car-wash-backend-api.onrender.com/api/jobcard")
+  fetch("http://backend.eastwayvisa.com/api/jobcard")
     .then((response) => response.json())
     .then((data) => {
       // Reverse the order of data before setting it to state
@@ -144,7 +146,7 @@ const handleSearch = async () => {
     }
 
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/jobcard/search/${searchTerm}`);
+      const response = await fetch(`http://backend.eastwayvisa.com/api/jobcard/search/${searchTerm}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -168,6 +170,8 @@ const handleClearSearch = () => {
 
 
   return (
+    <>
+    <Sidebar/>
     <div className="container">
 
       {/* <div className="search-job-card">
@@ -517,6 +521,7 @@ const handleClearSearch = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

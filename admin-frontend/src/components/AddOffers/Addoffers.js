@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Alert from '../Service/Alert';
 import { Form, Button, Col } from "react-bootstrap";
-
+import Sidebar from '../Sidebar/Sidebar';
 const Addoffers = () => {
   // const [offerData, setOfferData] = useState({
   //   offerName: '',
@@ -44,7 +44,7 @@ const Addoffers = () => {
   // const handleSubmit = (e) => {
   //   e.preventDefault();
 
-  //   fetch('https://car-wash-backend-api.onrender.com/api/homeoffers', {
+  //   fetch('http://backend.eastwayvisa.com/api/homeoffers', {
   //     method: 'POST',
   //     headers: {
   //       'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ const Addoffers = () => {
 
 
 
-      fetch('https://car-wash-backend-api.onrender.com/api/homeoffers', {
+      fetch('http://backend.eastwayvisa.com/api/homeoffers', {
         method: 'POST',
         body: formData,
       })
@@ -147,6 +147,9 @@ const Addoffers = () => {
   };
 
   return (
+
+    <>
+    <Sidebar/>
     <div className="container mt-5">
       <h1>Add Offers</h1>
       {successAlert && <Alert alert={successAlert} />}
@@ -273,6 +276,7 @@ const Addoffers = () => {
         </form>
       </div>
     </div>
+    </>
   );
 }
 

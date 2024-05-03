@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Sidebar from '../Sidebar/Sidebar';
 
 const ViewAgentPage = () => {
   const [agents, setAgents] = useState([]);
@@ -11,7 +12,7 @@ const ViewAgentPage = () => {
 
   const fetchAgents = async () => {
     try {
-      const response = await axios.get("https://car-wash-backend-api.onrender.com/api/agents");
+      const response = await axios.get("http://backend.eastwayvisa.com/api/agents");
       setAgents(response.data);
     } catch (error) {
       console.error("Error:", error);
@@ -22,6 +23,8 @@ const ViewAgentPage = () => {
   }
 
   return (
+    <>
+    <Sidebar/>
     <div className="container mt-4">
       <h2>View Employee Profile</h2>
       <div className="row">
@@ -58,6 +61,7 @@ const ViewAgentPage = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

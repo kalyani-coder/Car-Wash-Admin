@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import Alert from "../Service/Alert"
+import Sidebar from '../Sidebar/Sidebar';
 
 const AddClients = () => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -41,7 +42,7 @@ const AddClients = () => {
     //       formData.append('clientEmail', clientEmail);
     //       formData.append('clientPhone', clientPhone);
     //       formData.append('clientAddress', clientAddress);
-    //       fetch('https://car-wash-backend-api.onrender.com/api/clients', {
+    //       fetch('http://backend.eastwayvisa.com/api/clients', {
     //         method: 'POST',
     //         body: formData,
     //       })
@@ -81,7 +82,7 @@ const AddClients = () => {
           formData.append('clientPhone', clientPhone);
           formData.append('clientAddress', clientAddress);
       
-          fetch('https://car-wash-backend-api.onrender.com/api/clients', {
+          fetch('http://backend.eastwayvisa.com/api/clients', {
             method: 'POST',
             body: formData,
           })
@@ -114,6 +115,7 @@ const AddClients = () => {
   return (
     <>
 
+    <Sidebar/>
       <div className="container mt-5">
         <h1>Add Customers</h1>
       

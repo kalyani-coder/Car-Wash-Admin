@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom"
+import Sidebar from '../Sidebar/Sidebar';
 
 const ViewCancledBookings = () => {
     const [canceledBookings, setCanceledBookings] = useState([]);
 
     useEffect(() => {
         // Fetch declined bookings from the API
-        fetch('https://car-wash-backend-api.onrender.com/api/bookings/status/Declined')
+        fetch('http://backend.eastwayvisa.com/api/bookings/status/Declined')
             .then(response => response.json())
             .then(data => setCanceledBookings(data))
             .catch(error => console.error('Error fetching declined bookings', error));
     }, []);
 
     return (
+        <>
+    <Sidebar/>
         <div className='container mt-5'>
 
             <div className="bookings-table mt-5" style={{ justifyContent: "space-evenly", display: "flex" }}>
@@ -59,6 +62,7 @@ const ViewCancledBookings = () => {
                 ))}
             </div>
         </div>
+        </>
     );
 }
 

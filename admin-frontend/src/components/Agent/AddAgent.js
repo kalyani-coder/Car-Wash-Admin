@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import Alert from "../Service/Alert"
+import Sidebar from '../Sidebar/Sidebar';
 
 const AddAgentPage = () => {
 
@@ -67,7 +68,7 @@ const AddAgentPage = () => {
 
 
 
-      fetch('https://car-wash-backend-api.onrender.com/api/agents', {
+      fetch('http://backend.eastwayvisa.com/api/agents', {
         method: 'POST',
         body: formData,
       })
@@ -86,7 +87,8 @@ const AddAgentPage = () => {
 
   return (
     <>
-
+<>
+    <Sidebar/>
       <div className="container mt-5">
         <h1>Add Employee</h1>
         {successAlert && <Alert alert={successAlert} />}
@@ -198,7 +200,7 @@ const AddAgentPage = () => {
 
 
       </div>
-
+</>
     </>
 
   );

@@ -14,5 +14,8 @@ img {
         width: 74%;
         
     }
+    .home-image{
+        border-radius: 10% !important;
+    }
 }
 

@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Alert from "../Service/Alert";
 import './UpdateStatus.css'
 import {Link} from 'react-router-dom'
+import Sidebar from '../Sidebar/Sidebar';
 
 export default function UpdateStatusPage() {
 //   const [bookingData, setBookingData] = useState([]);
@@ -17,14 +18,14 @@ export default function UpdateStatusPage() {
 //   const [errorAlert, setErrorAlert] = useState(null);
 
 //   useEffect(() => {
-//     fetch("https://car-wash-backend-api.onrender.com/api/bookings")
+//     fetch("http://backend.eastwayvisa.com/api/bookings")
 //       .then((response) => response.json())
 //       .then((data) => setBookingData(data))
 //       .catch((error) => console.error("Error fetching data", error));
 //   }, []);
 
 //   useEffect(() => {
-//     fetch("https://car-wash-backend-api.onrender.com/api/agents")
+//     fetch("http://backend.eastwayvisa.com/api/agents")
 //       .then((response) => response.json())
 //       .then((data) => setAgents(data))
 //       .catch((error) => console.error("Error fetching agents", error));
@@ -72,7 +73,7 @@ export default function UpdateStatusPage() {
 // //   agentEmail: selectedAgentObj.email
 // // };
 
-//     fetch(`https://car-wash-backend-api.onrender.com/api/bookings/${booking._id}`, {
+//     fetch(`http://backend.eastwayvisa.com/api/bookings/${booking._id}`, {
 //       method: "PATCH",
 //       headers: {
 //         "Content-Type": "application/json",
@@ -98,6 +99,8 @@ export default function UpdateStatusPage() {
 //   };
 
   return (
+    <>
+    <Sidebar/>
     <div className="container">
 
 
@@ -185,5 +188,6 @@ export default function UpdateStatusPage() {
         </div>
       </div> */}
     </div>
+    </>
   );
 }

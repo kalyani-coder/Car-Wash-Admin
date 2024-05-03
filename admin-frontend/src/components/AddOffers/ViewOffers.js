@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Sidebar from '../Sidebar/Sidebar';
 
 const ViewOffers = () => {
   const [offers, setOffers] = useState([]);
@@ -6,7 +7,7 @@ const ViewOffers = () => {
   // Function to fetch offers from API
   const fetchOffers = async () => {
     try {
-      const response = await fetch('https://car-wash-backend-api.onrender.com/api/homeoffers');
+      const response = await fetch('http://backend.eastwayvisa.com/api/homeoffers');
       const data = await response.json();
       setOffers(data);
     } catch (error) {
@@ -20,7 +21,7 @@ const ViewOffers = () => {
 
   const handleDelete = async (offerId) => {
     try {
-      const response = await fetch(`https://car-wash-backend-api.onrender.com/api/homeoffers/${offerId}`, {
+      const response = await fetch(`http://backend.eastwayvisa.com/api/homeoffers/${offerId}`, {
         method: 'DELETE'
       });
 
@@ -37,6 +38,8 @@ const ViewOffers = () => {
   };
 
   return (
+    <>
+    <Sidebar/>
     <div className='container mt-5'>
       <h1 className="mb-4">View Offers</h1>
       <div className="table-responsive">
@@ -73,6 +76,7 @@ const ViewOffers = () => {
         </table>
       </div>
     </div>
+    </>
   );
 }
 

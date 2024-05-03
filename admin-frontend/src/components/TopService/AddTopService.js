@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import Alert from "../Promotion/Alert";
+import Sidebar from '../Sidebar/Sidebar';
 
 function AddTopService() {
 
@@ -64,7 +65,7 @@ function AddTopService() {
       formData.append('category', category);
 
 
-      fetch('https://car-wash-backend-api.onrender.com/api/topservices', {
+      fetch('http://backend.eastwayvisa.com/api/topservices', {
         method: 'POST',
         body: formData,
       })
@@ -95,6 +96,7 @@ function AddTopService() {
 
   return (
     <>
+    <Sidebar/>
       <div className="container mt-5">
         <h1>Add Top Services</h1>
         <Alert alert={alertval} />

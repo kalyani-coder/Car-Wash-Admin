@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Sidebar from '../Sidebar/Sidebar';
 
 const Availabledate = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -8,7 +9,7 @@ const Availabledate = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    fetch('https://car-wash-backend-api.onrender.com/api/bookings')
+    fetch('http://backend.eastwayvisa.com/api/bookings')
       .then(response => response.json())
       .then(data => setBookings(data))
       .catch(error => console.error('Error fetching data:', error));
@@ -35,6 +36,8 @@ const Availabledate = () => {
   };
 
   return (
+    <>
+    <Sidebar/>
     <div className='container mt-5'>
       <h3>Bookings date</h3>
       <div className="mb-3">
@@ -68,6 +71,7 @@ const Availabledate = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 }
 
