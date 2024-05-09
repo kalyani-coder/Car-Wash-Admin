@@ -180,24 +180,68 @@ router.post("/api/login", async (req, res) => {
 // });
 
 
+// with image not working signup route remove validation for required image /
+
+// router.post('/', upload.single('image'), async (req, res) => {
+//   try {
+//     const { clientName, clientEmail, clientPhone, clientAddress } = req.body;
+
+//     // Validation: Check if a client with the same phone number already exists
+//     const existingClient = await Client.findOne({ clientPhone });
+//     if (existingClient) {
+//       return res.status(400).json({ error: 'Phone number already registered. Please log in.' });
+//     }
+
+//     // Validation: Check if all required fields are provided
+//     if (!clientName || !clientEmail || !clientPhone || !clientAddress) {
+//       return res.status(400).json({ error: 'Missing required fields.' });
+//     }
+
+//     if (req.file) {
+//       // here for testing use locally backend path http://backend.eastwayvisa.com
+//       const publicUrl = `http://backend.eastwayvisa.com/public/uploads/${req.file.originalname}`;
+
+//       const imageData = new Client({
+//         filename: req.file.originalname,
+//         path: req.file.path,
+//         profilePic: publicUrl,
+//         clientName,
+//         clientEmail,
+//         clientPhone,
+//         clientAddress,
+//       });
+
+//       await imageData.save();
+//       res.status(201).json(imageData);
+//     } else {
+//       res.status(400).json({ error: 'No file uploaded' });
+//     }
+//   } catch (e) {
+//     console.error(e);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// });
+
 
 router.post('/', upload.single('image'), async (req, res) => {
   try {
     const { clientName, clientEmail, clientPhone, clientAddress } = req.body;
 
-    // Validation: Check if a client with the same phone number already exists
-    const existingClient = await Client.findOne({ clientPhone });
-    if (existingClient) {
-      return res.status(400).json({ error: 'Phone number already registered. Please log in.' });
+    // Validation: Check if at least one of the required fields is provided
+    if (!clientName && !clientEmail && !clientPhone && !clientAddress) {
+      return res.status(400).json({ error: 'At least one of the required fields is missing.' });
     }
 
-    // Validation: Check if all required fields are provided
-    if (!clientName || !clientEmail || !clientPhone || !clientAddress) {
-      return res.status(400).json({ error: 'Missing required fields.' });
+    // If a client phone number is provided, check if it already exists
+    if (clientPhone) {
+      const existingClient = await Client.findOne({ clientPhone });
+      if (existingClient) {
+        return res.status(400).json({ error: 'Phone number already registered. Please log in.' });
+      }
     }
 
     if (req.file) {
-      // here for testing use locally backend path http://backend.eastwayvisa.com
+      // If an image is uploaded, use it
       const publicUrl = `http://backend.eastwayvisa.com/public/uploads/${req.file.originalname}`;
 
       const imageData = new Client({
@@ -213,13 +257,55 @@ router.post('/', upload.single('image'), async (req, res) => {
       await imageData.save();
       res.status(201).json(imageData);
     } else {
-      res.status(400).json({ error: 'No file uploaded' });
+      // If no image is uploaded, proceed without it
+      const clientData = new Client({
+        clientName,
+        clientEmail,
+        clientPhone,
+        clientAddress,
+      });
+
+      await clientData.save();
+      res.status(201).json(clientData);
     }
   } catch (e) {
     console.error(e);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+
+// without image route successfully signup route 
+
+// router.post('/', async (req, res) => {
+//   try {
+//     const { clientName, clientEmail, clientPhone, clientAddress } = req.body;
+
+//     // Validation: Check if a client with the same phone number already exists
+//     const existingClient = await Client.findOne({ clientPhone });
+//     if (existingClient) {
+//       return res.status(400).json({ error: 'Phone number already registered. Please log in.' });
+//     }
+
+//     // Validation: Check if all required fields are provided
+//     if (!clientName || !clientEmail || !clientPhone || !clientAddress) {
+//       return res.status(400).json({ error: 'Missing required fields.' });
+//     }
+
+//     const clientData = new Client({
+//       clientName,
+//       clientEmail,
+//       clientPhone,
+//       clientAddress,
+//     });
+
+//     await clientData.save();
+//     res.status(201).json(clientData);
+//   } catch (e) {
+//     console.error(e);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// });
 
 
 // Page: Update a client by ID
