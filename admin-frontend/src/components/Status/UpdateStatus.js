@@ -18,14 +18,14 @@ export default function UpdateStatusPage() {
 //   const [errorAlert, setErrorAlert] = useState(null);
 
 //   useEffect(() => {
-//     fetch("http://backend.eastwayvisa.com/api/bookings")
+//     fetch("http://localhost:8000/api/bookings")
 //       .then((response) => response.json())
 //       .then((data) => setBookingData(data))
 //       .catch((error) => console.error("Error fetching data", error));
 //   }, []);
 
 //   useEffect(() => {
-//     fetch("http://backend.eastwayvisa.com/api/agents")
+//     fetch("http://localhost:8000/api/agents")
 //       .then((response) => response.json())
 //       .then((data) => setAgents(data))
 //       .catch((error) => console.error("Error fetching agents", error));
@@ -73,7 +73,7 @@ export default function UpdateStatusPage() {
 // //   agentEmail: selectedAgentObj.email
 // // };
 
-//     fetch(`http://backend.eastwayvisa.com/api/bookings/${booking._id}`, {
+//     fetch(`http://localhost:8000/api/bookings/${booking._id}`, {
 //       method: "PATCH",
 //       headers: {
 //         "Content-Type": "application/json",

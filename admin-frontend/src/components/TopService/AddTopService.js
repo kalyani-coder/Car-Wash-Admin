@@ -65,7 +65,7 @@ function AddTopService() {
       formData.append('category', category);
 
 
-      fetch('http://backend.eastwayvisa.com/api/topservices', {
+      fetch('http://localhost:8000/api/topservices', {
         method: 'POST',
         body: formData,
       })

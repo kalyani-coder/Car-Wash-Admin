@@ -68,7 +68,7 @@ const AddAgentPage = () => {
 
 
 
-      fetch('http://backend.eastwayvisa.com/api/agents', {
+      fetch('http://localhost:8000/api/agents', {
         method: 'POST',
         body: formData,
       })

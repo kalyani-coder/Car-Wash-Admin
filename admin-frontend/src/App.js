@@ -1,10 +1,7 @@
 import "./App.css";
-
-
 import AddService from "./components/Service/AddService";
 import Sidebar from "./components/Sidebar/Sidebar";
 import UpdateStatus from "./components/Status/UpdateStatus";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CustomerDetailsCard from "./components/Client/CustomerDetailsCard";
 import DetailedCustomerInfoPage from "./components/Client/DetailedCustomerInfoPage";
@@ -12,7 +9,6 @@ import PushNotification from "./components/Notification/PushNotification";
 import AddPromotion from "./components/Promotion/AddPromotion";
 import DeletePromotion from "./components/Promotion/DeletePromotion";
 import ClientEnquiry from "./components/Client/ClientEnquiry";
-
 import AddTopService from "./components/TopService/AddTopService";
 import AddAgentPage from "./components/Agent/AddAgent";
 import ViewAgentPage from "./components/Agent/ViewAgent";
@@ -35,6 +31,8 @@ import Master from "./components/CreateMaster/Master";
 import UpdateMaster from "./components/CreateMaster/UpdateMaster";
 import Login from "./components/Login/Login";
 import Login2 from "./components/Login/Login2";
+import ProtectRoute from "./components/ProtectedRoute.js/ProtectedRoute"
+import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 
 function App() {
@@ -45,35 +43,36 @@ function App() {
         {/* <Sidebar /> */}
         <Routes>
           <Route path="/" element={<Login2 />} />
-          <Route path="/home" element={<Login />} />
-          <Route path="/clientdetails" element={<CustomerDetailsCard />} />
-          <Route path="/customer/:id" element={<DetailedCustomerInfoPage />} />
-          <Route path="/pushnotification" element={<PushNotification />} />
-          <Route path="/updatebookingstatus" element={<UpdateStatus />} />
-          <Route path="/addservice" element={<AddService />} />
-          <Route path="/addpromotion" element={<AddPromotion />} />
-          <Route path="/deletepromotion" element={<DeletePromotion />} />
-          <Route path="/clientenquiry" element={<ClientEnquiry />} />
-          <Route path="/addclients" element={<AddClients />} />
-          <Route path="/deleteservice" element={<ServiceView />} />
-          <Route path="/addtopservice" element={<AddTopService />} />
-          <Route path="/addagent" element={<AddAgentPage />} />
-          <Route path="/viewagent" element={<ViewAgentPage />} />
-          <Route path="/agent-details/:id" element={<AgentDetailsPage />} />
-          <Route path="/viewtopservice" element={<ViewTopServices />} />
-          <Route path="/addstocks" element={<AddStocks />} />
-          <Route path="/viewavailablestocks" element={<ViewAvailableStocks />} />
-          <Route path="/availabledate" element={<Availabledate />} />
-          <Route path="/addoffers" element={<Addoffers />} />
-          <Route path="/viewoffers" element={<ViewOffers /> } />
-          <Route path="/viewlatestbookings" element={<ViewLatestBooking /> } />
-          <Route path="/viewpendingbookings" element={<ViewPendingBookings /> } />
-          <Route path="/viewcancledbookings" element={<ViewCancledBookings /> } />
-          <Route path="/viewongoingbookings" element={<ViewOnGoingBookings /> } />
-          <Route path="/jobcard" element={<JobCard /> } />
-          <Route path="viewjobcard" element={<ViewJobCard/>} />
-          <Route path="/master" element={<Master/>} />
-          <Route path="/updatemaster" element={<UpdateMaster/>} />
+          <Route path="/home" element={<ProtectRoute element={<Login/>}/>} />
+          <Route path="/clientdetails" element={<ProtectRoute element={<CustomerDetailsCard/>}/>} />
+          <Route path="/customer/:id" element={<ProtectRoute element={<DetailedCustomerInfoPage/>}/>} />
+          <Route path="/pushnotification" element={<ProtectRoute element={<PushNotification/>}/>} />
+          <Route path="/updatebookingstatus" element={<ProtectRoute element={<UpdateStatus/>}/>} />
+          <Route path="/addservice" element={<ProtectRoute element={<AddService/>}/>} />
+          <Route path="/addpromotion" element={<ProtectRoute element={<AddPromotion/>}/>} />
+          <Route path="/deletepromotion" element={<ProtectRoute element={<DeletePromotion/>}/>} />
+          <Route path="/clientenquiry" element={<ProtectRoute element={<ClientEnquiry/>}/>} />
+          <Route path="/addclients" element={<ProtectRoute element={<AddClients/>}/>} />
+          <Route path="/deleteservice" element={<ProtectRoute element={<ServiceView/>}/>} />
+          <Route path="/addtopservice" element={<ProtectRoute element={<AddTopService/>}/>} />
+          <Route path="/addagent" element={<ProtectRoute element={<AddAgentPage/>}/>} />
+          <Route path="/viewagent" element={<ProtectRoute element={<ViewAgentPage/>}/>} />
+          <Route path="/agent-details/:id" element={<ProtectRoute element={<AgentDetailsPage/>}/>} />
+          <Route path="/viewtopservice" element={<ProtectRoute element={<ViewTopServices/>}/>} />
+          <Route path="/addstocks" element={<ProtectRoute element={<AddStocks/>}/>} />
+          <Route path="/viewavailablestocks" element={<ProtectRoute element={<ViewAvailableStocks/>}/>} />
+          <Route path="/availabledate" element={<ProtectRoute element={<Availabledate/>}/>} />
+          <Route path="/addoffers" element={<ProtectRoute element={<Addoffers/>}/>} />
+          <Route path="/viewoffers" element={<ProtectRoute element={<ViewOffers/>}/> } />
+          <Route path="/viewlatestbookings" element={<ProtectRoute element={<ViewLatestBooking/>}/> } />
+          <Route path="/viewpendingbookings" element={<ProtectRoute element={<ViewPendingBookings/>}/> } />
+          <Route path="/viewcancledbookings" element={<ProtectRoute element={<ViewCancledBookings/>}/>} />
+          <Route path="/viewongoingbookings" element={<ProtectRoute element={<ViewOnGoingBookings/>}/> } />
+          <Route path="/jobcard" element={<ProtectRoute element={<JobCard/>}/> } />
+          <Route path="viewjobcard" element={<ProtectRoute element={<ViewJobCard/>}/>} />
+          <Route path="/master" element={<ProtectRoute element={<Master/>}/>} />
+          <Route path="/updatemaster" element={<ProtectRoute element={<UpdateMaster/>}/>} />
+          <Route path="*" element={<PageNotFound/>} />
         </Routes>
       </Router>
     </>

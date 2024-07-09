@@ -54,8 +54,9 @@ const agentnotification = require("./routes/AgentNotification");
 const reviews = require("./routes/Review");
 const clientLocation = require("./routes/ClientLocation");
 const agentLocation = require("./routes/AgentsLocation");
-const adminlogin = require('./routes/AdminLogin')
+// const adminlogin = require('./routes/AdminLogin')
 const jobcard = require("./routes/JobCard")
+const adminlogin = require("./routes/AdminLoginRoute")
 
 const masterRoute = require("./routes/MasterRoute")
 
@@ -76,7 +77,8 @@ apiRouter.use("/agentnotifications", agentnotification);
 apiRouter.use("/reviews", reviews);
 apiRouter.use("/clientlocation", clientLocation);
 apiRouter.use("/agentlocation", agentLocation);
-apiRouter.use("/adminlogin" , adminlogin);
+apiRouter.use("/", adminlogin);
+// apiRouter.use("/adminlogin" , adminlogin);
 apiRouter.use("/jobcard" , jobcard);
 apiRouter.use("/master", masterRoute);
 apiRouter.use("/newmaster", NewMasterApi);
@@ -114,5 +116,5 @@ app.use("/api", apiRouter);
 
 // our server is running on port 8000  hosting running port 10000
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });

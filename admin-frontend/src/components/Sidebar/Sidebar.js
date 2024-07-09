@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { faTimes, faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import image from '../../assects/logo.jpeg'
+import { FaSignOutAlt } from 'react-icons/fa';
 
 export default function Sidebar() {
   // State to manage sidebar visibility
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  const navigate = useNavigate()
   // Function to toggle sidebar visibility
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -22,7 +22,6 @@ export default function Sidebar() {
   // State to store the window width
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Update window width state when the window size changes
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -39,45 +38,28 @@ export default function Sidebar() {
   const showToggleButton = windowWidth < 988;
 
   const handleLogout = () => {
-    // Perform any additional logout logic if needed
-
-    // Redirect to the specified URL after logout
-    window.location.href = 'http://eastwayvisa.com';
+    localStorage.clear(); 
+    navigate('/'); 
   }
+
   return (
     <div>
       {/* Toggle button for mobile */}
       {showToggleButton && (
-        // <button className="btn btn-primary mt-3 ml-3" onClick={toggleSidebar}>
-        //   {" "}
-        //   Open Sidebar
-        // </button>
-
-        // ********for button not icons 
-
-
+    
         //  for open side bar usign icons
         <FontAwesomeIcon
           className=" mt-3 ml-3"
           icon={faBars}
           onClick={toggleSidebar}
-
           style={{ cursor: 'pointer', marginLeft: "18px", color: "black", fontSize: "35px" }}
-
         />
-
-
       )}
 
       <div className="container mt-3 text-center" style={{ fontFamily: 'Arial, sans-serif', color: "black" }}>
         <li>
           <h1>Welcome To Glossgenic</h1>
         </li>
-
-        {/* <div className="home-image">
-          <img src={image}></img>
-        </div> */}
-
 
       </div>
       {/* Main Navigation */}
@@ -92,12 +74,6 @@ export default function Sidebar() {
 
           <div className="position-sticky">
             {isSidebarOpen && showToggleButton && (
-              // <button className="ml-2 btn btn-primary" onClick={closeSidebar}>
-              //   Close Sidebar
-              // </button>
-              // for button not use icons 
-
-              // for using react icons use this icons code 
               <FontAwesomeIcon
                 className="ml-2"
                 onClick={closeSidebar}
@@ -141,7 +117,7 @@ export default function Sidebar() {
                   </a>
                   <ul className="collapse list-unstyled" id="ClientSubMenu">
                     <li>
-                      <Link to={'/addclients'}  onClick={closeSidebar}>Add Customers</Link>
+                      <Link to={'/addclients'} onClick={closeSidebar}>Add Customers</Link>
                     </li>
                     <li>
                       <Link to={"/clientdetails"} onClick={closeSidebar}>Customer Details</Link>
@@ -193,7 +169,7 @@ export default function Sidebar() {
 
                 </li>
 
-              
+
 
                 <li className="active">
                   <a
@@ -236,7 +212,7 @@ export default function Sidebar() {
                 </li>
 
 
-                
+
 
                 <li className="active">
                   <a
@@ -245,7 +221,7 @@ export default function Sidebar() {
                     aria-expanded="false"
                     className="dropdown-toggle"
                   >
-                     Available Stocks
+                    Available Stocks
                   </a>
                   <ul
                     className="collapse list-unstyled"
@@ -270,7 +246,7 @@ export default function Sidebar() {
                   <Link to={"/updatebookingstatus"} onClick={closeSidebar}>Update Booking Status</Link>
                 </li>
 
-                
+
                 <li className="active">
                   <a
                     href="#GenerateJobCard"
@@ -310,50 +286,19 @@ export default function Sidebar() {
                     id="master"
                   >
                     <li>
-                    <Link to={"/master"} onClick={closeSidebar}>Create Master</Link>
+                      <Link to={"/master"} onClick={closeSidebar}>Create Master</Link>
                     </li>
                     <li>
-                    <Link to={"/updatemaster"} onClick={closeSidebar}>Update Master</Link>
+                      <Link to={"/updatemaster"} onClick={closeSidebar}>Update Master</Link>
                     </li>
                   </ul>
                 </li>
 
-
-
-
-
-                {/* <li>
-                      <Link to={"/master"} onClick={closeSidebar}>Master</Link>
-                    </li>
-
-                    <li>
-                      <Link to={"/updatemaster"} onClick={closeSidebar}>Update Master</Link>
-                    </li> */}
-
-
-                
                 <li>
-                <Link className="logout bg-danger" onClick={handleLogout}>
-                  Logout
-                </Link>
+                    <FaSignOutAlt className="logout-btn" onClick={handleLogout}/> <span className="logout">Logout</span>
                 </li>
 
-                {/* <button
-                  onClick={handleLogout}
-                  className="Logout-admin"
-                  style={{
-                    backgroundColor: 'red',
-                    padding: '10px',
-                    width:'100%',
-                    border: 'none',
-                    borderRadius: '4px',
-                    color: 'white',
-                    cursor: 'pointer',
-                    
-                  }}
-                >
-                  Logout
-                </button> */}
+
 
 
               </ul>

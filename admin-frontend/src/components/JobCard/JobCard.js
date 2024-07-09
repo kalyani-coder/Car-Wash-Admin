@@ -26,7 +26,7 @@ const JobCard = () => {
   const [coatingTypes, setCoatingTypes] = useState([]);
 
   useEffect(() => {
-    fetch('http://backend.eastwayvisa.com/api/master/washtype')
+    fetch('http://localhost:8000/api/master/washtype')
       .then(response => response.json())
       .then(data => {
         setWashTypes(data);
@@ -43,7 +43,7 @@ const JobCard = () => {
  
 
   useEffect(() => {
-    fetch('http://backend.eastwayvisa.com/api/master/vehicletype')
+    fetch('http://localhost:8000/api/master/vehicletype')
       .then(response => response.json())
       .then(data => {
         setVehicleTypes(data);
@@ -67,7 +67,7 @@ const JobCard = () => {
 
   // useEffect(() => {
   //   // Fetch data from the clients API
-  //   fetch("http://backend.eastwayvisa.com/api/clients")
+  //   fetch("http://localhost:8000/api/clients")
   //     .then((response) => response.json())
   //     .then((data) => {
   //       setClients(data);
@@ -77,7 +77,7 @@ const JobCard = () => {
   //     });
 
   //   // Fetch data from the bookings API
-  //   fetch("http://backend.eastwayvisa.com/api/bookings")
+  //   fetch("http://localhost:8000/api/bookings")
   //     .then((response) => response.json())
   //     .then((data) => {
   //       setBookings(data);
@@ -90,7 +90,7 @@ const JobCard = () => {
 
   useEffect(() => {
     // Fetch data from the bookings API
-    fetch("http://backend.eastwayvisa.com/api/bookings")
+    fetch("http://localhost:8000/api/bookings")
       .then((response) => response.json())
       .then((data) => {
         setBookings(data);
@@ -148,7 +148,7 @@ const JobCard = () => {
 
   const fetchCoatingTypes = async () => {
     try {
-      const response = await fetch('http://backend.eastwayvisa.com/api/master/coating');
+      const response = await fetch('http://localhost:8000/api/master/coating');
       if (response.ok) {
         const data = await response.json();
         setCoatingTypes(data);
@@ -176,7 +176,7 @@ const JobCard = () => {
 
   const fetchPaintProtection = async () => {
     try {
-      const response = await fetch('http://backend.eastwayvisa.com/api/master/paintprotection');
+      const response = await fetch('http://localhost:8000/api/master/paintprotection');
       if (response.ok) {
         const data = await response.json();
         setPaintProtection(data);
@@ -190,7 +190,7 @@ const JobCard = () => {
 
   const fetchWindowFilms = async () => {
     try {
-      const response = await fetch('http://backend.eastwayvisa.com/api/master/windowfilm');
+      const response = await fetch('http://localhost:8000/api/master/windowfilm');
       if (response.ok) {
         const data = await response.json();
         setWindowFilms(data);
@@ -204,7 +204,7 @@ const JobCard = () => {
 
   const fetchVinylWraps = async () => {
     try {
-      const response = await fetch('http://backend.eastwayvisa.com/api/master/vinalwraps');
+      const response = await fetch('http://localhost:8000/api/master/vinalwraps');
       if (response.ok) {
         const data = await response.json();
         setVinylWraps(data); // No need to wrap data inside an array
@@ -221,7 +221,7 @@ const JobCard = () => {
 
   const fetchPremiumSeatCovers = async () => {
     try {
-      const response = await fetch('http://backend.eastwayvisa.com/api/master/premiumseat');
+      const response = await fetch('http://localhost:8000/api/master/premiumseat');
       if (response.ok) {
         const data = await response.json();
         setPremiumSeatCovers(data);
@@ -239,7 +239,7 @@ const JobCard = () => {
 
   const fetchLaminationTypes = async () => {
     try {
-      const response = await fetch('http://backend.eastwayvisa.com/api/master/lamination');
+      const response = await fetch('http://localhost:8000/api/master/lamination');
       if (response.ok) {
         const data = await response.json();
         setLaminationTypes(data);
@@ -256,7 +256,7 @@ const JobCard = () => {
 
   const fetchInteriorDecorOptions = async () => {
     try {
-      const response = await fetch('http://backend.eastwayvisa.com/api/master/interior');
+      const response = await fetch('http://localhost:8000/api/master/interior');
       if (response.ok) {
         const data = await response.json();
         setInteriorDecorOptions(data);
@@ -390,7 +390,7 @@ const JobCard = () => {
 
       // Send POST request to the API
       const response = await axios.post(
-        "http://backend.eastwayvisa.com/api/jobcard",
+        "http://localhost:8000/api/jobcard",
         data
       );
 

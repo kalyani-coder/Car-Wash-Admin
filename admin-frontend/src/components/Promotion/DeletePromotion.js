@@ -10,7 +10,7 @@ export default function PromotionView() {
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    fetch("http://backend.eastwayvisa.com/api/promotions")
+    fetch("http://localhost:8000/api/promotions")
       .then((response) => response.json())
       .then((data) => setPromotions(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -21,7 +21,7 @@ export default function PromotionView() {
   };
 
   const handleUpdate = () => {
-    fetch(`http://backend.eastwayvisa.com/api/promotions/${editingPromotion._id}`, {
+    fetch(`http://localhost:8000/api/promotions/${editingPromotion._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export default function PromotionView() {
   useEffect(() => {
     async function fetchServices() {
       try {
-        const response = await axios.get("http://backend.eastwayvisa.com/api/services");
+        const response = await axios.get("http://localhost:8000/api/services");
         const servicesData = response.data; // Assuming the API returns an array of services
         setServices(servicesData);
       } catch (error) {
@@ -89,7 +89,7 @@ export default function PromotionView() {
     );
 
     if (shouldDelete) {
-      fetch(`http://backend.eastwayvisa.com/api/promotions/${promotion._id}`, {
+      fetch(`http://localhost:8000/api/promotions/${promotion._id}`, {
         method: "DELETE",
       })
         .then((response) => response.json())

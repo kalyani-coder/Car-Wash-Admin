@@ -7,7 +7,7 @@ const ViewPendingBookings = () => {
 
     useEffect(() => {
         // Fetch pending bookings from the API
-        fetch('http://backend.eastwayvisa.com/api/bookings/status/Pending')
+        fetch('http://localhost:8000/api/bookings/status/Pending')
             .then(response => response.json())
             .then(data => setPendingBookings(data))
             .catch(error => console.error('Error fetching pending bookings', error));

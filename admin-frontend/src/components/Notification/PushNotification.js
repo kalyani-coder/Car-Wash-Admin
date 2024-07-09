@@ -26,7 +26,7 @@ export default function PushNotification() {
     const apiUrl = sendto === "agent" ? "/api/agentnotifications" : "/api/notification";
   
     axios
-      .post(`http://backend.eastwayvisa.com${apiUrl}`, {
+      .post(`http://localhost:8000${apiUrl}`, {
         title: title,
         message: message,
         sendto: sendto,

@@ -10,7 +10,7 @@ const ClientEnquiry = () => {
 
   useEffect(() => {
     // Fetch client data from the API
-    fetch("http://backend.eastwayvisa.com/api/clients")
+    fetch("http://localhost:8000/api/clients")
       .then((response) => response.json())
       .then((data) => setClients(data))
       .catch((error) => console.error("Error fetching client data", error));

@@ -21,7 +21,7 @@ const AddStocks = () => {
     e.preventDefault();
   
     try {
-      const response = await fetch('http://backend.eastwayvisa.com/api/stocks', {
+      const response = await fetch('http://localhost:8000/api/stocks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

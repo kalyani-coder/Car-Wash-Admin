@@ -93,3 +93,13 @@ li {
     margin-top: -53px !important;
 }
 }
+.logout-btn{
+  font-size: 30px;
+  cursor: pointer;
+}
+.logout{
+  cursor: pointer;
+  font-weight: bold;
+  color: red;
+
+}

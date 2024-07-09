@@ -7,7 +7,7 @@ const ViewOffers = () => {
   // Function to fetch offers from API
   const fetchOffers = async () => {
     try {
-      const response = await fetch('http://backend.eastwayvisa.com/api/homeoffers');
+      const response = await fetch('http://localhost:8000/api/homeoffers');
       const data = await response.json();
       setOffers(data);
     } catch (error) {
@@ -21,7 +21,7 @@ const ViewOffers = () => {
 
   const handleDelete = async (offerId) => {
     try {
-      const response = await fetch(`http://backend.eastwayvisa.com/api/homeoffers/${offerId}`, {
+      const response = await fetch(`http://localhost:8000/api/homeoffers/${offerId}`, {
         method: 'DELETE'
       });
 

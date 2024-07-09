@@ -12,7 +12,7 @@ const ViewAgentPage = () => {
 
   const fetchAgents = async () => {
     try {
-      const response = await axios.get("http://backend.eastwayvisa.com/api/agents");
+      const response = await axios.get("http://localhost:8000/api/agents");
       setAgents(response.data);
     } catch (error) {
       console.error("Error:", error);
