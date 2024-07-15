@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const multer = require('multer');
 const app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 9898;
 require('dotenv').config();
 const Client = require("./models/ClientModel");
 
@@ -24,10 +24,36 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+const MONGODB_URI = process.env.MONGODB_URL || 'mongodb+srv://glossgenicdb_24:SfdDGsw6Hfzv12Rd@carwash.qinnywx.mongodb.net/carwashdb?retryWrites=true&w=majority&appName=carwash';
 
+app.use((err, req, res, next) => {
+  console.error('Error details:', err);
+  res.status(500).json({ message: "Internal server error" });
+});
+app.get('/api/testdb', async (req, res) => {
+  try {
+    const client = await mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+    res.status(200).send('Database connection successful');
+    await client.disconnect();
+  } catch (err) {
+    res.status(500).send('Database connection failed');
+  }
+});
+
+
+const servicesModel = require("./models/ServicesModel")
+app.get('/api/newservices', async (req, res) => {
+  try {
+    const getservices = await servicesModel.find()
+    res.json({ message: "Service endpoint works" });
+  } catch (err) {
+    console.error('Error occurred:', err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 // MongoDB connection setup
-mongoose.connect(process.env.MONGODB_URL)
+mongoose.connect(MONGODB_URI)
 .then(() => {
   console.log(`Database Connected Successfully`)
 }).catch((e)=>{
