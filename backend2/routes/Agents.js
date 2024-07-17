@@ -140,8 +140,8 @@ router.delete("/:id", async (req, res) => {
 router.post('/', upload.single('image'), async (req, res) => {
   try {
     if (req.file) {
-      // here for testing use localy backend path http://localhost:8000
-      const publicUrl = `http://localhost:8000/public/uploads/${req.file.originalname}`;
+      // here for testing use localy backend path http://localhost:9898
+      const publicUrl = `http://localhost:9898/public/uploads/${req.file.originalname}`;
        
       const imageData = new newAgents({
         filename: req.file.originalname,
@@ -177,7 +177,7 @@ router.patch('/:id/profilepic', upload.single('image'), async (req, res) => {
 
     if (req.file) {
       // Update profile picture only
-      const publicUrl = `http://localhost:8000/public/uploads/${req.file.originalname}`;
+      const publicUrl = `http://localhost:9898/public/uploads/${req.file.originalname}`;
       existingAgent.profilePic = publicUrl;
       await existingAgent.save();
 

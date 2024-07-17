@@ -10,7 +10,7 @@ export default function ServiceView() {
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/services")
+    fetch("http://localhost:9898/api/services")
       .then((response) => response.json())
       .then((data) => setServices(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -22,7 +22,7 @@ export default function ServiceView() {
 
   const handleUpdate = () => {
     fetch(
-      `http://localhost:8000/api/services/${editingService._id}`,
+      `http://localhost:9898/api/services/${editingService._id}`,
       {
         method: "PATCH",
         headers: {
@@ -65,7 +65,7 @@ export default function ServiceView() {
 
     if (shouldDelete) {
       fetch(
-        `http://localhost:8000/api/services/${service._id}`,
+        `http://localhost:9898/api/services/${service._id}`,
         {
           method: "DELETE",
         }

@@ -29,7 +29,7 @@ const AgentDetailsPage = () => {
     }
     try {
       await axios.patch(
-        `http://localhost:8000/api/agents/${editedAgent._id}`,
+        `http://localhost:9898/api/agents/${editedAgent._id}`,
         editedAgent
       );
       navigate("/viewagent");
@@ -42,7 +42,7 @@ const AgentDetailsPage = () => {
   const handleDeleteAgent = async () => {
     try {
       await axios.delete(
-        `http://localhost:8000/api/agents/${agent._id}`
+        `http://localhost:9898/api/agents/${agent._id}`
       );
       navigate("/viewagent");
       alert("Deleted Successfully!");

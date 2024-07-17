@@ -26,7 +26,7 @@ export default function PushNotification() {
     const apiUrl = sendto === "agent" ? "/api/agentnotifications" : "/api/notification";
   
     axios
-      .post(`http://localhost:8000${apiUrl}`, {
+      .post(`http://localhost:9898${apiUrl}`, {
         title: title,
         message: message,
         sendto: sendto,

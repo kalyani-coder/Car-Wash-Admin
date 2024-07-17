@@ -42,7 +42,7 @@ const AddClients = () => {
     //       formData.append('clientEmail', clientEmail);
     //       formData.append('clientPhone', clientPhone);
     //       formData.append('clientAddress', clientAddress);
-    //       fetch('http://localhost:8000/api/clients', {
+    //       fetch('http://localhost:9898/api/clients', {
     //         method: 'POST',
     //         body: formData,
     //       })
@@ -82,7 +82,7 @@ const AddClients = () => {
           formData.append('clientPhone', clientPhone);
           formData.append('clientAddress', clientAddress);
       
-          fetch('http://localhost:8000/api/clients', {
+          fetch('http://localhost:9898/api/clients', {
             method: 'POST',
             body: formData,
           })

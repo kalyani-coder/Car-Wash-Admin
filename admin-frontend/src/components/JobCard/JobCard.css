@@ -35,3 +35,22 @@
   .search-job-card button:hover {
     background-color: #23272b; /* Adjust hover color as needed */
   }
+  .jobcard-heading{
+    display: flex;
+    justify-content : space-between
+  }
+
+ @media(max-width : 768px){
+  .jobcard-heading{
+    display: flex;
+    justify-content : space-between;
+    flex-direction: column;
+  }
+  .jobcard-type{
+    width: 100%;
+    margin-bottom: 20px;
+  
+  }
+  
+
+ }

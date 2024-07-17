@@ -9,7 +9,7 @@ const Availabledate = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/bookings')
+    fetch('http://localhost:9898/api/bookings')
       .then(response => response.json())
       .then(data => setBookings(data))
       .catch(error => console.error('Error fetching data:', error));

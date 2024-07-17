@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import "./JobCard.css";
 import axios from "axios";
 import Sidebar from '../Sidebar/Sidebar';
-
+import Select from 'react-select';
 
 const JobCard = () => {
   const [clients, setClients] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [selectedClient, setSelectedClient] = useState("");
   const [clientData, setClientData] = useState(null);
-  const [name, setName] = useState("");
-  const [clientId, setClientId] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -25,8 +23,9 @@ const JobCard = () => {
 
   const [coatingTypes, setCoatingTypes] = useState([]);
 
+
   useEffect(() => {
-    fetch('http://localhost:8000/api/master/washtype')
+    fetch('http://localhost:9898/api/master/washtype')
       .then(response => response.json())
       .then(data => {
         setWashTypes(data);
@@ -40,10 +39,9 @@ const JobCard = () => {
     setSelectedWashType(event.target.value);
   };
 
- 
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/master/vehicletype')
+    fetch('http://localhost:9898/api/master/vehicletype')
       .then(response => response.json())
       .then(data => {
         setVehicleTypes(data);
@@ -57,40 +55,14 @@ const JobCard = () => {
     setSelectedVehicleType(event.target.value);
   };
 
-
-  
-
-
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
   };
 
-  // useEffect(() => {
-  //   // Fetch data from the clients API
-  //   fetch("http://localhost:8000/api/clients")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setClients(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching clients data:", error);
-  //     });
-
-  //   // Fetch data from the bookings API
-  //   fetch("http://localhost:8000/api/bookings")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setBookings(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching bookings data:", error);
-  //     });
-  // }, []);
-
 
   useEffect(() => {
     // Fetch data from the bookings API
-    fetch("http://localhost:8000/api/bookings")
+    fetch("http://localhost:9898/api/bookings")
       .then((response) => response.json())
       .then((data) => {
         setBookings(data);
@@ -103,44 +75,33 @@ const JobCard = () => {
       });
   }, []);
 
-  const handleClientChange = (event) => {
-    const selectedClientName = event.target.value;
-    setSelectedClient(selectedClientName);
-    // Find the booking data for the selected client
-    const selectedClientData = bookings.find(booking => booking.clientName === selectedClientName);
-    if (selectedClientData) {
-      // Set the client data with the details fetched from the booking data
-      setClientData(selectedClientData);
+  const handleClientChange = (selectedOption) => {
+    if (selectedOption) {
+      setSelectedClient(selectedOption.value);
+
+      // Find the booking data for the selected client
+      const selectedClientData = bookings.find(booking => booking.clientName === selectedOption.value);
+      if (selectedClientData) {
+        // Set the client data with the details fetched from the booking data
+        setClientData(selectedClientData);
+      } else {
+        // If no data found for the selected client, reset clientData
+        setClientData(null);
+      }
     } else {
-      // If no data found for the selected client, reset clientData
-      setClientData(null);
+      setSelectedClient(null); // Handle when the dropdown is cleared
+      setClientData(null); // Reset clientData when dropdown is cleared
     }
   };
 
-  // console.log("newcilent id and name",  selectedClient)
-  
 
-  // const handleClientChange = (event) => {
-  //   const selectedClientId = event.target.value;
-  //   setSelectedClient(selectedClientId);
+  const clientOptions = clients.map((clientName) => ({
+    value: clientName,
+    label: clientName,
+  }));
 
-  //   // Find the selected client data
-  //   const selectedClientData = clients.find(
-  //     (client) => client._id === selectedClientId
-  //   );
 
-  //   // Find the booking data for the selected client
-  //   const selectedBookingData = bookings.find(
-  //     (booking) => booking.clientId === selectedClientId
-  //   );
 
-  //   // Merge client data with booking data
-  //   const mergedData = { ...selectedClientData, ...selectedBookingData };
-
-  //   setClientData(mergedData);
-  // };
-
- 
   const handleCoatingChange = (event) => {
     setSelectedCoating(event.target.value);
   };
@@ -148,7 +109,7 @@ const JobCard = () => {
 
   const fetchCoatingTypes = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/master/coating');
+      const response = await fetch('http://localhost:9898/api/master/coating');
       if (response.ok) {
         const data = await response.json();
         setCoatingTypes(data);
@@ -176,7 +137,7 @@ const JobCard = () => {
 
   const fetchPaintProtection = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/master/paintprotection');
+      const response = await fetch('http://localhost:9898/api/master/paintprotection');
       if (response.ok) {
         const data = await response.json();
         setPaintProtection(data);
@@ -190,7 +151,7 @@ const JobCard = () => {
 
   const fetchWindowFilms = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/master/windowfilm');
+      const response = await fetch('http://localhost:9898/api/master/windowfilm');
       if (response.ok) {
         const data = await response.json();
         setWindowFilms(data);
@@ -204,7 +165,7 @@ const JobCard = () => {
 
   const fetchVinylWraps = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/master/vinalwraps');
+      const response = await fetch('http://localhost:9898/api/master/vinalwraps');
       if (response.ok) {
         const data = await response.json();
         setVinylWraps(data); // No need to wrap data inside an array
@@ -221,7 +182,7 @@ const JobCard = () => {
 
   const fetchPremiumSeatCovers = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/master/premiumseat');
+      const response = await fetch('http://localhost:9898/api/master/premiumseat');
       if (response.ok) {
         const data = await response.json();
         setPremiumSeatCovers(data);
@@ -239,7 +200,7 @@ const JobCard = () => {
 
   const fetchLaminationTypes = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/master/lamination');
+      const response = await fetch('http://localhost:9898/api/master/lamination');
       if (response.ok) {
         const data = await response.json();
         setLaminationTypes(data);
@@ -256,7 +217,7 @@ const JobCard = () => {
 
   const fetchInteriorDecorOptions = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/master/interior');
+      const response = await fetch('http://localhost:9898/api/master/interior');
       if (response.ok) {
         const data = await response.json();
         setInteriorDecorOptions(data);
@@ -273,8 +234,6 @@ const JobCard = () => {
   };
 
 
-
-
   const [vinylWraps, setVinylWraps] = useState([]);
   const [vinylWrapsSelectedOption, setVinylWrapsSelectedOption] = useState('');
 
@@ -287,14 +246,13 @@ const JobCard = () => {
   const [interiorDecorOptions, setInteriorDecorOptions] = useState([]);
   const [interiorDecorselectedOption, setInteriorDecorSelectedOption] = useState('');
 
-  const [treatment , setTreatment] = useState('')
+  const [treatment, setTreatment] = useState('')
 
   const handleTreatmentChange = (event) => {
     setTreatment(event.target.value)
   }
 
 
- 
   useEffect(() => {
     fetchCoatingTypes();
     fetchPaintProtection();
@@ -305,15 +263,46 @@ const JobCard = () => {
     fetchInteriorDecorOptions();
   }, []);
 
+
+  const handleManualInputChange = (e) => {
+    const { name, value } = e.target;
+    setManualData({
+      ...manualData,
+      [name]: value
+    });
+  };
+
+
+  const [isManual, setIsManual] = useState(false);
+  const [manualData, setManualData] = useState({
+    name: '',
+    phone: '',
+    address: '',
+    modelYear: '',
+    vehicleNumber: ''
+  });
+
+
+  const handleManualClick = () => {
+    setIsManual(!isManual);
+    if (!isManual) {
+      setManualData({
+        name: '',
+        phone: '',
+        address: '',
+        modelYear: '',
+        vehicleNumber: ''
+      });
+    }
+  };
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
 
     if (!selectedVehicleType || !selectedCategory || !selectedWashType) {
       console.error('Please select a vehicle category, type, and wash type.');
       alert('Please select a vehicle category, type, and wash type.');
       return;
     }
-
 
     const selectedWashTypeData = washTypes.find(wash => wash.wash_type === selectedWashType);
     const washTypePrice = selectedWashTypeData ? selectedWashTypeData.price : 0;
@@ -325,7 +314,7 @@ const JobCard = () => {
     const paintProtectionPrice = selectedPaintProtectionData ? selectedPaintProtectionData.price : 0;
     const paintProtectionName = selectedPaintProtectionData ? selectedPaintProtectionData.paintProtection_Type : "";
 
-    const selectedWindowFilmData = windowFilms.find(windowfilm => windowfilm._id === windowselectedOption)
+    const selectedWindowFilmData = windowFilms.find(windowfilm => windowfilm._id === windowselectedOption);
     const windowFilmPrice = selectedWindowFilmData ? selectedWindowFilmData.price : 0;
     const windowFilmName = selectedWindowFilmData ? selectedWindowFilmData.windowFilm_Type : "";
 
@@ -341,30 +330,27 @@ const JobCard = () => {
     const laminationName = selectedLaminationData ? selectedLaminationData.lamination_Type : "";
     const laminationPrice = selectedLaminationData ? selectedLaminationData.price : 0;
 
-
     const selectedInteriorDecorData = interiorDecorOptions.find(decor => decor._id === interiorDecorselectedOption);
     const interiorDecorName = selectedInteriorDecorData ? selectedInteriorDecorData.interiour_Type : "";
     const interiorDecorPrice = selectedInteriorDecorData ? selectedInteriorDecorData.price : 0;
 
     const totalAmount = washTypePrice +
-                    coatingPrice +
-                    paintProtectionPrice +
-                    windowFilmPrice +
-                    premiumSeatCoverPrice +
-                    vinylWrapPrice +
-                    laminationPrice +
-                    interiorDecorPrice;
+      coatingPrice +
+      paintProtectionPrice +
+      windowFilmPrice +
+      premiumSeatCoverPrice +
+      vinylWrapPrice +
+      laminationPrice +
+      interiorDecorPrice;
 
     try {
-
       const data = {
-        clientId: selectedClient, // Use the selected client's ID
-        name: clientData ? clientData.clientName : "",
-        // email: clientData ? clientData.clientEmail : "",
-        phone: clientData ? clientData.clientContact : "",
-        address: clientData ? clientData.pickupAddress : "",
-        vehicle_Make: clientData ? clientData.clientcarmodelno : "",
-        vehicle_Number: clientData ? clientData.clientvehicleno : "",
+        clientId: isManual ? manualData.name : selectedClient,
+        name: isManual ? manualData.name : (clientData ? clientData.clientName : ""),
+        phone: isManual ? manualData.phone : (clientData ? clientData.clientContact : ""),
+        address: isManual ? manualData.address : (clientData ? clientData.pickupAddress : ""),
+        vehicle_Make: isManual ? manualData.modelYear : (clientData ? clientData.clientcarmodelno : ""),
+        vehicle_Number: isManual ? manualData.vehicleNumber : (clientData ? clientData.clientvehicleno : ""),
         vehicle_Category: selectedCategory,
         vehicle_Type: selectedVehicleType,
         wash_type: selectedWashType,
@@ -383,116 +369,128 @@ const JobCard = () => {
         lamination_Price: laminationPrice,
         interiour_decor: interiorDecorName,
         interiour_decor_Price: interiorDecorPrice,
-        TotalAmount :totalAmount,
-        treatment : treatment,
-
+        TotalAmount: totalAmount,
+        treatment: treatment,
       };
 
       // Send POST request to the API
       const response = await axios.post(
-        "http://localhost:8000/api/jobcard",
+        "http://localhost:9898/api/jobcard",
         data
       );
 
       // Set the response message
       setResponseMessage(response.data.message);
       alert('Job Card Created successfully');
+
+      // Clear all fields
+      setManualData({
+        name: '',
+        phone: '',
+        address: '',
+        modelYear: '',
+        vehicleNumber: ''
+      });
+      setSelectedClient(null);
+      setClientData(null);
+      setSelectedVehicleType('');
+      setSelectedCategory('');
+      setSelectedWashType('');
+      setSelectedCoating('');
+      setSelectedOption('');
+      setwindowSelectedOption('');
+      setSeatcoverSelectedOption('');
+      setVinylWrapsSelectedOption('');
+      setLaminationSelectedOption('');
+      setInteriorDecorSelectedOption('');
+      setTreatment('');
+
+
     } catch (error) {
       console.error("Error posting data:", error);
       setResponseMessage("An error occurred while posting data.");
     }
   };
 
-
-
   return (
     <>
-    <Sidebar/>
-      <div className="container">
-        {/* fetching customers for craeting jobcard  */}
-        <div className="abc">
-          <h1>Create Job Card</h1>
-          <Form.Group controlId="SelectClient">
-          <Form.Label>Select Client:</Form.Label>
-          <div className="relative">
-            <Form.Select
-              className="w-full py-2 pl-3 pr-10 border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-400 focus:border-indigo-400"
-              aria-label="Select Client"
-              value={selectedClient}
-              onChange={handleClientChange}
-              
-            >
-              <option>Select Client</option>
-              {clients.map((clientName, index) => (
-                <option key={index} value={clientName}>
-                  {clientName}
-                </option>
-              ))}
-            </Form.Select>
-          </div>
-        </Form.Group>
+      <Sidebar />
+      <div className="container job-container">
 
+        <div className="abc">
+
+
+
+          <div className="jobcard-heading" >
+            <h1>Create Job Card</h1>
+            <Button onClick={handleManualClick} className="jobcard-btn">
+              {isManual ? "Use Client Data" : "Create Manual JobCard"}
+            </Button>
+          </div>
+
+
+          {!isManual && (
+            <Form.Group controlId="SelectClient">
+              <Form.Label>Select Client:</Form.Label>
+              <div className="relative">
+                <Select
+                  className="w-full py-2 pr-10 border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-400 focus:border-indigo-400"
+                  value={selectedClient ? { value: selectedClient, label: selectedClient } : null}
+                  onChange={handleClientChange}
+                  options={clientOptions}
+                  isClearable
+                  placeholder="Select Client"
+                  isDisabled={isManual}
+                />
+              </div>
+            </Form.Group>
+          )}
 
           <Form.Group controlId="name">
-            <Form.Label>Customer Name:</Form.Label>
+            <Form.Label>Client Name:</Form.Label>
             <Form.Control
               type="text"
-              name="email"
-              className=""
+              name="name"
               placeholder="Enter Full Name"
-              value={clientData ? clientData.clientName : ""}
-              readOnly
+              value={isManual ? manualData.name : (clientData ? clientData.clientName : "")}
+              onChange={isManual ? handleManualInputChange : undefined}
+              readOnly={!isManual}
             />
           </Form.Group>
-
-          {/* <Form.Group controlId="email">
-            <Form.Label>E-mail:</Form.Label>
-            <Form.Control
-              type="text"
-              name="email"
-              className=""
-              placeholder="Enter E-mail Address"
-              value={clientData ? clientData.clientEmail : ""}
-              readOnly
-            />
-          </Form.Group> */}
 
           <Form.Group controlId="phone">
             <Form.Label>Phone Number:</Form.Label>
             <Form.Control
               type="text"
-              name="email"
-              className=""
+              name="phone"
               placeholder="Enter Phone Number"
-              value={clientData ? clientData.clientContact : ""}
-              readOnly
+              value={isManual ? manualData.phone : (clientData ? clientData.clientContact : "")}
+              onChange={isManual ? handleManualInputChange : undefined}
+              readOnly={!isManual}
             />
           </Form.Group>
-          <Form.Group controlId="Address">
+
+          <Form.Group controlId="address">
             <Form.Label>Address:</Form.Label>
             <Form.Control
-              type="email"
-              name="email"
-              className=""
-              placeholder="Enter  Address"
-              value={clientData ? clientData.pickupAddress : ""}
-              readOnly
+              type="text"
+              name="address"
+              placeholder="Enter Address"
+              value={isManual ? manualData.address : (clientData ? clientData.pickupAddress : "")}
+              onChange={isManual ? handleManualInputChange : undefined}
+              readOnly={!isManual}
             />
           </Form.Group>
-          
 
-        
-      {clientData && (
-        <>
           <Form.Group controlId="modelYear">
             <Form.Label>Vehicle Make/Model:</Form.Label>
             <Form.Control
               type="text"
               name="modelYear"
-              className=""
               placeholder="Enter Vehicle Model and Year"
-              value={clientData.clientcarmodelno || ""}
-              readOnly
+              value={isManual ? manualData.modelYear : (clientData ? clientData.clientcarmodelno : "")}
+              onChange={isManual ? handleManualInputChange : undefined}
+              readOnly={!isManual}
             />
           </Form.Group>
 
@@ -501,27 +499,13 @@ const JobCard = () => {
             <Form.Control
               type="text"
               name="vehicleNumber"
-              className=""
               placeholder="Enter Vehicle Number"
-              value={clientData.clientvehicleno || ""}
-              readOnly
+              value={isManual ? manualData.vehicleNumber : (clientData ? clientData.clientvehicleno : "")}
+              onChange={isManual ? handleManualInputChange : undefined}
+              readOnly={!isManual}
             />
           </Form.Group>
-        </>
-      )}
 
-{/* 
-          <Form.Group controlId="modelYear">
-            <Form.Label>Vehicle Make/Model:</Form.Label>
-            <Form.Control
-              type="text"
-              name="modelYear"
-              className=""
-              placeholder="Enter Vehicle Model and Year"
-              value={clientData ? clientData.clientcarmodelno : ""}
-              readOnly
-            />
-          </Form.Group> */}
 
           <Form.Group controlId="treatent">
             <Form.Label>Treatment:</Form.Label>
@@ -530,18 +514,18 @@ const JobCard = () => {
               name="treatent"
               className=""
               placeholder="Enter Treatent"
-              style={{width :"50%"}}
+              style={{ width: "50%" }}
               value={treatment}
               onChange={handleTreatmentChange}
-             
-            
+
+
             />
           </Form.Group>
 
         </div>
 
         {/* Cars details for creating job card  */}
-        <div>
+        <div className="jobcard-type">
           <Form.Group controlId="SelectClient">
             <Form.Label>Vehicle Category:</Form.Label>
             <div className="relative">
@@ -564,7 +548,7 @@ const JobCard = () => {
             <>
               <Form.Group controlId="CarVehicleType">
                 <Form.Label>Vehicle Type:</Form.Label>
-                <div className="relative">
+                <div className="relative jobcard-type">
                   <Form.Select
                     className="custom-select"
                     aria-label="Select Car Vehicle Type"
