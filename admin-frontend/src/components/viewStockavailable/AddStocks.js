@@ -21,7 +21,7 @@ const AddStocks = () => {
     e.preventDefault();
   
     try {
-      const response = await fetch('http://localhost:9898/api/stocks', {
+      const response = await fetch('http://localhost:5000/api/stocks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -7,7 +7,7 @@ const ViewCancledBookings = () => {
 
     useEffect(() => {
         // Fetch declined bookings from the API
-        fetch('http://localhost:9898/api/bookings/status/Declined')
+        fetch('http://localhost:5000/api/bookings/status/Declined')
             .then(response => response.json())
             .then(data => setCanceledBookings(data))
             .catch(error => console.error('Error fetching declined bookings', error));

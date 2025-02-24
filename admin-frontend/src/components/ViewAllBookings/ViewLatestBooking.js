@@ -21,14 +21,14 @@ export default function ViewLatestBooking() {
     const [errorAlert, setErrorAlert] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:9898/api/bookings")
+        fetch("http://localhost:5000/api/bookings")
             .then((response) => response.json())
             .then((data) => setBookingData(data))
             .catch((error) => console.error("Error fetching data", error));
     }, []);
 
     useEffect(() => {
-        fetch("http://localhost:9898/api/agents")
+        fetch("http://localhost:5000/api/agents")
             .then((response) => response.json())
             .then((data) => setAgents(data))
             .catch((error) => console.error("Error fetching agents", error));
@@ -79,7 +79,7 @@ export default function ViewLatestBooking() {
               };
             
                await axios
-              .post('http://localhost:9898/api/agentlocation', locationData)
+              .post('http://localhost:5000/api/agentlocation', locationData)
               .then(response => {
                 console.log('Location posted successfully:', response.data);
                  locationID = (response.data._id);
@@ -110,7 +110,7 @@ export default function ViewLatestBooking() {
         //   agentEmail: selectedAgentObj.email
         // };
 
-        fetch(`http://localhost:9898/api/bookings/${booking._id}`, {
+        fetch(`http://localhost:5000/api/bookings/${booking._id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

@@ -18,7 +18,7 @@ const ViewJobCard = () => {
 
 
   useEffect(() => {
-  fetch("http://localhost:9898/api/jobcard")
+  fetch("http://localhost:5000/api/jobcard")
     .then((response) => response.json())
     .then((data) => {
       // Reverse the order of data before setting it to state
@@ -146,7 +146,7 @@ const handleSearch = async () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:9898/api/jobcard/search/${searchTerm}`);
+      const response = await fetch(`http://localhost:5000/api/jobcard/search/${searchTerm}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

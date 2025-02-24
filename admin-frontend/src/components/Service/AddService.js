@@ -39,7 +39,7 @@
 //   //   e.preventDefault();
 //   //   try {
 //   //     const response = await axios.post(
-//   //       "http://localhost:9898/api/services",
+//   //       "http://localhost:5000/api/services",
 //   //       formData
 //   //     );
 //   //     console.log("Response Successfully data post:", response.data);
@@ -93,7 +93,7 @@
 //       formData.append("servicePrice", servicePrice);
 //       formData.append("serviceCategory", serviceCategory);
 
-//       fetch("http://localhost:9898/api/services", {
+//       fetch("http://localhost:5000/api/services", {
 //         method: "POST",
 //         body: formData,
 //       })
@@ -247,7 +247,7 @@ const AddServices = () => {
   //   e.preventDefault();
   //   try {
   //     const response = await axios.post(
-  //       "http://localhost:9898/api/services",
+  //       "http://localhost:5000/api/services",
   //       formData
   //     );
   //     console.log("Response Successfully data post:", response.data);
@@ -294,7 +294,7 @@ const AddServices = () => {
   const handleUpload = () => {
     if (selectedFile) {
       // Check if the service name already exists
-      fetch("http://localhost:9898/api/services")
+      fetch("http://localhost:5000/api/services")
         .then((response) => response.json())
         .then((data) => {
           const existingServiceNames = data.map(
@@ -312,7 +312,7 @@ const AddServices = () => {
             formData.append("servicePrice", servicePrice);
             formData.append("serviceCategory", serviceCategory);
 
-            fetch("http://localhost:9898/api/services", {
+            fetch("http://localhost:5000/api/services", {
               method: "POST",
               body: formData,
             })

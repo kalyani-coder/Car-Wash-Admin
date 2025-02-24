@@ -10,7 +10,7 @@ const DetailedCustomerInfoPage = () => {
   console.log(clients);
 
   useEffect(() => {
-    fetch("http://localhost:9898/api/clients")
+    fetch("http://localhost:5000/api/clients")
       .then((response) => response.json())
       .then((data) => setClients(data))
       .catch((error) =>

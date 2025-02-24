@@ -10,7 +10,7 @@ const ClientEnquiry = () => {
 
   useEffect(() => {
     // Fetch client data from the API
-    fetch("http://localhost:9898/api/clients")
+    fetch("http://localhost:5000/api/clients")
       .then((response) => response.json())
       .then((data) => setClients(data))
       .catch((error) => console.error("Error fetching client data", error));

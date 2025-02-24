@@ -63,7 +63,7 @@ export default function AddPromotion() {
   useEffect(() => {
     async function fetchServices() {
       try {
-        const response = await axios.get("http://localhost:9898/api/services");
+        const response = await axios.get("http://localhost:5000/api/services");
         const servicesData = response.data;
         setServices(servicesData);
       } catch (error) {
@@ -85,7 +85,7 @@ export default function AddPromotion() {
       formData.append('couponCode', couponCode)
 
 
-      fetch('http://localhost:9898/api/promotions', {
+      fetch('http://localhost:5000/api/promotions', {
         method: 'POST',
         body: formData,
       })

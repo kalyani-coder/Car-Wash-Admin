@@ -4,11 +4,12 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const multer = require('multer');
 const app = express();
-const port = process.env.PORT || 9898;
+const port = process.env.PORT || 5000;
 require('dotenv').config();
 const Client = require("./models/ClientModel");
 
-
+const dotenv = require('dotenv');
+dotenv.config();
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(cors());
@@ -24,46 +25,41 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const MONGODB_URI = process.env.MONGODB_URL || 'mongodb+srv://glossgenicdb_24:SfdDGsw6Hfzv12Rd@carwash.qinnywx.mongodb.net/carwashdb?retryWrites=true&w=majority&appName=carwash';
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] Incoming request: ${req.method} ${req.originalUrl}`);
 
-app.use((err, req, res, next) => {
-  console.error('Error details:', err);
-  res.status(500).json({ message: "Internal server error" });
-});
-app.get('/api/testdb', async (req, res) => {
-  try {
-    const client = await mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-    res.status(200).send('Database connection successful');
-    await client.disconnect();
-  } catch (err) {
-    res.status(500).send('Database connection failed');
-  }
+  res.on('finish', () => {
+    console.log(`[${new Date().toISOString()}] Response: ${res.statusCode} ${req.originalUrl}`);
+  });
+
+  next();
 });
 
 
-const servicesModel = require("./models/ServicesModel")
-app.get('/api/newservices', async (req, res) => {
-  try {
-    const getservices = await servicesModel.find()
-    res.json({ message: "Service endpoint works" });
-  } catch (err) {
-    console.error('Error occurred:', err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
 
 // MongoDB connection setup
-mongoose.connect(MONGODB_URI)
+// mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://vedantassignment05:z5Cyf3f2Tk8oEsHF@cwproject.d9hfu.mongodb.net/carproject?retryWrites=true&w=majority&appName=cwproject"
+// )
+//   .then(() => {
+//     console.log(`[${new Date().toISOString()}] Database connected successfully`);
+//   })
+//   .catch((error) => {
+//     console.error(`[${new Date().toISOString()}] Database connection error: ${error.message}`);
+//   });
+
+// const mongodbURI = "mongodb+srv://vedantassignment05:z5Cyf3f2Tk8oEsHF@cwproject.d9hfu.mongodb.net/carproject?retryWrites=true&w=majority&appName=cwproject"
+mongoose.connect("mongodb+srv://vedantassignment05:z5Cyf3f2Tk8oEsHF@cwproject.d9hfu.mongodb.net/carproject?retryWrites=true&w=majority&appName=cwproject")
 .then(() => {
-  console.log(`Database Connected Successfully`)
-}).catch((e)=>{
-    console.log(`Error ${e}`)
+  console.log(`[${new Date().toISOString()}] Database connected successfully`);
 })
+.catch((error) => {
+  console.error(`[${new Date().toISOString()}] Database connection error: ${error}`, error);
+});
 
 
 
+const apiRouter = express.Router(); 
 
-const apiRouter = express.Router();
 
 // Import and use route files
 const servicesRouter = require("./routes/Services");

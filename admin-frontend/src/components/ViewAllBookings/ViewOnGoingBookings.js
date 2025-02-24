@@ -7,7 +7,7 @@ const OngoingPage = () => {
     const [ongoingBookings, setOngoingBookings] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:9898/api/bookings')
+        fetch('http://localhost:5000/api/bookings')
             .then(response => response.json())
             .then(data => {
                 const filteredBookings = data.filter(booking => booking.status === "Accepted" && booking.agentId);

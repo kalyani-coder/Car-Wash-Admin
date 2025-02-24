@@ -155,8 +155,8 @@ router.post("/api/login", async (req, res) => {
 // router.post('/', upload.single('image'), async (req, res) => {
 //   try {
 //     if (req.file) {
-//       // here for testing use localy backend path http://localhost:9898
-//       const publicUrl = `http://localhost:9898/public/uploads/${req.file.originalname}`;
+//       // here for testing use localy backend path http://localhost:5000
+//       const publicUrl = `http://localhost:5000/public/uploads/${req.file.originalname}`;
        
 //       const imageData = new Client({
 //         filename: req.file.originalname,
@@ -198,8 +198,8 @@ router.post("/api/login", async (req, res) => {
 //     }
 
 //     if (req.file) {
-//       // here for testing use locally backend path http://localhost:9898
-//       const publicUrl = `http://localhost:9898/public/uploads/${req.file.originalname}`;
+//       // here for testing use locally backend path http://localhost:5000
+//       const publicUrl = `http://localhost:5000/public/uploads/${req.file.originalname}`;
 
 //       const imageData = new Client({
 //         filename: req.file.originalname,
@@ -242,7 +242,7 @@ router.post('/', upload.single('image'), async (req, res) => {
 
     if (req.file) {
       // If an image is uploaded, use it
-      const publicUrl = `http://localhost:9898/public/uploads/${req.file.originalname}`;
+      const publicUrl = `http://localhost:5000/public/uploads/${req.file.originalname}`;
 
       const imageData = new Client({
         filename: req.file.originalname,

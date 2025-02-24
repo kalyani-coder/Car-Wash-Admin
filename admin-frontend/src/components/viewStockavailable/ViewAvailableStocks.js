@@ -11,7 +11,7 @@ const ViewAvailableStocks = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:9898/api/stocks');
+        const response = await fetch('http://localhost:5000/api/stocks');
         const data = await response.json();
         setStockValues(data);
       } catch (error) {
@@ -26,7 +26,7 @@ const ViewAvailableStocks = () => {
   const handleDelete = async (_id) => {
     console.log("Deleting stock with ID:", _id);
     try {
-      const response = await fetch(`http://localhost:9898/api/stocks/${_id}`, {
+      const response = await fetch(`http://localhost:5000/api/stocks/${_id}`, {
         method: 'DELETE',
       });
   
